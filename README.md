@@ -1,2 +1,2 @@
 # IG_Clone
-Clone Feature Frontend and Backend Let's Gooo!!!!
+Clone Feature Frontend and Backend of IG Let's Gooo!!!!
