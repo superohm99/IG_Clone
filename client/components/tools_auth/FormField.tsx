@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -37,7 +37,7 @@ const FormField: React.FC<FormFieldProps> = ({
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <FontAwesomeIcon
               icon={showPassword ? faEye : faEyeSlash}
-              size={30}
+              size={25}
               color="#ccc"
               style={styles.eye}
             />
@@ -54,6 +54,14 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     backgroundColor: "#fafafa",
     borderRadius: 5,
+    height: 40,
+    width: 350,
+  },
+  input_hover: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    backgroundColor: "#fafafa",
+    borderRadius: 5,
     height: 50,
     width: 350,
   },
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
   eye: {
     alignSelf: "flex-end",
     right: 12,
-    bottom: 38,
+    bottom: 31.5,
   },
 });
 

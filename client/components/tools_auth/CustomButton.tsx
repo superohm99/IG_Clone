@@ -20,7 +20,7 @@ const CustomButton: React.FC<ButtonProps> = ({
       activeOpacity={0.7}
       style={containerStyle}
     >
-      <Text style={[{ fontFamily: "Lexend-Regular" }, textStyles]}>
+      <Text style={textStyles}>
         {title}
       </Text>
     </TouchableOpacity>
