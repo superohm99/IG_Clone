@@ -1,34 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
+import * as React from 'react';
+import { NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from './(tabs)/HomeScreen'
+import ProfileScreen from './(tabs)/ProfileScreen'
+import { Redirect,Link } from "expo-router";
 
-export default function Page() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello Petch</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View>
+export default function index() {
+    const key:Boolean = false;
+    
+    if (!key)
+        return <Redirect href="/HomeScreen"/>
+
+    return (
+    <View>
+        {/* <Text>Index</Text> */}
+        <Link href="/ProfileScreen">Profile </Link>
+        <Link href="/HomeScreen">Home </Link>
     </View>
-  );
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
-});
