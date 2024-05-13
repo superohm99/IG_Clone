@@ -5,7 +5,7 @@ import React from 'react'
 const StoryView = () => {
   return (
     <View>
-        <ScrollView horizontal={true} style={{height:80, paddingLeft:20}}>
+        <ScrollView horizontal={true} style={{height:80, paddingLeft:10,marginTop:10}}>
           
           <CircleView></CircleView>
 

@@ -1,4 +1,5 @@
-import { StyleSheet,Image, Text, View } from "react-native";import React from 'react'
+import { StyleSheet,Image, Text, View } from "react-native";
+import React from 'react'
 import {Tabs, Redirect } from 'expo-router'
 import { icons } from "../../constants";
 
@@ -31,7 +32,12 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
   return (
     <>
-        <Tabs>
+        <Tabs
+          screenOptions={{
+            tabBarShowLabel:false,
+            tabBarActiveTintColor:'black'
+          }}
+        >
           <Tabs.Screen
             name="HomeScreen"
             options={{
