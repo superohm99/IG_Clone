@@ -2,10 +2,14 @@ import { Button, StyleSheet,ScrollView,StatusBar, Text, View } from "react-nativ
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoryView  from "../../components/tool_HomeScreen/StoryView"
 import PostView  from "../../components/tool_HomeScreen/PostView"
+import HeaderView  from "../../components/tool_HomeScreen/HeaderView"
 
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
+
+      <HeaderView></HeaderView>
+
 
       {/* Show People' Story */}
       <StoryView></StoryView>
@@ -20,6 +24,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
   }
 });

@@ -3,7 +3,16 @@ import React from 'react'
 
 const CircleView = () => {
   return (
+    <View style={{
+      width: 76,
+      height: 76,
+      borderWidth: 3,
+      borderColor: 'green', 
+      marginRight: 18,
+      borderRadius: 50, 
+    }}>
     <View style={styles.circle}></View>
+    </View>
   )
 }
 
@@ -16,5 +25,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       marginRight: 20,
       backgroundColor: 'red',
+      borderWidth: 2,
+      borderColor: 'white' 
     },
   });
