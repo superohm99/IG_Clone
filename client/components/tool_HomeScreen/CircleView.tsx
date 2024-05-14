@@ -1,7 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 
-const CircleView = () => {
+type ViewProps = {
+  img: string;
+};
+
+const CircleView = (props:ViewProps) => {
   return (
     <View style={{
       width: 76,
@@ -11,7 +15,14 @@ const CircleView = () => {
       marginRight: 18,
       borderRadius: 50, 
     }}>
-    <View style={styles.circle}></View>
+    {/* <View style={styles.circle}> */}
+    <Image
+            style={styles.circle}
+            source={{
+              uri: props.img,
+            }}/>
+
+    {/* </View> */}
     </View>
   )
 }
@@ -24,7 +35,7 @@ const styles = StyleSheet.create({
       height: 70,
       borderRadius: 50,
       marginRight: 20,
-      backgroundColor: 'red',
+      backgroundColor: 'white',
       borderWidth: 2,
       borderColor: 'white' 
     },

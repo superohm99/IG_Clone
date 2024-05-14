@@ -19,9 +19,6 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
         resizeMode="contain"
         style={{ width: 24, height: 24, tintColor: color }}
       />
-      {/* <Text style={{ fontFamily: focused ? 'Poppins-SemiBold' : 'Poppins-Regular', fontSize: 12, color: color }}>
-        {name}
-      </Text> */}
     </View>
   );
 };
