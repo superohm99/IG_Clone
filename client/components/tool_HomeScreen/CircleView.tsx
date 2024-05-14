@@ -11,7 +11,7 @@ const CircleView = (props:ViewProps) => {
       width: 76,
       height: 76,
       borderWidth: 3,
-      borderColor: 'green', 
+      borderColor: '#7FFF00', 
       marginRight: 18,
       borderRadius: 50, 
     }}>

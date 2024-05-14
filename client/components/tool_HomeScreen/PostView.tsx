@@ -5,6 +5,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 import { icons } from "../../constants";
+import DetailView from './DetailView';
 
 
 var max_width = Dimensions.get('screen').width;
@@ -16,7 +17,7 @@ const PostView = () => {
     query: "(max-device-width: 1224px)",
   });
 
-  var resize_img:string = 'center';
+  var resize_img:any = 'center';
   if (isTabletOrMobileDevice)
     resize_img = 'cover';
 
@@ -63,38 +64,40 @@ const PostView = () => {
           </View>
 
           <View style={{ flexDirection: 'row', gap: 2,paddingTop:10,paddingLeft:10,justifyContent:'space-between'}}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'column'}}>
+              <View style={{flexDirection:'row',marginBottom:10}}>
 
-            <Image
-              source={icons.heart}
-              resizeMode="contain"
-              style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
-            />
+                <Image
+                  source={icons.heart}
+                  resizeMode="contain"
+                  style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
+                />
 
-            <Image
-                source={icons.chat}
-                resizeMode="contain"
-                style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-              />
+                <Image
+                    source={icons.chat}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
 
-              
-            <Image
-                source={icons.send}
-                resizeMode="contain"
-                style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-              />
+                  
+                <Image
+                    source={icons.send}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
+
+              </View>
+
+              <DetailView></DetailView>
             </View>
 
-            <Image
-                source={icons.save}
-                resizeMode="contain"
-                style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-              />
+              <Image
+                  source={icons.save}
+                  resizeMode="contain"
+                  style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                />
           </View>
-
-          <View>
-
-          </View>
+    
 
         </View>
 
@@ -141,26 +144,31 @@ const PostView = () => {
           </View>
 
           <View style={{ flexDirection: 'row', gap: 2,paddingTop:10,paddingLeft:10,justifyContent:'space-between'}}>
-            <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'column'}}>
+              <View style={{flexDirection:'row',marginBottom:10}}>
 
-            <Image
-              source={icons.heart}
-              resizeMode="contain"
-              style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
-            />
+                <Image
+                  source={icons.heart}
+                  resizeMode="contain"
+                  style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
+                />
 
-            <Image
-                source={icons.chat}
-                resizeMode="contain"
-                style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-              />
+                <Image
+                    source={icons.chat}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
 
-              
-            <Image
-                source={icons.send}
-                resizeMode="contain"
-                style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-              />
+                  
+                <Image
+                    source={icons.send}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
+
+              </View>
+
+              <DetailView></DetailView>
             </View>
 
             <Image
