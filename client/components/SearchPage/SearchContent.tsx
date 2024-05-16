@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text, TouchableOpacity, Image} from 'react-native';
+import { Link, router } from "expo-router";
 
 interface SearchDataItem{
     id: number;
@@ -32,7 +33,7 @@ return (
                 }}>
                 {item.images.map((imageData, imgIndex) => {
                     return (
-                    <TouchableOpacity
+                    <TouchableOpacity onPress={() => router.push('/SearchPostScreen')}
                         key={imgIndex}
                         style={{paddingBottom: 2,width:'33%'}}>
                         <Image

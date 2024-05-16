@@ -9,6 +9,8 @@ const RootLayout = () => {
         <Stack.Screen name='(auth)' options={{ headerShown: false}}/>
 
         <Stack.Screen name='(search)/SearchUserScreen' options={{ headerShown: false}}/>
+        <Stack.Screen name='(search)/SearchPostScreen' options={{ headerShown: false}}/>
+
 
     </Stack>
 
