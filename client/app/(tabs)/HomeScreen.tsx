@@ -1,35 +1,29 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet,ScrollView,StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import StoryView  from "../../components/tool_HomeScreen/StoryView"
+import PostView  from "../../components/tool_HomeScreen/PostView"
+import HeaderView  from "../../components/tool_HomeScreen/HeaderView"
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView>
-      
-    </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+
+      <HeaderView></HeaderView>
+
+
+      {/* Show People' Story */}
+      <StoryView></StoryView>
+
+      {/* Show All Post */}
+      <PostView></PostView>
+
+  </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
+    // paddingTop: StatusBar.currentHeight,
+  }
 });
