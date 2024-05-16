@@ -18,7 +18,7 @@ import SearchUser from '@/components/SearchPage/SearchUser';
 const SearchUserScreen = () =>{
   return (
     <View style ={styles.container}>
-      {/* <SearchUser/> */}
+      <SearchUser/>
     </View>
   )
 }

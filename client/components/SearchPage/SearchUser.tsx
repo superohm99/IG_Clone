@@ -1,6 +1,8 @@
 import React,{ useState } from 'react'
-import { View, Text, Image, TextInput, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Image, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Link, router } from "expo-router";
+
 
 const DATA = [
   {id: 'jhgjfhd787', Title: 'Rose', subTitle: 'Lorem Ipum'},
@@ -29,7 +31,9 @@ const SearchUser = () => {
       <View style={styles.headerWrapper}>
         <View style={styles.topHeaderWrapper}>
           <View style={styles.headerTopLeftWrapper}>
-            <Icon size={25} name="arrow-left" />
+            <TouchableOpacity onPress={() => router.push('/SearchScreen')}>
+              <Icon size={25} name="arrow-left" />
+            </TouchableOpacity>
             <TextInput
               placeholder="Search"
               value={searchQuery}

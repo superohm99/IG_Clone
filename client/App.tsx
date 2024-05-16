@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './app/(tabs)/HomeScreen'
 import ProfileScreen from './app/(tabs)/ProfileScreen'
 import SearchHomeScreen from "./app/(tabs)/SearchScreen";
-import SearchUserScreen from "./app/(tabs)/SearchUserScreen";
+import SearchUserScreen from "./app/(search)/SearchUserScreen";
 const Stack = createNativeStackNavigator();
 
 

@@ -36,6 +36,7 @@ import React from 'react';
 import {Text,View,StyleSheet,ScrollView,Dimensions,Image, Button,} from 'react-native';
 import SearchBox from '@/components/SearchPage/SearchBox';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SearchContent from '@/components/SearchPage/SearchContent';
 
 const width = Dimensions.get('window').width;
 
@@ -44,7 +45,10 @@ const tags = [
   {icon: 'heart', tagName: 'Well-beight'},
   {icon: '', tagName: 'Travel'},
 ];
+
 const SearchHomeScreen = () => {
+
+ 
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
@@ -55,8 +59,9 @@ const SearchHomeScreen = () => {
       </View>
       <ScrollView>
         <View>
-          <View style={styles.imagesWrapper}>
-            <Image
+          <View>
+            <SearchContent />
+            {/* <Image
               style={styles.galleryImage}
               source={{
                 uri: "https://plus.unsplash.com/premium_photo-1669058431851-aae101e63b61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
@@ -87,13 +92,7 @@ const SearchHomeScreen = () => {
               source={{
                 uri: "https://plus.unsplash.com/premium_photo-1669058431851-aae101e63b61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
               }}
-            />
-            <Image
-              style={styles.galleryImage}
-              source={{
-                uri: "https://plus.unsplash.com/premium_photo-1669058431851-aae101e63b61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
-              }}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>
@@ -134,6 +133,7 @@ export const styles = StyleSheet.create({
   },
   imagesWrapper: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   galleryImage: {
     display: 'flex',
