@@ -1,24 +1,38 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Link, router } from "expo-router";
+import SearchPostContent from '@/components/SearchPage/SearchPostView';
+import { useLocalSearchParams } from 'expo-router';
 
+interface SearchDataItem {
+  id: string;
+  user: string;
+  images: { url: string }[];
+}
 
 const SearchPostScreen = () => {
+  const { id, user } = useLocalSearchParams()
+ 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerWrapper}>
-        <View style={styles.topHeaderWrapper}>
-          <View style={styles.headerTopLeftWrapper}>
-            <TouchableOpacity onPress={() => router.push('/SearchScreen')}>
-              <Icon size={20} name="arrow-left" />
-            </TouchableOpacity>
-            <View style={styles.subTitle}>Explore</View>
+    <SafeAreaView style={styles.safe_container}>
+      <ScrollView >
+      <View style={styles.container}>
+        <View style={styles.headerWrapper}>
+          <View style={styles.topHeaderWrapper}>
+            <View style={styles.headerTopLeftWrapper}>
+              <TouchableOpacity onPress={() => router.push('/SearchScreen')}>
+                <Icon size={20} name="arrow-left" />
+              </TouchableOpacity>
+              <View style={styles.headerText}>Explore</View>
+            </View>
           </View>
         </View>
+          <Text>Hello - {id} {user}</Text>
+        <SearchPostContent id={id} user={user}/> 
       </View>
-     
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -36,7 +50,6 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-  
       padding: 10,
     },
     headerTopLeftWrapper: {
@@ -44,50 +57,14 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
     },
-    subHeaderWrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      // borderBottomColor: colors.gray1,
-      borderBottomWidth: 1,
-    },
-    selectedCategoryItem: {
-      display: 'flex',
-      flex: 1,
-      padding: 5,
-      alignItems: 'center',
-      // borderBottomColor: colors.black,
-      borderBottomWidth: 1,
-    },
-    categoryItem: {
-      display: 'flex',
-      flex: 1,
-      padding: 5,
-      alignItems: 'center',
-    },
-    title: {
-      fontWeight: '700',
-      // color: colors.gray,
-    },
-    titleSelected: {
-      fontWeight: '700',
-    },
-    itemContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      padding: 5,
-      alignItems: 'center',
-    },
-    image: {
-      width: 75,
-      height: 75,
-      borderRadius: 50,
-    },
-    itemRightWrapper: {
-      marginLeft: 10,
-    },
-    subTitle: {
-      paddingLeft: 30,
+    headerText:{
       fontSize: 20,
+      paddingLeft: 10,
+    },
+    safe_container:{
+      flex: 1,
+    },
+    scrollView:{
+      marginHorizontal: 1,
     },
   });
