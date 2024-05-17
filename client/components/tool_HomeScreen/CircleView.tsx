@@ -3,40 +3,52 @@ import React from 'react'
 
 type ViewProps = {
   img: string;
+  width: number;
+  height: number;
+  border: number;
+  border_sec: number;
+  margin_fisrt: number;
+  margin_sec:number;
 };
+
+// 76
 
 const CircleView = (props:ViewProps) => {
   return (
     <View style={{
-      width: 76,
-      height: 76,
-      borderWidth: 3,
+      width: props.width,
+      height: props.height,
+      borderWidth: props.border,
       borderColor: '#7FFF00', 
-      marginRight: 18,
+      marginRight: props.margin_fisrt,
       borderRadius: 50, 
     }}>
-    {/* <View style={styles.circle}> */}
-    <Image
-            style={styles.circle}
-            source={{
-              uri: props.img,
-            }}/>
+        <Image
+                style={{ width: props.width - 6,
+                  height: props.height - 6,
+                  borderRadius: 50,
+                  marginRight: props.margin_sec,
+                  backgroundColor: 'white',
+                  borderWidth: props.border_sec,
+                  borderColor: 'white' }}
+                source={{
+                  uri: props.img,
+                }}/>
 
-    {/* </View> */}
     </View>
   )
 }
 
 export default CircleView
 
-const styles = StyleSheet.create({
-    circle: {
-      width: 70,
-      height: 70,
-      borderRadius: 50,
-      marginRight: 20,
-      backgroundColor: 'white',
-      borderWidth: 2,
-      borderColor: 'white' 
-    },
-  });
+// const styles = StyleSheet.create({
+//     circle: {
+//       width: props.weight - 6,
+//       height: props.height - 6,
+//       borderRadius: 50,
+//       marginRight: 20,
+//       backgroundColor: 'white',
+//       borderWidth: 2,
+//       borderColor: 'white' 
+//     },
+//   });
