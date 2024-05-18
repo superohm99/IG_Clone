@@ -13,12 +13,12 @@
 import React from 'react';
 import {Text,View,StyleSheet,TextInput,TouchableOpacity,FlatList,Image,} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import SearchUser from '@/components/SearchPage/SearchUser';
+import SearchUsers from '@/components/SearchPage/SearchUsers';
 
 const SearchUserScreen = () =>{
   return (
     <View style ={styles.container}>
-      <SearchUser/>
+      <SearchUsers/>
     </View>
   )
 }
