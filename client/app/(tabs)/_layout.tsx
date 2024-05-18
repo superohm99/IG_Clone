@@ -27,6 +27,7 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
 
 
 const TabsLayout = () => {
+
   return (
     <>
         <Tabs
