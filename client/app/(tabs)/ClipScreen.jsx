@@ -30,9 +30,9 @@ const ClipScreen = () => {
 
         <ClipView></ClipView>
 
-        <ClipView></ClipView>
+        {/* <ClipView></ClipView>
 
-        <ClipView></ClipView>
+        <ClipView></ClipView> */}
 
         {/* <Text>
         {'\n'}
