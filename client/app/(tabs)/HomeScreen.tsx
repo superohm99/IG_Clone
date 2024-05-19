@@ -6,6 +6,7 @@ import HeaderView  from "../../components/tool_HomeScreen/HeaderView"
 
 export default function HomeScreen() {
   return (
+    
     <SafeAreaView style={styles.container}>
 
       <HeaderView></HeaderView>

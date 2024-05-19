@@ -1,11 +1,14 @@
-import { ScrollView, StatusBar, StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Modal, Animated } from 'react-native'
+import React, { useState } from 'react'
 import { Dimensions } from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { PanGestureHandler,GestureHandlerRootView } from 'react-native-gesture-handler';
 import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 import { icons } from "../../constants";
 import DetailView from './DetailView';
+import ChatView from './ChatView';
+
 
 
 var max_width = Dimensions.get('screen').width;
@@ -13,8 +16,36 @@ var max_height = Dimensions.get('screen').height;
 
 
 const PostView = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [draggedValue, setDraggedValue] = useState(0);
+  const translationY = new Animated.Value(0);
+
+  const onPanGestureEventY = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationY: translationY
+        }
+       
+      }
+    ],
+    {
+      useNativeDriver: true,
+    }
+  ) 
+
+  const handleImagePress = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = (open:any) => {
+    setModalVisible(open);
+    console.log(modalVisible)
+  };
+
+
   const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
+    query: "(max-device-width: 1020px)",
   });
 
   var resize_img:any = 'center';
@@ -67,35 +98,57 @@ const PostView = () => {
             <View style={{flexDirection: 'column'}}>
               <View style={{flexDirection:'row',marginBottom:10}}>
 
-                <Image
-                  source={icons.heart}
-                  resizeMode="contain"
-                  style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
-                />
+                <TouchableOpacity>
 
-                <Image
-                    source={icons.chat}
+                  <Image
+                    source={icons.heart}
                     resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                    style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
                   />
+
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleImagePress}>
+
+                  <Image
+                      source={icons.chat}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                      />
+
+                </TouchableOpacity>
+
+
+
 
                   
-                <Image
-                    source={icons.send}
-                    resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-                  />
+                <TouchableOpacity>
+
+                  <Image
+                      source={icons.send}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                    />
+
+                </TouchableOpacity>
+
+              <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
+
 
               </View>
 
               <DetailView></DetailView>
             </View>
 
-              <Image
-                  source={icons.save}
-                  resizeMode="contain"
-                  style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-                />
+              <TouchableOpacity>
+                <Image
+                    source={icons.save}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
+              </TouchableOpacity>
+
+
           </View>
     
 

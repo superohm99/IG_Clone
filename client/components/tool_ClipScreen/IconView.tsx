@@ -19,16 +19,19 @@ const IconView = () => {
             resizeMode="contain"
             style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:15}}
             />
+        <Text style={{color:'black',fontSize:15,marginTop:10}}>1,111</Text>
         <Image
         source={icons.chat}
         resizeMode="contain"
         style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:35}}
         />
+        <Text style={{color:'black',fontSize:15,marginTop:10}}>220</Text>
         <Image
         source={icons.send}
         resizeMode="contain"
         style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:35}}
         />
+        <Text style={{color:'black',fontSize:15,marginTop:10}}>50</Text>      
         <Image
         source={icons.more}
         resizeMode="contain"

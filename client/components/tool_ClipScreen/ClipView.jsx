@@ -12,9 +12,9 @@ import "@expo/match-media";
 
 const ClipView = () => {
 
-  const [layout, setLayout] = useState({
+  [layout, setLayout] = useState({
     resizeVideo: ResizeMode.COVER,
-    marginLeftVideo: 222,
+    marginLeftVideo: 0,
     marginTopVideo: 0,
     width: 1200,
     height: Dimensions.get('screen').height - 70
@@ -31,7 +31,7 @@ const ClipView = () => {
     if (isTabletOrMobileDevice) {
       setLayout({
         resizeVideo: ResizeMode.COVER,
-        marginLeftVideo: 222,
+        marginLeftVideo: 0,
         marginTopVideo: 0,
         width: max_width,
         height: max_height - 70
@@ -39,7 +39,7 @@ const ClipView = () => {
     } else {
       setLayout({
         resizeVideo: ResizeMode.COVER,
-        marginLeftVideo: 0,
+        marginLeftVideo: 222,
         marginTopVideo: 0,
         width: 1200,
         height: max_height - 70
