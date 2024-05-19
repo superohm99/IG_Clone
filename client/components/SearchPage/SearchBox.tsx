@@ -50,7 +50,6 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Link, router } from "expo-router";
 
-
 const SearchBox = () => {
 
     const [searchText, setSearchText] = useState('');
