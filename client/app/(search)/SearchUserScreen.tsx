@@ -11,15 +11,19 @@
 
 // export default SearchUserScreen
 import React from 'react';
-import {Text,View,StyleSheet,TextInput,TouchableOpacity,FlatList,Image,} from 'react-native';
+import {Text,View,StyleSheet,ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import SearchUser from '@/components/SearchPage/SearchUser';
+import SearchUsers from '@/components/SearchPage/SearchUsers';
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const SearchUserScreen = () =>{
   return (
+    <SafeAreaView style={styles.safe_area}>
     <View style ={styles.container}>
-      <SearchUser/>
+      <SearchUsers/>
     </View>
+    </SafeAreaView>
   )
 }
 export default SearchUserScreen;
@@ -30,5 +34,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  safe_area:{
+    flex: 1,
+    
+  }
 
 })
