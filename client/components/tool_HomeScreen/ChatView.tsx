@@ -1,4 +1,4 @@
-import { Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, KeyboardAvoidingView, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -80,14 +80,16 @@ const ChatView = (props:SwitchChat) => {
                     >
 
 
-                        <CommentView></CommentView>
 
+                        <CommentView></CommentView>
+              
                         
                         <TouchableOpacity onPress={handleCloseModal} style={{flex:1,flexDirection:'row',justifyContent:'center',marginBottom:100}}>
                           <View style={{ marginTop: 10,width:120,height:30,marginBottom:60,backgroundColor:'black',borderWidth:2,borderColor:'black',borderRadius:7}}>
                               <Text style={{color: 'white',textAlign:'center'}}>BACK</Text>
                           </View>
                         </TouchableOpacity>
+
 
                     </ScrollView>
           

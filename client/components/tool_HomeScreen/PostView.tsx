@@ -17,7 +17,6 @@ var max_height = Dimensions.get('screen').height;
 
 const PostView = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [draggedValue, setDraggedValue] = useState(0);
   const translationY = new Animated.Value(0);
 
   const onPanGestureEventY = Animated.event(

@@ -7,7 +7,12 @@ const CommentView = () => {
   
 
   return (
-    <View>
+    <KeyboardAvoidingView
+    behavior={"padding"}
+    // // style={{ flex: 1 }}
+    // keyboardVerticalOffset={100}
+    >
+      <View>
 
         <ShowcommentView name='Janie' date='1hr' comment='Its great' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
         <ShowcommentView name='Starjoon' date='5hr' comment='Its wow' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
@@ -19,10 +24,7 @@ const CommentView = () => {
         <ShowcommentView name='Toriko' date='50mn' comment='omg' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
         
 
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ flex: 1 }}
-            >
+
 
             <View style={{flexDirection:'row',marginLeft:10,marginTop:10,marginBottom:10}}>
                 <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={47} height={47} img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></CircleView>
@@ -41,11 +43,10 @@ const CommentView = () => {
                             keyboardType="numeric"
                         />
             </View>
-        </KeyboardAvoidingView>
-
  
 
     </View>
+    </KeyboardAvoidingView>
   )
 }
 
