@@ -1,13 +1,13 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import UploadPost from '@/components/tool_PostScreen/UploadPost'
 
 const PostScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>sfsf</Text>
+        <UploadPost/>
       </View>
-      <Text>HOME</Text>
     </SafeAreaView>
   )
 }
@@ -37,4 +37,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: "#38434D",
   },
+
+  
 });
