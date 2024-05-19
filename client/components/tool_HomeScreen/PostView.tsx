@@ -8,6 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import { icons } from "../../constants";
 import DetailView from './DetailView';
 import ChatView from './ChatView';
+import SendView from './SendView';
 
 
 
@@ -17,6 +18,7 @@ var max_height = Dimensions.get('screen').height;
 
 const PostView = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [sendVisible, setSendVisible] = useState(false);
   const translationY = new Animated.Value(0);
 
   const onPanGestureEventY = Animated.event(
@@ -33,6 +35,10 @@ const PostView = () => {
     }
   ) 
 
+  const handleSendPress = () => {
+    setSendVisible(true)
+  }
+
   const handleImagePress = () => {
     setModalVisible(true);
   };
@@ -40,6 +46,11 @@ const PostView = () => {
   const handleCloseModal = (open:any) => {
     setModalVisible(open);
     console.log(modalVisible)
+  };
+
+  const handleCloseSendModal = (open:any) => {
+    setSendVisible(open);
+    console.log(sendVisible)
   };
 
 
@@ -121,7 +132,7 @@ const PostView = () => {
 
 
                   
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleSendPress}>
 
                   <Image
                       source={icons.send}
@@ -131,7 +142,8 @@ const PostView = () => {
 
                 </TouchableOpacity>
 
-              <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
+
+              
 
 
               </View>
@@ -152,6 +164,9 @@ const PostView = () => {
     
 
         </View>
+
+        <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
+        <SendView open={sendVisible} onToggleSend={handleCloseSendModal}></SendView>
 
 
 

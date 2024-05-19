@@ -45,7 +45,6 @@ const ClipView = () => {
         height: max_height - 70
       });
     }
-    console.log("FFFF")
   }, [isTabletOrMobileDevice, max_width, max_height]);
 
   return (

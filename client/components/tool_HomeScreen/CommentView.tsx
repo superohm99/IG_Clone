@@ -1,7 +1,9 @@
-import { Modal, StyleSheet,  KeyboardAvoidingView,Platform,Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Modal, StyleSheet,  KeyboardAvoidingView,Platform,Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import CircleView from './CircleView'
 import ShowcommentView from './ShowcommentView'
+
+var max_height = Dimensions.get('screen').height;
 
 const CommentView = () => {
   
@@ -9,11 +11,16 @@ const CommentView = () => {
   return (
     <KeyboardAvoidingView
     behavior={"padding"}
-    // // style={{ flex: 1 }}
+    // style={{ flex: 1,backgroundColor:'red',height:max_height }}
     // keyboardVerticalOffset={100}
     >
-      <View>
+      <View style={{}}>
 
+        <ShowcommentView name='Janie' date='1hr' comment='Its great' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
+        <ShowcommentView name='Starjoon' date='5hr' comment='Its wow' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
+        <ShowcommentView name='Toriko' date='50mn' comment='omg' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
+        <ShowcommentView name='Superman' date='16sec' comment='what the ...' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
+        <ShowcommentView name='Batman' date='1sec' comment='its crazy' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
         <ShowcommentView name='Janie' date='1hr' comment='Its great' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
         <ShowcommentView name='Starjoon' date='5hr' comment='Its wow' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
         <ShowcommentView name='Toriko' date='50mn' comment='omg' img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></ShowcommentView>
@@ -38,7 +45,7 @@ const CommentView = () => {
                                 marginLeft:10,
                                 borderWidth: 0.3,
                                 padding: 10,
-                                paddingLeft:'auto'}}
+                                paddingLeft:10}}
                             placeholder="Add Your Comment"
                             keyboardType="numeric"
                         />
