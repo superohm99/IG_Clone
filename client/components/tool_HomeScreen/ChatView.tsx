@@ -1,4 +1,4 @@
-import { Dimensions, KeyboardAvoidingView, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, KeyboardAvoidingView, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -21,7 +21,7 @@ const ChatView = (props:SwitchChat) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [draggedValue, setDraggedValue] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['25%', '60%', '70%'], []);
+  const snapPoints = useMemo(() => ['25%', '80%', '80%'], []);
 
 
     useEffect(() => {
@@ -64,6 +64,7 @@ const ChatView = (props:SwitchChat) => {
         left_comment='42%'
       }
   return (
+
     <GestureHandlerRootView style={{flex:1}}>
     <Modal
             transparent={true}
@@ -96,15 +97,29 @@ const ChatView = (props:SwitchChat) => {
                     >
 
 
+                    <KeyboardAvoidingView
+                        behavior={"height"}
+                        style={{ flex: 1}}
+                        keyboardVerticalOffset={280}
+                        >
+                        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                        
+                        <SafeAreaView style={{ flex: 1 }}>
 
                         <CommentView></CommentView>
-              
                         
-                        <TouchableOpacity onPress={handleCloseModal} style={{flex:1,flexDirection:'row',justifyContent:'center',marginBottom:margin_bottom}}>
-                          <View style={{ marginTop: 10,width:120,height:30,marginBottom:margin_bottom_inside,backgroundColor:'black',borderWidth:2,borderColor:'black',borderRadius:7}}>
+                        <TouchableOpacity onPress={handleCloseModal} style={{flex:1,flexDirection:'row',justifyContent:'center',marginBottom:100}}>
+                          <SafeAreaView style={{ marginTop: 10,width:120,height:30,marginBottom:60,backgroundColor:'black',borderWidth:2,borderColor:'black',borderRadius:7}}>
                               <Text style={{color: 'white',textAlign:'center'}}>BACK</Text>
-                          </View>
+                          </SafeAreaView>
                         </TouchableOpacity>
+
+                        </SafeAreaView>
+
+
+                        </ScrollView>
+              
+                      </KeyboardAvoidingView>
 
 
                     </ScrollView>
@@ -116,6 +131,7 @@ const ChatView = (props:SwitchChat) => {
             </View>
         </Modal>
         </GestureHandlerRootView>
+
   )
 }
 
