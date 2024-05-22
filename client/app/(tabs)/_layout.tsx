@@ -67,6 +67,23 @@ const TabsLayout = () => {
                 />
               ),
             }}
+            listeners={({ navigation, route }) => ({
+              tabPress: (e) => {
+                const state = navigation.getState();
+                const currentRoute = state.routes[state.index].name;
+          
+                if (currentRoute === "SearchScreen") {
+                  // Clear params only if we're already on SearchScreen
+                  navigation.navigate("SearchScreen");
+                } else {
+                  // Prevent default behavior and navigate to SearchScreen
+                  e.preventDefault();
+                  const currentParams = route.params || {};
+                  navigation.navigate("SearchScreen", { ...currentParams });
+        
+                }
+              },
+            })}
           />
 
           <Tabs.Screen

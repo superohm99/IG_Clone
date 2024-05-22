@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 import { useNavigation } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 
+
 const UploadPost = () => {
     const navigation = useNavigation();
 
