@@ -1,5 +1,6 @@
-import { Dimensions, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View , Image} from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import Icont from '../../constants/icons'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import BottomSheet from '@gorhom/bottom-sheet'
 import CircleView from './CircleView'
@@ -15,7 +16,8 @@ var max_height = Dimensions.get('screen').height;
 
 const SendView = (props:SwitchSend) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [shareVisible, setShareVisible] = useState(false);
+    const [shareVisible, setShareVisible] = useState([]);
+    const [countShare, setCountShare] = useState(0);
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['25%', '50%', '60%'], []);
     var margin_bottom:number = 100;
@@ -29,30 +31,36 @@ const SendView = (props:SwitchSend) => {
         };
       }, [props.open]);
     
-      useEffect(() => {
-        if(shareVisible === true)
-          {
-            margin_bottom = 0
-            margin_bottom_inside = 0
-          }
-        else
-          {
-            margin_bottom = 100
-            margin_bottom_inside = 50
-          }
-        console.log(margin_bottom)
-      }, [shareVisible])
-
+  
   
     const handleCloseModal = () => {
       setModalVisible(false);
-      setShareVisible(false);
+      setShareVisible([]);
+      setCountShare(0);
       props.onToggleSend(false);
     }
 
-    const handleToggleSend = () => {
-      setShareVisible(!shareVisible);
+    const handleToggleSend = (id:any) => {
+      setShareVisible((prevSelectedIds:any) => {
+        if (prevSelectedIds.includes(id)) {
+          setCountShare(countShare - 1);
+          return prevSelectedIds.filter((shareVisible:any)=> shareVisible !== id);
+        } else {
+          setCountShare(countShare + 1);
+          return [...prevSelectedIds, id];
+        }
+      });
     }
+
+
+    // test process
+    const circleViews = [
+      { id: 1, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+      { id: 2, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+      { id: 3, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+      { id: 4, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+      { id: 5, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+    ];
 
   return (
     <GestureHandlerRootView style={{flex:1}}>
@@ -83,32 +91,17 @@ const SendView = (props:SwitchSend) => {
 
 
                         <View style={{flexDirection:'row',justifyContent:'center',marginTop:10,flexWrap:'wrap'}}>
-                            <TouchableOpacity onPress={handleToggleSend}>
-                              <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            </TouchableOpacity>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                            <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={75} height={75} img={'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></CircleView>
-                      
+                              {circleViews.map(({ id, img }) => (
+                                <TouchableOpacity key={id} onPress={() => handleToggleSend(id)}>
+                                  <View>
+                                    <CircleView  margin_fisrt={0} margin_sec={0} border_sec={0} border={0} img={img} width={75} height={75} />
+                                    {shareVisible.includes(id) && (
+                                      <View style={{width:20,height:20,borderRadius:50,backgroundColor:'#1E90FF',position:'absolute',left:40,top:50}} />
+                                    )}
+                                  </View>
+                                </TouchableOpacity>
+                              ))}
+
                         </View>
               
                         
@@ -122,15 +115,22 @@ const SendView = (props:SwitchSend) => {
 
                     </ScrollView>
 
-                    {shareVisible && 
-                    (<SafeAreaView style={{backgroundColor:'white',height:200,marginTop:0,borderTopWidth:1,borderBlockColor:'black'}}>
+                    {shareVisible.length !== 0 && 
+                    (<SafeAreaView style={{backgroundColor:'white',height:200,marginTop:0,borderTopWidth:0.5,borderBlockColor:'black',paddingLeft:10,paddingTop:5}}>
 
-                      {/* <Text>TEST</Text>
-                      <Text>TEST</Text>
-                      <Text>TEST</Text>
-                      <Text>TEST</Text>
-                      <Text>TEST</Text>
-                      <Text>TEST</Text> */}
+                      
+                      <TouchableOpacity>
+                        {/* <Image
+                            source={Icont.send}
+                            resizeMode="contain"
+                            style={{ width: 30, height: 30, tintColor: 'black', marginRight:10, marginTop:15 }}
+                          /> */}
+                          <View style={{marginTop:7,position:'absolute',left:37,borderRadius:10,width:max_width - 100,height:40,backgroundColor:'#1E90FF'}}>
+                            {/* <Text style={{color:'white',textAlign:'center'}}>{countShare}</Text> */}
+                            <Text style={{marginLeft:115,marginTop:7,fontSize:17,fontWeight:600,color:'white'}}> CONFIRM </Text>
+                          </View>
+                      </TouchableOpacity>
+                 
 
                     </SafeAreaView>
                     )}
