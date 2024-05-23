@@ -19,6 +19,7 @@ var max_height = Dimensions.get('screen').height;
 const PostView = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sendVisible, setSendVisible] = useState(false);
+  const [likeVisible, setLikeVisible] = useState(false);
   const translationY = new Animated.Value(0);
 
   const onPanGestureEventY = Animated.event(
@@ -41,6 +42,10 @@ const PostView = () => {
 
   const handleImagePress = () => {
     setModalVisible(true);
+  };
+
+  const handleLikePress = () => {
+    setLikeVisible(!likeVisible);
   };
 
   const handleCloseModal = (open:any) => {
@@ -108,14 +113,18 @@ const PostView = () => {
             <View style={{flexDirection: 'column'}}>
               <View style={{flexDirection:'row',marginBottom:10}}>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleLikePress}>
+     
+                <View style={{ width: 22, height: 22, backgroundColor:likeVisible? 'red':'white'
+                 ,borderTopLeftRadius:90,borderTopRightRadius:90,borderBottomRightRadius:90,borderBottomLeftRadius:90, justifyContent: 'center', alignItems: 'center', marginRight: 10 }}>
+                    <Image
+                      source={icons.heart}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'black', marginTop:5 }}
+                    />
+                </View>
 
-                  <Image
-                    source={icons.heart}
-                    resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
-                  />
-
+        
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={handleImagePress}>
