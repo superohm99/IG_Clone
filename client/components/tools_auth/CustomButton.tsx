@@ -4,7 +4,7 @@ import React from "react";
 type ButtonProps = {
   title: string;
   otherStyle?: ViewStyle;
-  isLoading: boolean;
+  isLoading?: boolean;
   handlePress: () => void;
 };
 

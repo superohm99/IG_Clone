@@ -12,7 +12,7 @@ const AccountPrivacyScreen = () => {
 
   const submit = async () => {
     setIsSubmitting(true);
-    router.push("ProfileScreen")
+    router.push("/SignUpScreen/AddProfileScreen")
   };
 
   return (

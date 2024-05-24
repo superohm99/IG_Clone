@@ -1,8 +1,9 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/tools_auth/CustomButton";
 import { Link, useRouter, useLocalSearchParams } from "expo-router";
+
+import CustomButton from "@/components/tools_auth/CustomButton";
 
 const WelcomeScreen = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -13,7 +14,7 @@ const WelcomeScreen = () => {
 
   const submit = async () => {
     setIsSubmitting(true);
-    router.push("SyncScreen");
+    router.push("/SignUpScreen/SyncScreen");
 
     // send api
   };
@@ -36,7 +37,7 @@ const WelcomeScreen = () => {
             handlePress={submit}
           />
           <TouchableOpacity
-            onPress={() => router.push("PhoneEmailScreen")}
+            onPress={() => router.push("/SignUpScreen/PhoneEmailScreen")}
             style={{ alignSelf: "center" }}
           >
             <Text style={[styles.baseText, { color: "#3797EF" }]}>Add new phone or email</Text>

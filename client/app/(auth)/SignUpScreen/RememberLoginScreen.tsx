@@ -4,11 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/tools_auth/CustomButton";
 import { useRouter } from "expo-router";
 
-import { images } from "../../constants";
+import { images } from "@/constants";
 
-const ProfileScreen = () => {
+const RememberLoginScreen = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
 
   const submit = async () => {
     setIsSubmitting(true);
@@ -18,9 +19,9 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.content}>
-          <Text style={styles.headerText}>Add profile photo</Text>
-          <Text style={styles.baseText}>Add a profile photo so your friends know it's you.</Text>
-          <Image source={images.addProfile} style={styles.images} resizeMode="contain" />
+          <Text style={styles.headerText}>Remember login info?</Text>
+          <Text style={styles.baseText}>We'll remember the login info for {username}, so you won't need to enter it on your iCloud devices.</Text>
+          <Image source={images.rememberLogin} style={styles.images} resizeMode="contain" />
         </View>
       </ScrollView>
       <View>
@@ -33,15 +34,15 @@ const ProfileScreen = () => {
         />
         <View style={styles.footer}>
           <CustomButton
-            title="Add a photo"
+            title="Remember"
             isLoading={isSubmitting}
             handlePress={submit}
           />
           <TouchableOpacity
-            onPress={() => router.push("RememberLoginScreen")}
+            onPress={() => router.push("/SignUpScreen/DiscoverScreen")}
             style={{ alignSelf: "center" }}
           >
-            <Text style={[styles.baseText, { color: "#3797EF" }]}>Skip</Text>
+            <Text style={[styles.baseText, { color: "#3797EF" }]}>Not now</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -49,7 +50,7 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default RememberLoginScreen;
 
 const styles = StyleSheet.create({
   container: {

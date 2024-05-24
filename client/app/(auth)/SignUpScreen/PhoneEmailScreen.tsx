@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+
 import FormField from "@/components/tools_auth/FormField";
 import CustomButton from "@/components/tools_auth/CustomButton";
 
@@ -24,12 +25,12 @@ const PhoneEmailScreen = () => {
     if (isSelect) {
       // submit phone
       router.push({
-        pathname: "ConfirmationCodeScreen",
+        pathname: "/SignUpScreen/ConfirmationCodeScreen",
         params: { phone }
       });
     } else {
       // submit email
-      router.push("SyncScreen");
+      router.push("/SignUpScreen/SyncScreen");
     }
   };
 

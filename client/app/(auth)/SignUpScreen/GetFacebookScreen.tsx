@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/tools_auth/CustomButton";
 import { useRouter } from "expo-router";
 
-import { images } from "../../constants";
+import { images } from "@/constants";
 
 const GetFacebookScreen = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const GetFacebookScreen = () => {
             handlePress={submit}
           />
           <TouchableOpacity
-            onPress={() => router.push("AccountPrivacyScreen")}
+            onPress={() => router.push("/SignUpScreen/AccountPrivacyScreen")}
             style={{ alignSelf: "center" }}
           >
             <Text style={[styles.baseText, { color: "#3797EF" }]}>Skip</Text>

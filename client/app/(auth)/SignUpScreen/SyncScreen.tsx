@@ -43,7 +43,7 @@ const SyncScreen = () => {
             handlePress={submit}
           />
           <TouchableOpacity
-            onPress={() => router.push("GetFacebookScreen")}
+            onPress={() => router.push("/SignUpScreen/GetFacebookScreen")}
             style={{ alignSelf: "center" }}
           >
             <Text style={[styles.baseText, { color: "#3797EF" }]}>Skip</Text>

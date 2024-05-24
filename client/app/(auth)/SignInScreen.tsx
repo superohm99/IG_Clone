@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
-import { images } from "../../constants";
+import { images } from "@/constants";
 import CustomButton from "@/components/tools_auth/CustomButton";
 import FormField from "@/components/tools_auth/FormField";
 
@@ -80,7 +80,7 @@ const SignInScreen = () => {
         <View style={{ height: 0.5, backgroundColor: "#ccc" }} />
         <View style={styles.bottomView}>
           <Text style={{ color: "gray" }}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => router.replace("CreateUsernameScreen")}>
+          <TouchableOpacity onPress={() => router.replace("SignUpScreen")}>
             <Text style={{ color: "#3797EF" }}>Sign up.</Text>
           </TouchableOpacity>
         </View>

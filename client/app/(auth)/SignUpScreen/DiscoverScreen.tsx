@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
 import People from "@/components/tools_auth/People";
-import { images } from "../../constants";
+import { images } from "@/constants";
 
 const DiscoverScreen = () => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const DiscoverScreen = () => {
         <View style={styles.content}>
           <Text style={styles.headerText}>Discover people</Text>
           <TouchableOpacity
-            onPress={() => router.replace("HomeScreen")}
+            onPress={() => router.replace("/HomeScreen")}
             style={{ position: "absolute", right: 10 }}
           >
             <Text style={{ fontSize: 16, color: "#3797EF" }}>Next</Text>
@@ -60,14 +60,6 @@ const DiscoverScreen = () => {
           <People 
             profile={images.profile}
             name="test10 test10"
-          />
-          <People 
-            profile={images.profile}
-            name="test11 test11"
-          />
-          <People 
-            profile={images.profile}
-            name="test12 test12"
           />
         </View>
       </ScrollView>

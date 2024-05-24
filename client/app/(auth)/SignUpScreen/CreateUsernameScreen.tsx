@@ -18,7 +18,7 @@ const CreateUsernameScreen = () => {
 
     // passing username to next screen
     router.push({
-      pathname: "CreatePasswordScreen",
+      pathname: "/SignUpScreen/CreatePasswordScreen",
       params: { username },
     });
   };
@@ -27,7 +27,7 @@ const CreateUsernameScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <TouchableOpacity
-          onPress={() => router.push("SignInScreen")}
+          onPress={() => router.replace("/SignInScreen")}
           style={{ width: 10 }}
         >
           <View style={styles.angleLeft}>

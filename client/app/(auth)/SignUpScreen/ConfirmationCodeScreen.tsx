@@ -1,8 +1,9 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/tools_auth/CustomButton";
 import { useLocalSearchParams, useRouter } from "expo-router";
+
+import CustomButton from "@/components/tools_auth/CustomButton";
 import FormField from "@/components/tools_auth/FormField";
 
 const ConfirmationCodeScreen = () => {
@@ -13,7 +14,7 @@ const ConfirmationCodeScreen = () => {
 
   const submit = async () => {
     setIsSubmitting(true);
-    router.push("SyncScreen");
+    router.push("/SignUpScreen/SyncScreen");
   };
 
   return (

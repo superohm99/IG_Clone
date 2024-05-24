@@ -23,7 +23,7 @@ const CreatePasswordScreen = () => {
     // example
     // passing username to next screen
     router.push({
-      pathname: "WelcomeScreen",
+      pathname: "/SignUpScreen/WelcomeScreen",
       params: { username, password }
     });
   };
