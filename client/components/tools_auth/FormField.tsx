@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 type FormFieldProps = {
   title: string;
@@ -28,53 +28,62 @@ const FormField: React.FC<FormFieldProps> = ({
           style={styles.textInput}
           value={value}
           placeholder={placeholder}
-          placeholderTextColor="#ccc"
-          onChangeText={handleChangeText}
+          onChangeText={(text) => handleChangeText(text)}
           secureTextEntry={title === "Password" && !showPassword}
+          keyboardType={title === "Phone" ? "number-pad" : "default"}
           {...props}
         />
-        {title === "Password" && (
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+        {title === "Password" ? (
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            style={styles.eye}
+          >
             <FontAwesomeIcon
               icon={showPassword ? faEye : faEyeSlash}
-              size={25}
-              color="#ccc"
-              style={styles.eye}
+              size={20}
+              color="gray"
             />
           </TouchableOpacity>
+        ) : (
+          value !== "" && (
+            <TouchableOpacity
+              onPress={() => handleChangeText("")}
+              style={styles.circleXmark}
+            >
+              <FontAwesomeIcon icon={faCircleXmark} size={15} color="gray" />
+            </TouchableOpacity>
+          )
         )}
       </View>
     </View>
   );
 };
 
+export default FormField;
+
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#e0e0e0",
     backgroundColor: "#fafafa",
     borderRadius: 5,
     height: 40,
-    width: 350,
-  },
-  input_hover: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#fafafa",
-    borderRadius: 5,
-    height: 50,
-    width: 350,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
   },
   textInput: {
     color: "#000",
     padding: 10,
     fontSize: 13,
+    flex: 1,
   },
   eye: {
-    alignSelf: "flex-end",
+    position: "absolute",
     right: 12,
-    bottom: 31.5,
+  },
+  circleXmark: {
+    position: "absolute",
+    right: 15,
   },
 });
-
-export default FormField;
