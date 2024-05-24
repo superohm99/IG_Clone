@@ -119,8 +119,15 @@ const TabsLayout = () => {
           />
 
 
+          <Tabs.Screen
+            name="NotificationScreen"
+            options={{
+              title: "",
+              headerShown: false,
+              
+            }}
+          />
           
-           
         </Tabs>
     </>
   )
