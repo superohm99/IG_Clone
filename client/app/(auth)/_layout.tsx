@@ -7,11 +7,10 @@ const AuthLayout = () => {
     <>
       <Stack>
         <Stack.Screen name="SignInScreen" options={{ headerShown: false }} />
-
+        
         <Stack.Screen name="CreateUsernameScreen" options={{ headerShown: false }} />
         <Stack.Screen name="CreatePasswordScreen" options={{ headerShown: false }} />
         <Stack.Screen name="WelcomeScreen" options={{ headerShown: false }} />
-
         <Stack.Screen name="PhoneEmailScreen" options={{ headerShown: false }} />
         <Stack.Screen name="ConfirmationCodeScreen" options={{ headerShown: false }} />
         <Stack.Screen name="SyncScreen" options={{ headerShown: false }} />

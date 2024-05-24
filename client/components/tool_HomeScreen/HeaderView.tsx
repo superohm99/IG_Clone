@@ -1,9 +1,13 @@
-import { StyleSheet, Text,Image, View } from 'react-native'
+import { StyleSheet, Text,Image, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from "expo-router";
+
 import { icons } from "../../constants";
 
 const HeaderView = () => {
+  const router = useRouter();
+
   return (
     <View style={{backgroundColor:'white'}}>
         <SafeAreaView style={{flexDirection: 'row',justifyContent:'space-between',paddingHorizontal:10}}>
@@ -12,11 +16,16 @@ const HeaderView = () => {
     
 
         <View style={{flexDirection:'row'}}>
-            <Image
-                    source={icons.heart}
-                    resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:20, marginTop:10}}
-                  />
+            <TouchableOpacity 
+              style={{ marginRight:20, marginTop:10 }}
+              onPress={() => {router.replace("NotificationScreen")}}
+            >
+              <Image
+                      source={icons.heart}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'black' }}
+                    />
+            </TouchableOpacity>
             <Image
                     source={icons.chat}
                     resizeMode="contain"
