@@ -10,7 +10,8 @@ export default function index() {
     const key:Boolean = false;
     
     if (!key)
-        return <Redirect href="/HomeScreen"/>
+        // return <Redirect href="/HomeScreen"/>
+        return <Redirect href="/SignInScreen"/>
 
     return (
     <View>
