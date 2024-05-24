@@ -1,66 +1,23 @@
-import { ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Modal, Animated } from 'react-native'
-import React, { useState } from 'react'
+import { ScrollView, StatusBar, StyleSheet, Text, View, Image } from 'react-native'
+import React from 'react'
 import { Dimensions } from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { PanGestureHandler,GestureHandlerRootView } from 'react-native-gesture-handler';
 import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 import { icons } from "../../constants";
-import DetailView from './DetailView';
-import ChatView from './ChatView';
-import SendView from './SendView';
-
-
+import DetailView from '../tool_HomeScreen/DetailView';
 
 var max_width = Dimensions.get('screen').width;
 var max_height = Dimensions.get('screen').height;
 
+interface getPropItem{
+    id:string;
+    user:string;
+}
 
-const PostView = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [sendVisible, setSendVisible] = useState(false);
-  const [likeVisible, setLikeVisible] = useState(false);
-  const translationY = new Animated.Value(0);
-
-  const onPanGestureEventY = Animated.event(
-    [
-      {
-        nativeEvent: {
-          translationY: translationY
-        }
-       
-      }
-    ],
-    {
-      useNativeDriver: true,
-    }
-  ) 
-
-  const handleSendPress = () => {
-    setSendVisible(true)
-  }
-
-  const handleImagePress = () => {
-    setModalVisible(true);
-  };
-
-  const handleLikePress = () => {
-    setLikeVisible(!likeVisible);
-  };
-
-  const handleCloseModal = (open:any) => {
-    setModalVisible(open);
-    console.log(modalVisible)
-  };
-
-  const handleCloseSendModal = (open:any) => {
-    setSendVisible(open);
-    console.log(sendVisible)
-  };
-
-
+const SearchPostContent = ({id, user}:getPropItem) => {
   const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1020px)",
+    query: "(max-device-width: 1224px)",
   });
 
   var resize_img:any = 'center';
@@ -85,7 +42,7 @@ const PostView = () => {
           
 
             <View style={{flex:1,flexDirection:'column',marginLeft:10,marginTop:5}}>
-              <Text style={{fontWeight:800,fontSize:15,marginBottom:0}}>Jinny</Text>
+              <Text style={{fontWeight:800,fontSize:15,marginBottom:0}}>{user}</Text>
               <Text style={{marginTop:0,fontSize:13}}>Billy Jinny</Text>
             </View>
 
@@ -113,69 +70,39 @@ const PostView = () => {
             <View style={{flexDirection: 'column'}}>
               <View style={{flexDirection:'row',marginBottom:10}}>
 
-                <TouchableOpacity onPress={handleLikePress}>
-     
-                <View style={{ width: 22, height: 22, backgroundColor:likeVisible? 'red':'white'
-                 ,borderTopLeftRadius:90,borderTopRightRadius:90,borderBottomRightRadius:90,borderBottomLeftRadius:90, justifyContent: 'center', alignItems: 'center', marginRight: 10 }}>
-                    <Image
-                      source={icons.heart}
-                      resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black', marginTop:5 }}
-                    />
-                </View>
+                <Image
+                  source={icons.heart}
+                  resizeMode="contain"
+                  style={{ width: 24, height: 24, tintColor: 'black' , marginRight:10}}
+                />
 
-        
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={handleImagePress}>
-
-                  <Image
-                      source={icons.chat}
-                      resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-                      />
-
-                </TouchableOpacity>
-
-
-
+                <Image
+                    source={icons.chat}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
 
                   
-                <TouchableOpacity onPress={handleSendPress}>
-
-                  <Image
-                      source={icons.send}
-                      resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-                    />
-
-                </TouchableOpacity>
-
-
-              
-
+                <Image
+                    source={icons.send}
+                    resizeMode="contain"
+                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                  />
 
               </View>
 
               <DetailView></DetailView>
             </View>
 
-              <TouchableOpacity>
-                <Image
-                    source={icons.save}
-                    resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
-                  />
-              </TouchableOpacity>
-
-
+              <Image
+                  source={icons.save}
+                  resizeMode="contain"
+                  style={{ width: 24, height: 24, tintColor: 'black', marginRight:10 }}
+                />
           </View>
     
 
         </View>
-
-        <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
-        <SendView open={sendVisible} onToggleSend={handleCloseSendModal}></SendView>
 
 
 
@@ -267,7 +194,7 @@ const PostView = () => {
   )
 }
 
-export default PostView
+export default SearchPostContent
 
 
 const styles = StyleSheet.create({
