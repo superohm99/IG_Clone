@@ -2,38 +2,52 @@ import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, Ale
 import CircleView from './CircleView'
 import React, { useState } from 'react'
 import { router } from 'expo-router'
-// import { TouchableOpacity } from 'react-native-gesture-handler'
+import { icons } from "../../constants";
 
 var max_width = Dimensions.get('screen').width;
 
 const StoryView = () => {
   const [lastPress, setLastPress] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   
   const handleTouch = (event:any) => {
     
     const currentTime = Date.now();
     if (currentTime - lastPress < 1000) {
-      return; // ถ้ากดภายในเวลา 1 วินาที, ไม่ทำอะไร
+      return;
     }
     setLastPress(currentTime);
-
     const { locationX} = event.nativeEvent;
 
-
-     
+    
     if (locationX < max_width / 2) {
-      Alert.alert('Left side pressed');
+      console.log('Left side pressed')
+      var nextIndex = (currentImageIndex - 1) % story_demo.length;
+      if (nextIndex < 0)
+        nextIndex = 0
+      setCurrentImageIndex(nextIndex);
     } else {
-      Alert.alert('Right side pressed');
+      var nextIndex = (currentImageIndex + 1) % story_demo.length;
+      setCurrentImageIndex(nextIndex);
+      console.log('Right side pressed')
     }
   };
+
+
 
   const [visible,setVisible] = useState(false);
 
   const handleModalVisible =  () => {
     setVisible(!visible)
   }
+
+  const story_demo = [
+    { id: 1, img: 'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?q=80&w=2511&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: 2, img: 'https://images.unsplash.com/photo-1606477057209-611910dfb135?q=80&w=2536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: 3, img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+  ];
+
 
   return (
     <View style={{backgroundColor:'white'}}>
@@ -67,14 +81,20 @@ const StoryView = () => {
                     50 mn
                   </Text>
                 </View>
-                <TouchableOpacity onPress={handleModalVisible} style={{backgroundColor:'white',width:30,height:30,marginTop:10}}></TouchableOpacity>
+                <TouchableOpacity onPress={handleModalVisible}>  
+                  <Image
+                      source={icons.cross}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'white', marginTop:10 }}
+                    />
+                </TouchableOpacity>
               </View>
 
               
               <TouchableOpacity style={{width:'100%',height:'100%',marginTop:0,position:'absolute',zIndex:-1}} onPress={handleTouch}>
 
-              <Image style={{width:'100%',height:'100%',marginTop:60,position:'absolute',zIndex:-1}} source={{uri:'https://images.unsplash.com/photo-1606477057209-611910dfb135?q=80&w=2536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}>
-              </Image>
+                <Image style={{width:'100%',height:'100%',marginTop:60,position:'absolute',zIndex:-1}} source={{uri:story_demo[currentImageIndex].img}}>
+                </Image>
                 
               </TouchableOpacity>
 
