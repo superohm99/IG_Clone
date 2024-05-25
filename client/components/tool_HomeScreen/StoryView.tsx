@@ -1,10 +1,33 @@
-import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, Alert, Dimensions } from 'react-native'
 import CircleView from './CircleView'
 import React, { useState } from 'react'
 import { router } from 'expo-router'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 
+var max_width = Dimensions.get('screen').width;
+
 const StoryView = () => {
+  const [lastPress, setLastPress] = useState(0);
+
+  
+  const handleTouch = (event:any) => {
+    
+    const currentTime = Date.now();
+    if (currentTime - lastPress < 1000) {
+      return; // ถ้ากดภายในเวลา 1 วินาที, ไม่ทำอะไร
+    }
+    setLastPress(currentTime);
+
+    const { locationX} = event.nativeEvent;
+
+
+     
+    if (locationX < max_width / 2) {
+      Alert.alert('Left side pressed');
+    } else {
+      Alert.alert('Right side pressed');
+    }
+  };
 
   const [visible,setVisible] = useState(false);
 
@@ -47,9 +70,15 @@ const StoryView = () => {
                 <TouchableOpacity onPress={handleModalVisible} style={{backgroundColor:'white',width:30,height:30,marginTop:10}}></TouchableOpacity>
               </View>
 
-              <Image style={{width:'100%',height:'100%',marginTop:60,position:'absolute',zIndex:-1}} source={{uri:'https://images.unsplash.com/photo-1606477057209-611910dfb135?q=80&w=2536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}>
+              
+              <TouchableOpacity style={{width:'100%',height:'100%',marginTop:0,position:'absolute',zIndex:-1}} onPress={handleTouch}>
 
+              <Image style={{width:'100%',height:'100%',marginTop:60,position:'absolute',zIndex:-1}} source={{uri:'https://images.unsplash.com/photo-1606477057209-611910dfb135?q=80&w=2536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}>
               </Image>
+                
+              </TouchableOpacity>
+
+
 
             </View>
           </Modal>
