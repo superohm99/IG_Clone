@@ -71,7 +71,26 @@ const StoryView = () => {
           { visible === true &&(
           <Modal >
             <View style={{backgroundColor:'black',height:'100%'}}>
-              <View style={{flexDirection:'row',paddingHorizontal:10,paddingTop:10,justifyContent:'space-between'}}>
+                <View style={{
+                    height: 5,
+                    flexDirection:'row',
+                    backgroundColor: 'gray',
+                    borderRadius: 2.5,
+                    marginHorizontal: 2,
+                    overflow: 'hidden',
+                  }}>
+                    { story_demo.map(({id}) => 
+                      <View style={{height: 5,
+                      width: max_width/story_demo.length,
+                      backgroundColor:(id - 1) === currentImageIndex? 'white':'gray',
+                      borderRadius: 2.5,
+                      borderRightWidth:4,
+                      borderColor:'black',
+                      overflow: 'hidden',}}></View>
+                    )
+                    }
+                </View>
+              <View style={{flexDirection:'row',paddingHorizontal:10,paddingTop:5,justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row'}}>
                   <CircleView margin_fisrt={10} margin_sec={0} border_sec={2} border={3} width={50} height={50} img='https://images.unsplash.com/photo-1500048993953-d23a436266cf?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></CircleView>
                   <Text style={{color:'white',fontSize:18,fontWeight:600,marginTop:10}}>
@@ -91,7 +110,7 @@ const StoryView = () => {
               </View>
 
               
-              <TouchableOpacity style={{width:'100%',height:'100%',marginTop:0,position:'absolute',zIndex:-1}} onPress={handleTouch}>
+              <TouchableOpacity style={{width:'100%',height:'100%',marginTop:10,position:'absolute',zIndex:-1}} onPress={handleTouch}>
 
                 <Image style={{width:'100%',height:'100%',marginTop:60,position:'absolute',zIndex:-1}} source={{uri:story_demo[currentImageIndex].img}}>
                 </Image>
