@@ -1,20 +1,26 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, Image, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter, useLocalSearchParams } from "expo-router";
 
-import CustomButton from "@/components/tools_auth/CustomButton";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import { images } from "@/constants";
+
+type LocalSearchProps = {
+  username: string;
+  password: string;
+  phone: string;
+  email: string;
+};
 
 const WelcomeScreen = () => {
+  const router = useRouter();
+  const { username, password, phone, email } = useLocalSearchParams<LocalSearchProps>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   
-  // example
-  const router = useRouter();
-  const { username, password } = useLocalSearchParams<{ username: string, password: string }>();
-
   const submit = async () => {
     setIsSubmitting(true);
-    router.push("/SignUpScreen/SyncScreen");
+    router.navigate("/SignUp/SyncScreen");
 
     // send api
   };
@@ -23,31 +29,22 @@ const WelcomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.content}>
+          <Image source={images.welcome} style={styles.images} resizeMode="contain" />
           <View>
-            <Text style={styles.headerText}>Welcome to Instagram,</Text>
-            <Text style={styles.headerText}>{username}</Text>
+            <Text style={styles.headerText}>Welcome to</Text>
+            <Text style={styles.headerText}>Instagram, {username}</Text>
           </View>
-          <Text style={[styles.baseText, { marginHorizontal: 20 }]}>
-            We'll add the email and phone number info from old account to{" "}
-            {username}. You can change your contact info and username anytime.
-          </Text>
           <CustomButton
             title="Complete sign up"
             isLoading={isSubmitting}
             handlePress={submit}
           />
-          <TouchableOpacity
-            onPress={() => router.push("/SignUpScreen/PhoneEmailScreen")}
-            style={{ alignSelf: "center" }}
-          >
-            <Text style={[styles.baseText, { color: "#3797EF" }]}>Add new phone or email</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
       <View>
-        <View style={{ height: 0.5, backgroundColor: "#ccc" }} />
+        <View style={styles.separator} />
         <Text style={styles.footerText}>
-          We'll add private into from old account to {username}. see
+          Instagram will copy your age from {username}. See our
           <Text> </Text>
           <Link href="/" style={styles.link}>Terms</Link>
           <Text> </Text>
@@ -66,17 +63,16 @@ export default WelcomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "#fff",
   },
   content: {
     flex: 1,
-    marginTop: 180,
+    marginTop: 170,
     paddingHorizontal: 20,
-    gap: 20,
+    gap: 30
   },
   headerText: {
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: "700",
     alignSelf: "center",
   },
@@ -94,5 +90,14 @@ const styles = StyleSheet.create({
   link: {
     color: "gray",
     fontWeight: "500",
-  }
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: "#ccc",
+  },
+  images: {
+    width: 100,
+    height: 100,
+    alignSelf: "center"
+  },
 });

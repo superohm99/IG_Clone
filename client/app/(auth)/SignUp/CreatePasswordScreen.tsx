@@ -6,8 +6,8 @@ import { faAngleLeft, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
-import FormField from "@/components/tools_auth/FormField";
-import CustomButton from "@/components/tools_auth/CustomButton";
+import FormField from "@/components/tool_AuthScreen/FormField";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 
 const CreatePasswordScreen = () => {
   const [password, setPassword] = useState<string>("");
@@ -22,23 +22,20 @@ const CreatePasswordScreen = () => {
     
     // example
     // passing username to next screen
-    router.push({
-      pathname: "/SignUpScreen/WelcomeScreen",
+    router.navigate({
+      pathname: "/SignUp/PhoneEmailScreen",
       params: { username, password }
     });
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => router.back()} style={{ width: 10 }}>
+        <View style={styles.angleLeft}>
+          <FontAwesomeIcon icon={faAngleLeft} size={25} />
+        </View>
+      </TouchableOpacity>
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={{ width: 10 }}
-        >
-          <View style={styles.angleLeft}>
-            <FontAwesomeIcon icon={faAngleLeft} size={25} />
-          </View>
-        </TouchableOpacity>
         <View style={styles.content}>
           <Text style={styles.headerText}>Create password</Text>
           <Text style={styles.baseText}>We can remember the password, so you won't need to enter it on your iCloud devices.</Text>

@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import { images } from "@/constants";
-import CustomButton from "@/components/tools_auth/CustomButton";
-import FormField from "@/components/tools_auth/FormField";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import FormField from "@/components/tool_AuthScreen/FormField";
 
 type formState = {
   username: string;
@@ -25,15 +25,18 @@ const SignInScreen = () => {
 
   const submit = async () => {
     setIsSubmitting(true);
-    router.replace("HomeScreen");
+    router.navigate("/Home");
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.content}>
-
-          <Image source={images.logo} resizeMode="contain" style={styles.logo} />
+          <Image
+            source={images.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
 
           <FormField
             title="Username"
@@ -52,7 +55,9 @@ const SignInScreen = () => {
           />
 
           <TouchableOpacity style={{ alignSelf: "flex-end" }}>
-            <Text style={styles.forgetPassword}>Forget password?</Text>
+            <Text style={[styles.medium, { marginTop: 10 }]}>
+              Forget password?
+            </Text>
           </TouchableOpacity>
 
           <CustomButton
@@ -63,29 +68,27 @@ const SignInScreen = () => {
           />
 
           <View style={styles.orLine}>
-            <View style={{ flex: 1, height: 0.5, backgroundColor: "#ccc" }} />
-            <Text style={{ textAlign: "center", color: "gray" }}>OR</Text>
-            <View style={{ flex: 1, height: 0.5, backgroundColor: "#ccc" }} />
+            <View style={[styles.separator, { flex: 1 }]} />
+            <Text style={styles.orText}>OR</Text>
+            <View style={[styles.separator, { flex: 1 }]} />
           </View>
 
           <TouchableOpacity style={styles.facebook}>
-            <FontAwesomeIcon icon={faSquareFacebook} size={20} color="#3797EF" />
-            <Text style={{ color: "#3797EF" }}>Log in with Facebook</Text>
+            <FontAwesomeIcon icon={faSquareFacebook} size={20} color="#000" />
+            <Text style={styles.large}>Log in with Facebook</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
 
-      <View style={{ width: "100%" }}>
-        <View style={{ height: 0.5, backgroundColor: "#ccc" }} />
+      <View>
+        <View style={styles.separator} />
         <View style={styles.bottomView}>
-          <Text style={{ color: "gray" }}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => router.replace("SignUpScreen")}>
-            <Text style={{ color: "#3797EF" }}>Sign up.</Text>
+          <Text style={styles.small}>Don't have an account?</Text>
+          <TouchableOpacity onPress={() => router.navigate("/SignUp")}>
+            <Text style={styles.medium}>Sign up.</Text>
           </TouchableOpacity>
         </View>
       </View>
-
     </SafeAreaView>
   );
 };
@@ -94,38 +97,58 @@ export default SignInScreen;
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    flex: 1,
     backgroundColor: "#fff",
   },
   content: {
     paddingHorizontal: 20,
-    paddingTop: 120,
+    marginTop: 170,
   },
   logo: {
     width: 200,
+    height: 50,
     alignSelf: "center",
-    marginBottom: 20,
-  },
-  forgetPassword: {
-    color: "#3797EF",
-    marginVertical: 10,
+    marginBottom: 20
   },
   orLine: {
-    flexDirection: "row", 
-    alignItems: "center", 
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 35,
-    gap: 10, 
+    gap: 20
+  },
+  orText: {
+    fontSize: 14,
+    textAlign: "center",
+    color: "gray",
   },
   facebook: {
-    flexDirection: "row", 
-    justifyContent: "center", 
-    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 5,
   },
   bottomView: {
     flexDirection: "row",
     justifyContent: "center",
     gap: 5,
-    marginVertical: 30,
+    paddingVertical: 30,
+  },
+  small: {
+    fontSize: 12,
+    color: "gray",
+  },
+  medium: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "#000",
+  },
+  large: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#000",
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: "#ccc",
   },
 });

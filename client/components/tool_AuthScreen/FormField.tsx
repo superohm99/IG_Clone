@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ViewStyle,TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEye, faEyeSlash, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -8,17 +8,16 @@ type FormFieldProps = {
   value: string;
   placeholder: string;
   handleChangeText: (e: string) => void;
-  otherStyles: object;
+  otherStyles: ViewStyle;
 };
 
-const FormField: React.FC<FormFieldProps> = ({
+const FormField = ({
   title,
   value,
   placeholder,
   handleChangeText,
-  otherStyles,
-  ...props
-}) => {
+  otherStyles
+}: FormFieldProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
@@ -31,7 +30,6 @@ const FormField: React.FC<FormFieldProps> = ({
           onChangeText={(text) => handleChangeText(text)}
           secureTextEntry={title === "Password" && !showPassword}
           keyboardType={title === "Phone" ? "number-pad" : "default"}
-          {...props}
         />
         {title === "Password" ? (
           <TouchableOpacity
@@ -41,7 +39,7 @@ const FormField: React.FC<FormFieldProps> = ({
             <FontAwesomeIcon
               icon={showPassword ? faEye : faEyeSlash}
               size={20}
-              color="gray"
+              color="#ccc"
             />
           </TouchableOpacity>
         ) : (
@@ -50,7 +48,7 @@ const FormField: React.FC<FormFieldProps> = ({
               onPress={() => handleChangeText("")}
               style={styles.circleXmark}
             >
-              <FontAwesomeIcon icon={faCircleXmark} size={15} color="gray" />
+              <FontAwesomeIcon icon={faCircleXmark} size={15} color="#ccc" />
             </TouchableOpacity>
           )
         )}
@@ -63,20 +61,18 @@ export default FormField;
 
 const styles = StyleSheet.create({
   input: {
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    backgroundColor: "#fafafa",
-    borderRadius: 5,
-    height: 40,
-    width: "100%",
     flexDirection: "row",
     alignItems: "center",
+    borderWidth: 0.25,
+    borderColor: "#ccc",
+    backgroundColor: "#f8f9fa",
+    borderRadius: 6,
+    padding: 10
   },
   textInput: {
     color: "#000",
-    padding: 10,
-    fontSize: 13,
-    flex: 1,
+    width: "100%",
+    fontSize: 14
   },
   eye: {
     position: "absolute",
@@ -85,5 +81,5 @@ const styles = StyleSheet.create({
   circleXmark: {
     position: "absolute",
     right: 15,
-  },
+  }
 });

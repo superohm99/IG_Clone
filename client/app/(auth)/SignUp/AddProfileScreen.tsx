@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import * as ImagePicker from 'expo-image-picker';
 
-import CustomButton from "@/components/tools_auth/CustomButton";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 import { images } from "@/constants";
 
 const AddProfileScreen = () => {
@@ -65,11 +65,8 @@ const AddProfileScreen = () => {
             title="Add a photo"
             handlePress={pickImage}
           />
-          <TouchableOpacity
-            onPress={() => router.push("/SignUpScreen/RememberLoginScreen")}
-            style={{ alignSelf: "center" }}
-          >
-            <Text style={[styles.baseText, { color: "#3797EF" }]}>Skip</Text>
+          <TouchableOpacity onPress={() => router.navigate("/SignUp/DiscoverScreen")}>
+            <Text style={styles.footerText}>Skip</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,13 +79,12 @@ export default AddProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "#fff",
   },
   content: {
     flex: 1,
     paddingHorizontal: 20,
-    marginTop: 50,
+    paddingTop: 100,
   },
   headerText: {
     fontSize: 25,
@@ -101,10 +97,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "gray",
   },
+  footerText: {
+    fontSize: 14,
+    fontWeight: "700",
+    textAlign: "center",
+    color: "#000",
+  },
   images: {
     width: 150,
+    height: 150,
     alignSelf: "center",
-    marginBottom: 20,
+    marginTop: 150,
   },
   footer: {
     marginBottom: 30,

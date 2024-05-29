@@ -8,21 +8,16 @@ type ButtonProps = {
   handlePress: () => void;
 };
 
-const CustomButton: React.FC<ButtonProps> = ({
-  title,
-  otherStyle,
-  isLoading,
-  handlePress,
-}) => {
+const CustomButton = (props: ButtonProps) => {
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={props.handlePress}
       activeOpacity={0.7}
-      style={[otherStyle, styles.container, isLoading && { opacity: 0.5 }]}
-      disabled={isLoading}
+      style={[props.otherStyle, styles.container, props.isLoading && { opacity: 0.5 }]}
+      disabled={props.isLoading}
     >
       <Text style={styles.text}>
-        {title}
+        {props.title}
       </Text>
     </TouchableOpacity>
   );
@@ -34,11 +29,13 @@ export default CustomButton;
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderRadius: 5,
-    backgroundColor: "#3797EF",
+    borderRadius: 7,
+    backgroundColor: "#000",
   },
   text: {
     color: "#fff", 
+    fontSize: 14,
+    fontWeight: "700",
     textAlign: "center"
   }
 });
