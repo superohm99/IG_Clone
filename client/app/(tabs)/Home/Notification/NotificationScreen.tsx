@@ -67,7 +67,7 @@ const NotificationScreen = () => {
       <ScrollView>
 
         <TouchableOpacity onPress={() => router.navigate("/Home/Notification/FollowRequestScreen")}>
-          <RequestTab user={users}/>
+          <RequestTab users={users}/>
         </TouchableOpacity>
 
         <Separator />

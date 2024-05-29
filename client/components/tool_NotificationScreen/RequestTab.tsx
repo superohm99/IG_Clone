@@ -3,8 +3,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import { images } from "@/constants";
-
 type UserProps = {
   id: string;
   name: string;
@@ -12,33 +10,37 @@ type UserProps = {
 };
 
 type RequestTabProps = {
-  user: UserProps[];
+  users: UserProps[];
 };
 
-const RequestTab = ({ user }: RequestTabProps) => {
+const RequestTab = ({ users }: RequestTabProps) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", gap: 20 }}>
-        <View>
-          <Image
-            source={images.profile}
-            resizeMode="cover"
-            style={styles.profileฺBack}
-          />
-          <Image
-            source={images.profile}
-            resizeMode="cover"
-            style={styles.profileFront}
-          />
-        </View>
-        <View>
-          <Text style={styles.baseText}>Follow requests</Text>
-          <Text style={styles.subText}>
-            {user.length > 3
-              ? `${user[0].name} + ${user.length - 1} others`
-              : user.map((item) => item.name).join(", ")}
-          </Text>
-        </View>
+        {users && (
+          <>
+            <View>
+              <Image
+                source={{ uri: users[0].profileURI }}
+                resizeMode="cover"
+                style={styles.profileฺBack}
+              />
+              <Image
+                source={{ uri: users[1].profileURI }}
+                resizeMode="cover"
+                style={styles.profileFront}
+              />
+            </View>
+            <View>
+              <Text style={styles.baseText}>Follow requests</Text>
+              <Text style={styles.subText}>
+                {users.length > 3
+                  ? `${users[0].name} + ${users.length - 1} others`
+                  : users.map((item) => item.name).join(", ")}
+              </Text>
+            </View>
+          </>
+        )}
       </View>
       <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
         <FontAwesomeIcon icon={faCircle} size={8} color="#3797EF" />
