@@ -9,6 +9,7 @@ import send from "../assets/icons/send.png"
 import save from "../assets/icons/save-instagram.png"
 import more from "../assets/icons/more.png"
 import camera from "../assets/icons/camera.png"
+import cross from "../assets/icons/cross.png"
 
 
 
@@ -24,5 +25,6 @@ export default {
   send,
   save,
   more,
-  camera
+  camera,
+  cross
 };
