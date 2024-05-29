@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCircleCheck, faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
@@ -7,25 +7,30 @@ import { faCircle } from "@fortawesome/free-regular-svg-icons";
 type OptionProps = {
   title: string;
   description: string;
+  isSelected: boolean;
+  onSelect: () => void;
 };
 
-const Options: React.FC<OptionProps> = ({ title, description }) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+const Options = (props: OptionProps) => {
 
   return (
     <View style={styles.optionRow}>
       <View style={styles.optionColumn}>
         <View style={styles.optionHeader}>
           <FontAwesomeIcon
-            icon={title === "Private" ? faLock : faLockOpen}
+            icon={props.title === "Private" ? faLock : faLockOpen}
             size={20}
           />
-          <Text style={styles.headerText}>{title}</Text>
+          <Text style={styles.headerText}>{props.title}</Text>
         </View>
-        <Text style={styles.baseText}>{description}</Text>
+        <Text style={styles.baseText}>{props.description}</Text>
       </View>
-      <TouchableOpacity onPress={() => setIsSelected(!isSelected)}>
-        <FontAwesomeIcon icon={isSelected ? faCircleCheck : faCircle} size={20} color={isSelected ? "#3797EF" : "gray"} />
+      <TouchableOpacity onPress={props.onSelect}>
+        <FontAwesomeIcon 
+          icon={props.isSelected ? faCircleCheck : faCircle} 
+          color={props.isSelected ? "#3797EF" : "gray"}
+          size={20}
+        />
       </TouchableOpacity>
     </View>
   );

@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "expo-router";
 
-import CustomButton from "@/components/tools_auth/CustomButton";
-import FormField from "@/components/tools_auth/FormField";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import FormField from "@/components/tool_AuthScreen/FormField";
 
 const CreateUsernameScreen = () => {
   const [username, setUsername] = useState<string>("");
@@ -17,27 +17,25 @@ const CreateUsernameScreen = () => {
     setIsSubmitting(true);
 
     // passing username to next screen
-    router.push({
-      pathname: "/SignUpScreen/CreatePasswordScreen",
+    router.navigate({
+      pathname: "/SignUp/CreatePasswordScreen",
       params: { username },
     });
   };
-  
+
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => router.back()} style={{ width: 10 }}>
+        <View style={styles.angleLeft}>
+          <FontAwesomeIcon icon={faAngleLeft} size={25} />
+        </View>
+      </TouchableOpacity>
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => router.replace("/SignInScreen")}
-          style={{ width: 10 }}
-        >
-          <View style={styles.angleLeft}>
-            <FontAwesomeIcon icon={faAngleLeft} size={25} />
-          </View>
-        </TouchableOpacity>
         <View style={styles.content}>
           <Text style={styles.headerText}>Create username</Text>
           <Text style={styles.baseText}>
-            Pick a username for your new account. You can always change it later.
+            Pick a username for your new account. You can always change it
+            later.
           </Text>
           <FormField
             title="Username"
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
   },
   angleLeft: {
     marginTop: 20,
-    marginLeft: 5,
+    marginLeft: 5
   },
   headerText: {
     fontSize: 25,

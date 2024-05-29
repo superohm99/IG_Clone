@@ -5,7 +5,11 @@ import { useRouter } from "expo-router";
 
 import { icons } from "../../constants";
 
-const HeaderView = () => {
+type HeaderProps = {
+  handleNotificationPage: () => void;
+}
+
+const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage }) => {
   const router = useRouter();
 
   return (
@@ -18,7 +22,7 @@ const HeaderView = () => {
         <View style={{flexDirection:'row'}}>
             <TouchableOpacity 
               style={{ marginRight:20, marginTop:10 }}
-              onPress={() => {router.replace("NotificationScreen")}}
+              onPress={handleNotificationPage}
             >
               <Image
                       source={icons.heart}

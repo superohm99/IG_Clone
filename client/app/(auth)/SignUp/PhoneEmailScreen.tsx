@@ -1,15 +1,17 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-import FormField from "@/components/tools_auth/FormField";
-import CustomButton from "@/components/tools_auth/CustomButton";
+import FormField from "@/components/tool_AuthScreen/FormField";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 
 const PhoneEmailScreen = () => {
   const router = useRouter();
+  const { username, password } = useLocalSearchParams<{ username: string, password: string }>();
+
   const [isSelect, setIsSelect] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
@@ -24,24 +26,27 @@ const PhoneEmailScreen = () => {
 
     if (isSelect) {
       // submit phone
-      router.push({
-        pathname: "/SignUpScreen/ConfirmationCodeScreen",
-        params: { phone }
+      router.navigate({
+        pathname: "/SignUp/WelcomeScreen",
+        params: { username, password, phone, email }
       });
     } else {
       // submit email
-      router.push("/SignUpScreen/SyncScreen");
+      router.navigate({
+        pathname: "/SignUp/WelcomeScreen",
+        params: { username, password, phone, email }
+      });
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => router.back()} style={{ width: 10 }}>
+        <View style={styles.angleLeft}>
+          <FontAwesomeIcon icon={faAngleLeft} size={25} />
+        </View>
+      </TouchableOpacity>
       <ScrollView>
-        <TouchableOpacity onPress={() => router.back()} style={{ width: 10 }}>
-          <View style={styles.angleLeft}>
-            <FontAwesomeIcon icon={faAngleLeft} size={25} />
-          </View>
-        </TouchableOpacity>
         <View style={styles.content}>
           <Text style={styles.headerText}>Add Phone or Email</Text>
           <View style={styles.tabBar}>

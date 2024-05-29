@@ -1,18 +1,28 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import CustomButton from "@/components/tools_auth/CustomButton";
-import Options from "@/components/tools_auth/Options";
+import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import Options from "@/components/tool_AuthScreen/Options";
 
 const AccountPrivacyScreen = () => {
   const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const options = [
+    { title: "Private", description: "Only accounts you approve can see your photos and videos." },
+    { title: "Public", description: "Anyone can see your photos and videos." }
+  ];
+
+  const handleSelect = (title: string) => {
+    setSelectedOption((prev) => (prev === title ? null : title));
+  };
 
   const submit = async () => {
     setIsSubmitting(true);
-    router.push("/SignUpScreen/AddProfileScreen")
+    router.navigate("/SignUp/AddProfileScreen");
   };
 
   return (
@@ -20,20 +30,20 @@ const AccountPrivacyScreen = () => {
       <ScrollView>
         <View style={styles.content}>
           <Text style={styles.headerText}>Account privacy</Text>
-          <Text style={styles.middleText}>
-            Choose who can see what you share. You can change this anytime in
-            settings.
-          </Text>
+          <Text style={styles.middleText}>Choose who can see what you share. You can change this anytime in settings.</Text>
           <View style={styles.options}>
-            <Options
-              title="Private"
-              description="Only accounts you approve can see your photos and videos."
-            />
-            <View style={{ height: 0.5, backgroundColor: "#ccc", marginVertical: 10 }} />
-            <Options
-              title="Public"
-              description="Anyone can see your photos and videos."
-            />
+            {options.map((option, index) => (
+              <Fragment key={option.title}>
+                <Options
+                  key={option.title}
+                  title={option.title}
+                  description={option.description}
+                  isSelected={selectedOption === option.title}
+                  onSelect={() => handleSelect(option.title)}
+                />
+                {index < options.length - 1 && <View style={styles.separator} />}
+              </Fragment>
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
   },
   options: {
     flexDirection: "column",
-    gap: 10
+    gap: 10,
   },
   headerText: {
     fontSize: 25,
@@ -86,5 +96,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     paddingHorizontal: 20,
     gap: 20,
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: "#ccc",
+    marginVertical: 15
   },
 });
