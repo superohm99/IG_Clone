@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { currentUser, User } from "@/constants/chat.data";
+import { useState } from "react";
+type TopNavChatProps = {};
 
-type TopNavChatProps = {
-    username: string;
-};
-
-export default function TopNavChat({ username }: TopNavChatProps) {
+export default function TopNavChat({}: TopNavChatProps) {
+    const [user] = useState<User>(currentUser);
     const handleBack = () => {
         router.back();
     }
@@ -16,7 +15,7 @@ export default function TopNavChat({ username }: TopNavChatProps) {
         <SafeAreaView style={styles.topnav}>
             <FontAwesome6 name="arrow-left" size={22} onPress={handleBack} />
             <Pressable onPress={handleBack} style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-                <Text style={{ fontSize: 24, fontWeight: "bold" }} numberOfLines={1} ellipsizeMode="tail">{username}</Text>
+                <Text style={{ fontSize: 24, fontWeight: "bold" }} numberOfLines={1} ellipsizeMode="tail">{user.username}</Text>
                 <FontAwesome6 name="caret-down" size={18} />
             </Pressable>
             <View style={styles.leftnav}>

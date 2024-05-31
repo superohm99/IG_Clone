@@ -7,9 +7,10 @@ import { icons } from "../../constants";
 
 type HeaderProps = {
   handleNotificationPage: () => void;
+  handleChatPage: () => void;
 }
 
-const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage }) => {
+const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage, handleChatPage }) => {
   const router = useRouter();
 
   return (
@@ -30,11 +31,13 @@ const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage }) => {
                       style={{ width: 24, height: 24, tintColor: 'black' }}
                     />
             </TouchableOpacity>
-            <Image
-                    source={icons.chat}
-                    resizeMode="contain"
-                    style={{ width: 24, height: 24, tintColor: 'black', marginRight:5, marginTop:10}}
-                  />
+            <TouchableOpacity onPress={handleChatPage}>
+              <Image
+                      source={icons.chat}
+                      resizeMode="contain"
+                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:5, marginTop:10}}
+                    />
+            </TouchableOpacity>
         </View>
 
 

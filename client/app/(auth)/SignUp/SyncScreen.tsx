@@ -28,7 +28,7 @@ const SyncScreen = () => {
         console.log(data[i]);
       }
     }
-    router.navigate("/SignUp/GetFacebookScreen");
+    router.navigate("/SignUp/AccountPrivacyScreen");
   };
   
   return (

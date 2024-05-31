@@ -20,31 +20,27 @@ const Like = (props: LikeProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftView}>
-        {props.user && (
-          <>
-            <Image
-              source={{ uri: props.user.profileURI }}
-              resizeMode="cover"
-              style={styles.profile}
-            />
-            <View>
-              {props.title === "comment" ? (
-                <Text style={styles.baseText}>
-                  {props.user.name} liked your comment: {props.text}{" "}
-                  {props.time}
-                </Text>
-              ) : props.title === "post" ? (
-                <Text style={styles.baseText}>
-                  {props.user.name} liked your post. {props.time}
-                </Text>
-              ) : (
-                <Text style={styles.baseText}>
-                  {props.user.name} liked your story. {props.time}
-                </Text>
-              )}
-            </View>
-          </>
-        )}
+        <Image
+          source={{ uri: props.user.profileURI }}
+          resizeMode="cover"
+          style={styles.profile}
+        />
+        <View>
+          {props.title === "comment" ? (
+            <Text style={styles.baseText}>
+              {props.user.name} liked your comment: {props.text}{" "}
+              {props.time}
+            </Text>
+          ) : props.title === "post" ? (
+            <Text style={styles.baseText}>
+              {props.user.name} liked your post. {props.time}
+            </Text>
+          ) : (
+            <Text style={styles.baseText}>
+              {props.user.name} liked your story. {props.time}
+            </Text>
+          )}
+        </View>
       </View>
       <View>
         <Image source={images.post} resizeMode="cover" style={styles.post} />
