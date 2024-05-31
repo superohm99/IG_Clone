@@ -119,7 +119,7 @@ const StoryView = () => {
                     overflow: 'hidden',
                   }}>
                     { curlist.map(({id}) => 
-                      <View style={{height: 5,
+                      <View key={id} style={{height: 5,
                       width: max_width/curlist.length,
                       backgroundColor:(id - 1) === currentImageIndex? 'white':'gray',
                       borderRadius: 2.5,
