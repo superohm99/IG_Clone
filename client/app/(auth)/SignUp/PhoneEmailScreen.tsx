@@ -88,7 +88,6 @@ const PhoneEmailScreen = () => {
                     isLoading={isSubmitting}
                     handlePress={submit}
                 />
-                <Text style={styles.footerText}>You may receive SMS notifications from us for security and login purposes.</Text>
             </View>
           ) : (
             <View>
@@ -149,13 +148,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
     color: "gray",
-  },
-  footerText: {
-    fontSize: 12,
-    textAlign: "center",
-    marginHorizontal: 35,
-    marginVertical: 20,
-    color: "gray"
   },
   tabBar: {
     flexDirection: "row",
