@@ -10,5 +10,6 @@ type User struct {
 	Avatar          string
 	IsActive        bool
 	RefreshToken    string
+	User_profile    []Userprofile
 	IsPublicAccount bool
 }
