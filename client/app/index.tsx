@@ -1,8 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Redirect } from "expo-router";
+import * as React from 'react';
+import { NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ProfileScreen from './(tabs)/ProfileScreen'
+import { Redirect,Link } from "expo-router";
 
 export default function index() {
+    const key:Boolean = false;
+    
+    if (!key)
+        // return <Redirect href="/HomeScreen"/>
+        return <Redirect href="/SignInScreen"/>
+
     return (
-        <Redirect href="/HomeScreen" />
+    <View>
+        {/* <Text>Index</Text> */}
+        <Link href="/ProfileScreen">Profile </Link>
+        <Link href="/Home">Home </Link>
+    </View>
     );
 }

@@ -1,5 +1,6 @@
-import { StyleSheet, Image, Text, View, Pressable } from "react-native";
-import { Tabs } from 'expo-router'
+import { StyleSheet,Image, Text, View, Pressable } from "react-native";
+import React from 'react'
+import {Tabs, Redirect } from 'expo-router'
 import { icons } from "../../constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -104,42 +105,7 @@ export function TabsLayout() {
         />
 
 
-        <Tabs.Screen
-          name="ClipScreen"
-          options={{
-            title: "",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.clip}
-                color={color}
-                name="Clip"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-
-        <Tabs.Screen
-          name="ProfileScreen"
-          options={{
-            title: "",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.profile}
-                color={color}
-                name="Profile"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-
-
-
-
-      </Tabs>
+        </Tabs>
     </>
   )
 }
