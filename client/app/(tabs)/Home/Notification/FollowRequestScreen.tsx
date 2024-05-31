@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
+
 import SearchBar from "@/components/tool_NotificationScreen/SearchBar";
 import Follow from "@/components/tool_NotificationScreen/Follow";
 import SuggestedUsers from "@/components/tool_NotificationScreen/SuggestedUser/SuggestedUsers";

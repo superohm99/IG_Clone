@@ -6,7 +6,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Feather, Ionicons } from "@expo/vector-icons";
 
-
 interface TabIconProps {
   icon: any;
   color: string;
@@ -103,8 +102,6 @@ export function TabsLayout() {
             ),
           }}
         />
-
-
         </Tabs>
     </>
   )
