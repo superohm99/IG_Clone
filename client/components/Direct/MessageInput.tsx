@@ -1,12 +1,12 @@
-import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import { FontAwesome6 } from '@expo/vector-icons'
 import { useState } from 'react'
 
-type BottomChatProps = {
+type MessageInputProps = {
   onSendMessage: (message: string) => void
 }
 
-const BottomChat = ({ onSendMessage }: BottomChatProps) => {
+const MessageInput = ({ onSendMessage }: MessageInputProps) => {
   const [message, setMessage] = useState('')
 
   const handleInputChange = (text: string) => {
@@ -14,9 +14,10 @@ const BottomChat = ({ onSendMessage }: BottomChatProps) => {
   }
 
   return (
-
-    <View style={{position: 'absolute', bottom: 0, left: 10, width: '95%', backgroundColor: '#fff', paddingBottom: 8 }}>
-    <View style={styles.bottom}>
+    <KeyboardAvoidingView 
+      keyboardVerticalOffset={200}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <View style={styles.messageInput}>
       <FontAwesome6 name='camera' size={24} color='black' />
       <TextInput placeholder="Type a message" style={{ flex: 1 }} value={message} onChangeText={handleInputChange} />
       {message.length === 0 ? (<>
@@ -34,14 +35,14 @@ const BottomChat = ({ onSendMessage }: BottomChatProps) => {
       }
 
     </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
-export default BottomChat
+export default MessageInput
 
 const styles = StyleSheet.create({
-  bottom: {
+  messageInput: {
     width: '100%',
     paddingVertical: 8,
     paddingHorizontal: 16,

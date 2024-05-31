@@ -12,6 +12,11 @@ export type Room = {
     members: User[];
 }
 
+export type Chat = {
+    chatId: string;
+    members: User[];
+}
+
 export type Message = {
     messageId: string;
     text: string;
@@ -295,13 +300,6 @@ export const notes: Note[] = [
         user: users[2] // User Alice Johnson
     },
     {
-        noteId: "204",
-        text: "Buy flowers for Emily",
-        createdAt: new Date(Date.now() + 3000), // 3 seconds after previous note
-        isDelete: false,
-        user: users[0] // User Bob Brown
-    },
-    {
         noteId: "205",
         text: "Don't forget to walk the dog",
         createdAt: new Date(Date.now() + 4000), // 4 seconds after previous note
@@ -373,43 +371,40 @@ export const getInbox = (currentUser: User) => {
     return inbox;
 };
 
-
-export const getNotes = (currentUser: User) => {
-    // sorted by createdAt in descending order and current user first and then other users
-    const sortedNotes = notes.sort((a: Note, b: Note) => {
-        if(a.user === currentUser) return -1;
-        if(b.user === currentUser) return 1;
-        return b.createdAt.getTime() - a.createdAt.getTime();
-    });
-    const uniqueNotes: Note[] = [];
-    sortedNotes.forEach(note => {
-        // check if uniqueNotes already has a note with the same user
-        if(!uniqueNotes.some(n => n.user === note.user)) {
-            uniqueNotes.push(note);
+export const getOtherNotes = (currentUser: User) => {
+    // get the latest note for users except the current user
+    const otherNotes = notes.filter(note => note.user !== currentUser)
+        .sort((a: Note, b: Note) => b.createdAt.getTime() - a.createdAt.getTime());
+    const uniqueOtherNotes: Note[] = [];
+    otherNotes.forEach(note => {
+        // check if uniqueOtherNotes already has a note with the same user
+        if(!uniqueOtherNotes.some(n => n.user === note.user)) {
+            uniqueOtherNotes.push(note);
         }
     });
 
-    const initialUserNote: Note = {
-        noteId: "0",
-        text: "โน้ต...",
-        createdAt: new Date(),
-        isDelete: false,
-        user: currentUser
-    }
+    // filter by isDelete or createDate over 24 hours
+    const filteredOtherNotes = uniqueOtherNotes.filter(note => !note.isDelete && (Date.now() - note.createdAt.getTime()) < 24 * 60 * 60 * 1000);
 
-    if(!uniqueNotes.some(n => n.user === currentUser)) {
-        uniqueNotes.unshift(initialUserNote);
-    }
-
-    return uniqueNotes;
+    return filteredOtherNotes;
 }
-const notesByUser = getNotes(currentUser);
-// console.log(JSON.stringify(notesByUser, null, 2));
 
-// when cliked on a chat get the room id, then get all the messages with that room id
-// const roomId = inbox[2].lastMessage.room.roomId;
-// const messagesForRoom = messages.filter(message => message.room.roomId === roomId);
-// console.log(JSON.stringify(messagesForRoom, null, 2));
+
+export const getCurrentUserNotes = (currentUser: User) => {
+    // get the latest note for the current user and filter by isDelete
+    const userNotes = notes.filter(note => note.user === currentUser)
+        .sort((a: Note, b: Note) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    const filteredUserNotes = userNotes.filter(note => !note.isDelete && (Date.now() - note.createdAt.getTime()) < 24 * 60 * 60 * 1000);
+
+    if(filteredUserNotes.length === 0) {
+        return {
+            user: currentUser,
+        } as Note;
+    }
+
+    return filteredUserNotes[0];
+}
 
 export const getMessagesForRoom = (roomId: string) => {
     return messages.filter(message => message.room.roomId === roomId);
@@ -431,4 +426,18 @@ export const addMessage = (roomId: string, newMessage: string) => {
     messages.push(newMessageObj);
 
     return newMessageObj;
+}
+
+export const addNewNote = (newNote: string) => {
+    const newNoteObj: Note = {
+        noteId: `${notes.length + 1}`,
+        text: newNote,
+        createdAt: new Date(Date.now() + (notes.length + 1) * 1000),
+        isDelete: false,
+        user: currentUser
+    } as Note;
+
+    notes.push(newNoteObj);
+
+    return newNoteObj;
 }

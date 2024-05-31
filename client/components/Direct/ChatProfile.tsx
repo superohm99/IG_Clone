@@ -12,10 +12,10 @@ function ChatProfile( props: ChatProfileProps) {
             <View style={styles.avatar}>
                 <Image source = {{uri: props.avatar}} style={{width: 128, height: 128, borderRadius: 100}} />
             </View>
-            <Text>{props.name}</Text>
+            <Text style={{fontSize: 16, fontWeight: 500}}>{props.name}</Text>
             <Text>Instagram • {props.username}</Text>
             <Pressable onPress={handlePressProfile} style={styles.profileButton}>
-                <Text>View Profile</Text>
+                <Text style={{fontSize: 14, fontWeight: 500}}>View Profile</Text>
             </Pressable>
         </View>
     );
@@ -26,9 +26,9 @@ export default ChatProfile;
 const styles = StyleSheet.create({
     container: {
         gap: 8,
-        justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 16,
+        marginBottom: 'auto'
     },
     avatar: {
         width: 128,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgray',
     },
     profileButton: {
-        backgroundColor: 'lightblue',
+        backgroundColor: 'lightgray',
         padding: 8,
         borderRadius: 8,
         alignItems: 'center',

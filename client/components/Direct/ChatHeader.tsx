@@ -12,7 +12,7 @@ const ChatHeader = (props: ChatHeaderProps) => {
     router.push(`/direct/t/${props.username}/messageSetting`)
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FontAwesome6 name='arrow-left' size={24} color='black' onPress={handleBack} />
       <Pressable style={styles.userInfo} onPress={handlePressSettings}>
         {props.name ? (
@@ -31,7 +31,7 @@ const ChatHeader = (props: ChatHeaderProps) => {
       </Pressable>
       <FontAwesome6 name='phone' size={22} color='black' />
       <FontAwesome6 name='video' size={22} color='black' />
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 8,
     gap: 24,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   avatar: {
     width: 28,

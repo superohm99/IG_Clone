@@ -18,9 +18,11 @@ function ChatCardItem({ data }: ChatItemProps) {
         console.log("pop up bottom sheet");
     }
     const handlePressCamera = () => {
+        // go to camera page
         console.log("Camera");
     }
     const handlePressProfile = () => {
+        // go to story page
         console.log("Story");
     }   
 
@@ -31,11 +33,10 @@ function ChatCardItem({ data }: ChatItemProps) {
                 onLongPress={handleLongPress}
                 underlayColor="#f0f0f0">
                 <View style={styles.chatCard}>
-
                     <Pressable
                         onPress={ data.interlocutorUser.isStory ? handlePressProfile : handlePressChat }>
-                        <View style={styles.chatAvatar}>
-                            <Image source = {{uri: data.interlocutorUser.avatar}} style={{width: 52, height: 52, borderRadius: 50}} />
+                        <View style={[styles.chatAvatar, ]}>
+                            <Image source = {{uri: data.interlocutorUser.avatar}} style={[ data.interlocutorUser.isStory && styles.storyBorder, {width: 52, height: 52, borderRadius: 50}]} />
                             {data.interlocutorUser.isOnline && <View style={styles.activeII}></View>}
                         </View>
                     </Pressable>
@@ -60,7 +61,6 @@ type ChatContentProps = {};
 
 export default function ChatContent({}: ChatContentProps) {
     const [data, setData] = useState(getInbox(currentUser));
-
     useEffect(() => {
     }, []);
 
@@ -116,5 +116,10 @@ const styles = StyleSheet.create({
         backgroundColor: "lime",
         borderColor: "#fff",
         borderWidth: 2,
-    }
+    },
+    storyBorder: {
+        borderRadius: 100,
+        borderColor: "lime",
+        borderWidth: 2,
+    },
 });

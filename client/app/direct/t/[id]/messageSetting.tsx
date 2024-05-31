@@ -71,7 +71,6 @@ function MessageSetting({ }: MessageSettingProps) {
     const { id } = useLocalSearchParams<{ id: string }>();
     const [interlocutorUser] = useState(getUserByUsername(id!));
     const handleClickProfile = () => {
-        console.log('Profile');
         router.push(`/direct/t/${interlocutorUser!.username}/profile`);
     };
     return (
