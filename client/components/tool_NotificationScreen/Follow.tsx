@@ -37,24 +37,20 @@ const Follow = (props: FollowProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftView}>
-        {props.user && (
-          <>
-            <Image
-              source={{ uri: props.user.profileURI }}
-              resizeMode="cover"
-              style={styles.profile}
-            />
-            <Text
-              style={[
-                styles.baseText,
-                isConfirm ? { width: 190 } : { width: 145 },
-              ]}
-            >
-              {props.user.name}
-              {description} {props.time}
-            </Text>
-          </>
-        )}
+        <Image
+          source={{ uri: props.user.profileURI }}
+          resizeMode="cover"
+          style={styles.profile}
+        />
+        <Text
+          style={[
+            styles.baseText,
+            isConfirm ? { width: 190 } : { width: 140 },
+          ]}
+        >
+          {props.user.name}
+          {description} {props.time}
+        </Text>
       </View>
       <View style={styles.rightView}>
         {isConfirm ? (

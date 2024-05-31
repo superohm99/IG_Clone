@@ -11,7 +11,6 @@ const SignUpLayout = () => {
         <Stack.Screen name="WelcomeScreen" />
         <Stack.Screen name="PhoneEmailScreen" />
         <Stack.Screen name="SyncScreen" />
-        <Stack.Screen name="GetFacebookScreen" />
         <Stack.Screen name="AccountPrivacyScreen" />
         <Stack.Screen name="AddProfileScreen" />
         <Stack.Screen name="DiscoverScreen" />
