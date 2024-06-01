@@ -25,38 +25,34 @@ const Mention = (props: MentionProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftView}>
-        {props.user && (
-          <>
-            <Image
-              source={{uri: props.user.profileURI}}
-              resizeMode="cover"
-              style={styles.profile}
-            />
-            <View style={styles.content}>
-              {props.title === "comment" ? (
-                <Text style={styles.baseText}>
-                  {props.user.name} mentioned you in comment: {props.text} {props.time}
-                </Text>
-              ) : (
-                <Text style={styles.baseText}>
-                  {props.user.name} commented: {props.text} {props.time}
-                </Text>
-              )}
-              <View style={styles.reply}>
-                <TouchableOpacity onPress={() => setIsLiked(!isLiked)}>
-                  <FontAwesomeIcon
-                    icon={isLiked ? solidHeart : regularHeart}
-                    color={isLiked ? "red" : "gray"}
-                    size={14}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Text style={styles.replyText}>Reply</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </>
-        )}
+        <Image
+          source={{uri: props.user.profileURI}}
+          resizeMode="cover"
+          style={styles.profile}
+        />
+        <View style={styles.content}>
+          {props.title === "comment" ? (
+            <Text style={styles.baseText}>
+              {props.user.name} mentioned you in comment: {props.text} {props.time}
+            </Text>
+          ) : (
+            <Text style={styles.baseText}>
+              {props.user.name} commented: {props.text} {props.time}
+            </Text>
+          )}
+          <View style={styles.reply}>
+            <TouchableOpacity onPress={() => setIsLiked(!isLiked)}>
+              <FontAwesomeIcon
+                icon={isLiked ? solidHeart : regularHeart}
+                color={isLiked ? "red" : "gray"}
+                size={14}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.replyText}>Reply</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
       <View>
         <Image source={images.post} resizeMode="cover" style={styles.post} />

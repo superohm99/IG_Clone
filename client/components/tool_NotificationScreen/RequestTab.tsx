@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 
 type UserProps = {
-  id: string;
   name: string;
   profileURI: string;
 };
@@ -17,30 +16,26 @@ const RequestTab = ({ users }: RequestTabProps) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", gap: 20 }}>
-        {users && (
-          <>
-            <View>
-              <Image
-                source={{ uri: users[0].profileURI }}
-                resizeMode="cover"
-                style={styles.profileฺBack}
-              />
-              <Image
-                source={{ uri: users[1].profileURI }}
-                resizeMode="cover"
-                style={styles.profileFront}
-              />
-            </View>
-            <View>
-              <Text style={styles.baseText}>Follow requests</Text>
-              <Text style={styles.subText}>
-                {users.length > 3
-                  ? `${users[0].name} + ${users.length - 1} others`
-                  : users.map((item) => item.name).join(", ")}
-              </Text>
-            </View>
-          </>
-        )}
+        <View>
+          <Image
+            source={{ uri: users[0].profileURI }}
+            resizeMode="cover"
+            style={styles.profileฺBack}
+          />
+          <Image
+            source={{ uri: users[1].profileURI }}
+            resizeMode="cover"
+            style={styles.profileFront}
+          />
+        </View>
+        <View>
+          <Text style={styles.baseText}>Follow requests</Text>
+          <Text style={styles.subText}>
+            {users.length > 3
+              ? `${users[0].name} + ${users.length - 1} others`
+              : users.map((item) => item.name).join(", ")}
+          </Text>
+        </View>
       </View>
       <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
         <FontAwesomeIcon icon={faCircle} size={8} color="#3797EF" />
