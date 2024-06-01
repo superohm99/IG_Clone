@@ -12,8 +12,10 @@ export default function HomeScreen() {
     
     <SafeAreaView style={styles.container}>
 
-      <HeaderView handleNotificationPage={() => router.navigate("/Home/Notification")}></HeaderView>
-
+      <HeaderView 
+        handleNotificationPage={() => router.navigate("/Home/Notification")}
+        handleChatPage={() => router.navigate("/direct/inbox")}
+      ></HeaderView>
 
       {/* Show People' Story */}
       <StoryView></StoryView>
