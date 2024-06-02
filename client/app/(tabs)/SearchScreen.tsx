@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text,View,StyleSheet,ScrollView,Dimensions,Image, Button,} from 'react-native';
 import SearchBox from '@/components/SearchPage/SearchBox';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SearchContent from '@/components/SearchPage/SearchContent';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useFocusEffect} from 'expo-router';
 import SearchUserProfile from '@/components/SearchPage/SearchUserProfile';
 
 
@@ -11,7 +11,8 @@ const width = Dimensions.get('window').width;
 
 const SearchHomeScreen = () => {
   const { id, username } = useLocalSearchParams();
-
+  const navigation = useNavigation();
+  
   return (
     <View style={styles.container}>
       { id ? (
