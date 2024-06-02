@@ -229,10 +229,8 @@ const UserProfilePostView = () => {
   }
 
   return (
-
+    
     <View style={styles.mainContainer}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-
       <View style={styles.container}>
         <View style={styles.tab_container}>
           <TouchableOpacity
@@ -273,8 +271,16 @@ const UserProfilePostView = () => {
             />
           </View>
         )}
-
-      </ScrollView>
+        {selected ==2 && (
+          <View>
+            <Text>Video</Text>
+          </View>
+        )}
+        {selected ==3 && (
+          <View>
+            <Text>Friend Tags</Text>
+          </View>
+        )}
     </View>
   )
 }
@@ -283,7 +289,7 @@ export default UserProfilePostView
 
 const styles = StyleSheet.create({
   mainContainer:{
-    flex: 1,
+    // flex: 1,
   },
   container:{
     marginTop: 20,
@@ -310,10 +316,6 @@ const styles = StyleSheet.create({
     width: '33.33%', // Adjust width as needed
     height: 'auto',
     marginHorizontal: 1,
-  },
-  scrollView: {
-    backgroundColor: 'white',
-    marginHorizontal: 2,
   },
   flatListContainer: {
     flex: 1,
