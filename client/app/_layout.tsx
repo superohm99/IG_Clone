@@ -44,6 +44,8 @@ const RootLayout = () => {
         
                 <Stack.Screen name='(search)/SearchUserScreen' options={{ headerShown: false}}/>
                 <Stack.Screen name='(search)/SearchPostScreen' options={{ headerShown: false}}/>
+                <Stack.Screen name='(profile)' options={{ headerShown: false}}/>
+                
         </Stack>
 
 )
