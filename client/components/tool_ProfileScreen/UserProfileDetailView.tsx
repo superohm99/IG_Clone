@@ -24,7 +24,7 @@ const UserProfileDetailView = () => {
     post: 0,
     follower: 0,
     following: 0,
-    bio: "hello haojogjageokofeo",
+    bio: "hello haojogjageokofeo fjifjiaijfiwjfiiwjfijijiajfiwjiwijiafmwmfiwifijaijwijaifjwijaifiwjif",
     links: "htttp://aaa",
   })
 
@@ -99,7 +99,7 @@ const UserProfileDetailView = () => {
           </View>
         </View>
         <View style={styles.profile_container}>
-            <View style={styles.profile_detail_container}>
+            <View>
               <Image
                   source={userInfo.avatar}
                   style={{
@@ -130,7 +130,7 @@ const UserProfileDetailView = () => {
               <Text>Following</Text>
             </View>
         </View>
-        <View style= {{paddingBottom: 10}}>
+        <View style= {styles.profile_detail_container}>
               <Text>
                   {userInfo.bio}
                   {'\n'}
@@ -138,14 +138,14 @@ const UserProfileDetailView = () => {
               </Text>
         </View>
         <View style={styles.button_container}>
-            <TouchableOpacity style= {{width: '50%',}} onPress={() => router.push('/(profile)/EditProfileScreen')}>
+            <TouchableOpacity style= {{width: '49%',}} onPress={() => router.push('/(profile)/EditProfileScreen')}>
               <View style={styles.button}>
                   <Text style={styles.button_text}>
                     Edit Profile
                   </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style= {{width: '50%',}}>
+            <TouchableOpacity style= {{width: '49%',}}>
               <View style={styles.button}>
                   <Text style={styles.button_text}>
                     Share Profile
@@ -161,38 +161,40 @@ export default UserProfileDetailView
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     header:{
-        flexDirection: 'row',
-        alignItems: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     profileUsername:{
-        fontSize: 18,
-        fontWeight: 'bold',
+      fontSize: 18,
+      fontWeight: 'bold',
     },
     profile_container:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 20,
     },
     profile_detail_container:{
-        alignItems: 'center',
+      paddingBottom: 10,
     },
     button_container:{
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
       paddingVertical: 5,
+      paddingRight: 5,
     },
     button:{
       width: '100%',
       height: 35,
       borderRadius: 5,
       borderColor: '#DEDEDE',
+      backgroundColor: '#DEDEDE',
       borderWidth: 1,
       justifyContent: 'center',
       alignItems: 'center',

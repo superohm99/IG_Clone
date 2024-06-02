@@ -1,5 +1,5 @@
-import { Animated, Modal, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
+import { Animated, Modal, StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'
 import UserProfileDetailView from '@/components/tool_ProfileScreen/UserProfileDetailView'
 import UserProfilePostView from '@/components/tool_ProfileScreen/UserProfilePostView'
 import UserProfileHighlightStory from '@/components/tool_ProfileScreen/UserProfileHighlightStory'
@@ -7,16 +7,22 @@ import UserProfileHighlightStory from '@/components/tool_ProfileScreen/UserProfi
 const ProfileScreen = () => {
   
   return (
-    <View>
-      <UserProfileDetailView/>
-      <UserProfileHighlightStory/>
-      <UserProfilePostView/>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <UserProfileDetailView/>
+        <UserProfileHighlightStory/>
+        <UserProfilePostView/>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 export default ProfileScreen
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // paddingTop: StatusBar.currentHeight,
+  }
 
 })
