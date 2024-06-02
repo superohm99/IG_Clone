@@ -37,13 +37,13 @@ export default function index() {
   const snapPoints = useMemo(() => ['25%'], []);
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'white' }}>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         activeOpacity={1}
         onPress={handlePressOtherArea}>
       <ScrollView
-        style={{ backgroundColor: 'white', opacity: selectedNote ? 0.5 : 1 }}
+        style={{ opacity: selectedNote ? 0.5 : 1 }}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -93,5 +93,6 @@ const styles = StyleSheet.create({
   container: {
     gap: 20,
     paddingTop: 16,
+    flex: 1,
   },
 });

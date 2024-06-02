@@ -31,6 +31,7 @@ const ChatContainer = () => {
     <SafeAreaView style={styles.container}>
       <ChatHeader {...interlocutorUser} />
       <ScrollView
+        contentInsetAdjustmentBehavior='never'
         contentContainerStyle={styles.messageContainer}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}

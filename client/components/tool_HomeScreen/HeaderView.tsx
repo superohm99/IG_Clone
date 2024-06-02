@@ -1,8 +1,8 @@
-import { StyleSheet, Text,Image, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text,Image, View, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from "expo-router";
-
+import { Feather } from '@expo/vector-icons';
 import { icons } from "../../constants";
 
 type HeaderProps = {
@@ -14,30 +14,18 @@ const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage, handleChatP
   const router = useRouter();
 
   return (
-    <View style={{backgroundColor:'white'}}>
-        <SafeAreaView style={{flexDirection: 'row',justifyContent:'space-between',paddingHorizontal:10}}>
+    <View style={{backgroundColor:'white', paddingTop: 12, paddingBottom: 4}}>
+        <SafeAreaView style={{flexDirection: 'row',justifyContent:'space-between',paddingHorizontal:10, alignItems: 'center'}}>
 
         <Text style={{marginLeft:5,fontWeight:700,fontSize:30,fontFamily:"sans-serif-condensed"}}>Instagram</Text>
-    
 
-        <View style={{flexDirection:'row'}}>
-            <TouchableOpacity 
-              style={{ marginRight:20, marginTop:10 }}
-              onPress={handleNotificationPage}
-            >
-              <Image
-                      source={icons.heart}
-                      resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black' }}
-                    />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleChatPage}>
-              <Image
-                      source={icons.chat}
-                      resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:5, marginTop:10}}
-                    />
-            </TouchableOpacity>
+        <View style={{flexDirection:'row', gap: 22}}>
+            <Pressable onPress={handleNotificationPage}>
+              <Feather name="heart" size={30} color="black" onPress={handleNotificationPage} />
+            </Pressable>
+            <Pressable onPress={handleChatPage}>
+              <Feather name="message-circle" size={30} color="black" />
+            </Pressable>
         </View>
 
 

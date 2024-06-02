@@ -121,7 +121,7 @@ export const rooms: Room[] = [
 export const messages: Message[] = [
     {
         messageId: "301",
-        text: "Hello, everyone!",
+        text: "Hello, everyone! asdkfasdklfjadsfkl;jasdfl;",
         createdAt: new Date(),
         user: users[0], // John Doe
         room: rooms[0] // Room 101
@@ -129,21 +129,21 @@ export const messages: Message[] = [
     {
         messageId: "302",
         text: "How are you doing?",
-        createdAt: new Date(Date.now() + 1000), // 1 second after previous message
+        createdAt: new Date(Date.now() - 23000), // 1 second after previous message
         user: users[1], // Jane Smith
         room: rooms[0] // Room 101
     },
     {
         messageId: "303",
         text: "I'm fine, thanks!",
-        createdAt: new Date(Date.now() + 2000), // 2 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 2 seconds after previous message
         user: users[0], // John Doe
         room: rooms[0] // Room 101
     },
     {
         messageId: "304",
         text: "Nice weather today!",
-        createdAt: new Date(Date.now() + 3000), // 3 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 3 seconds after previous message
         user: users[2], // Alice Johnson
         room: rooms[1] // Room 102
     },
@@ -151,14 +151,14 @@ export const messages: Message[] = [
     {
         messageId: "305",
         text: "Has anyone seen my keys?",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 4 seconds after previous message
         user: users[1], // Jane Smith
         room: rooms[0] // Room 101
     },
     {
         messageId: "306",
         text: "Check under the couch!",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 5 seconds after previous message
         user: users[0], // John Doe
         room: rooms[0] // Room 101
     },
@@ -166,14 +166,14 @@ export const messages: Message[] = [
     {
         messageId: "307",
         text: "Let's plan the next meeting.",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 4 seconds after previous message
         user: users[0], // John Doe
         room: rooms[1] // Room 102
     },
     {
         messageId: "308",
         text: "Sure, what time works for everyone?",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 5 seconds after previous message
         user: users[2], // Alice Johnson
         room: rooms[1] // Room 102
     },
@@ -181,14 +181,14 @@ export const messages: Message[] = [
     {
         messageId: "309",
         text: "Good morning, everyone!",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 4 seconds after previous message
         user: users[1], // Jane Smith
         room: rooms[2] // Room 103
     },
     {
         messageId: "310",
         text: "Morning! How's everyone doing today?",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() - 23000), // 5 seconds after previous message
         user: users[3], // Bob Brown
         room: rooms[2] // Room 103
     },
@@ -196,14 +196,14 @@ export const messages: Message[] = [
     {
         messageId: "311",
         text: "Happy Friday, folks!",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() - 22000), // 4 seconds after previous message
         user: users[2], // Alice Johnson
         room: rooms[3] // Room 104
     },
     {
         messageId: "312",
         text: "Who's up for lunch?",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() - 21000), // 5 seconds after previous message
         user: users[4], // Emily Taylor
         room: rooms[3] // Room 104
     },
@@ -211,14 +211,14 @@ export const messages: Message[] = [
     {
         messageId: "313",
         text: "Anyone interested in watching a movie tonight?",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() -20000), // 4 seconds after previous message
         user: users[3], // Bob Brown
         room: rooms[4] // Room 105
     },
     {
         messageId: "314",
         text: "Sounds like a plan!",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() -19000), // 5 seconds after previous message
         user: users[4], // Emily Taylor
         room: rooms[4] // Room 105
     },
@@ -226,14 +226,14 @@ export const messages: Message[] = [
     {
         messageId: "315",
         text: "How was everyone's weekend?",
-        createdAt: new Date(Date.now() + 4000), // 4 seconds after previous message
+        createdAt: new Date(Date.now() -18000), // 4 seconds after previous message
         user: users[0], // John Doe
         room: rooms[5] // Room 106
     },
     {
         messageId: "316",
         text: "It was great, thanks for asking!",
-        createdAt: new Date(Date.now() + 5000), // 5 seconds after previous message
+        createdAt: new Date(Date.now() - 17000), // 5 seconds after previous message
         user: users[3], // Bob Brown
         room: rooms[5] // Room 106
     },
@@ -241,35 +241,35 @@ export const messages: Message[] = [
     {
         messageId: "317",
         text: "I'm going to the beach this weekend!",
-        createdAt: new Date(Date.now() + 6000), // 6 seconds after previous message
+        createdAt: new Date(Date.now() - 16000), // 6 seconds after previous message
         user: users[0], // John Doe
         room: rooms[0] // Room 101
     },
     {
         messageId: "318",
         text: "That sounds fun! I'm going to the mountains.",
-        createdAt: new Date(Date.now() + 7000), // 7 seconds after previous message
+        createdAt: new Date(Date.now() - 13000), // 7 seconds after previous message
         user: users[1], // Jane Smith
         room: rooms[0] // Room 101
     },
     {
         messageId: "319",
         text: "I'm going to the city to see a show.",
-        createdAt: new Date(Date.now() + 8000), // 8 seconds after previous message
+        createdAt: new Date(Date.now() - 12000), // 8 seconds after previous message
         user: users[1], // Alice Johnson
         room: rooms[0] // Room 101
     },
     {
         messageId: "320",
         text: "I'm going to the countryside to relax.",
-        createdAt: new Date(Date.now() + 9000), // 9 seconds after previous message
+        createdAt: new Date(Date.now() - 11000), // 9 seconds after previous message
         user: users[1], // Bob Brown
         room: rooms[0] // Room 101
     },
     {
         messageId: "321",
         text: "I'm going to the park to read a book.",
-        createdAt: new Date(Date.now() + 10000), // 10 seconds after previous message
+        createdAt: new Date(Date.now() - 10000), 
         user: users[1], // Emily Taylor
         room: rooms[0] // Room 101
     

@@ -3,12 +3,23 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { getInbox, currentUser, Inbox } from "@/constants/chat.data";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 type ChatItemProps = {
     data: Inbox;
 };
 function ChatCardItem({ data }: ChatItemProps) {
-    
+
+    const [recentTime, setRecentTime] = useState(dayjs(data.lastMessage.createdAt).fromNow());
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setRecentTime(dayjs(data.lastMessage.createdAt).fromNow());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     const handlePressChat = () => {
         router.push({
             pathname: `/direct/t/${data.lastMessage.room.roomId}`,
@@ -24,7 +35,7 @@ function ChatCardItem({ data }: ChatItemProps) {
     const handlePressProfile = () => {
         // go to story page
         console.log("Story");
-    }   
+    }
 
     return (
         <View>
@@ -34,19 +45,19 @@ function ChatCardItem({ data }: ChatItemProps) {
                 underlayColor="#f0f0f0">
                 <View style={styles.chatCard}>
                     <Pressable
-                        onPress={ data.interlocutorUser.isStory ? handlePressProfile : handlePressChat }>
-                        <View style={[styles.chatAvatar, ]}>
-                            <Image source = {{uri: data.interlocutorUser.avatar}} style={[ data.interlocutorUser.isStory && styles.storyBorder, {width: 52, height: 52, borderRadius: 50}]} />
+                        onPress={data.interlocutorUser.isStory ? handlePressProfile : handlePressChat}>
+                        <View style={[styles.chatAvatar,]}>
+                            <Image source={{ uri: data.interlocutorUser.avatar }} style={[data.interlocutorUser.isStory && styles.storyBorder, { width: 52, height: 52, borderRadius: 50 }]} />
                             {data.interlocutorUser.isOnline && <View style={styles.activeII}></View>}
                         </View>
                     </Pressable>
-                        <View style={styles.chatContent}>
-                            <Text numberOfLines={1} ellipsizeMode="tail">{data.interlocutorUser.username}</Text>
-                            <View style={styles.chatContentText}>
-                                <Text numberOfLines={1} ellipsizeMode="tail">{data.lastMessage.text}</Text>
-                                <Text>• {data.lastMessage.createdAt.toLocaleTimeString()}</Text>
-                            </View>
+                    <View style={styles.chatContent}>
+                        <Text numberOfLines={1} ellipsizeMode="tail">{data.interlocutorUser.username}</Text>
+                        <View style={styles.chatContentText}>
+                            <Text numberOfLines={1} ellipsizeMode="tail">{data.lastMessage.text}</Text>
+                            <Text numberOfLines={1} style={{flex: 1}}>• {recentTime}</Text>
                         </View>
+                    </View>
                     <Pressable onPress={handlePressCamera}>
                         <FontAwesome6 name="camera" size={24} />
                     </Pressable>
@@ -59,7 +70,7 @@ function ChatCardItem({ data }: ChatItemProps) {
 
 type ChatContentProps = {};
 
-export default function ChatContent({}: ChatContentProps) {
+export default function ChatContent({ }: ChatContentProps) {
     const [data, setData] = useState(getInbox(currentUser));
     useEffect(() => {
     }, []);
@@ -104,7 +115,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 5,
         alignItems: "center",
-        marginRight: 60,
+        backgroundColor: 'white'
     },
     activeII: {
         position: "absolute",

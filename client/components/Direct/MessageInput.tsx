@@ -1,7 +1,7 @@
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Platform, KeyboardAvoidingView, SafeAreaView } from 'react-native'
 import { FontAwesome6 } from '@expo/vector-icons'
 import { useState } from 'react'
-
+import { useHeaderHeight } from '@react-navigation/elements'
 type MessageInputProps = {
   onSendMessage: (message: string) => void
 }
@@ -14,12 +14,16 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
   }
 
   return (
-    <KeyboardAvoidingView 
-      keyboardVerticalOffset={200}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-    <View style={styles.messageInput}>
+    <KeyboardAvoidingView
+      behavior= {Platform.OS === 'ios' ? 'padding': 'height'}
+      style={styles.messageInput}>
       <FontAwesome6 name='camera' size={24} color='black' />
-      <TextInput placeholder="Type a message" style={{ flex: 1 }} value={message} onChangeText={handleInputChange} />
+      <TextInput 
+        placeholder="Type a message" 
+        multiline
+        style={{ flex: 1, maxHeight: 80 }} 
+        value={message} 
+        onChangeText={handleInputChange} />
       {message.length === 0 ? (<>
         <FontAwesome6 name='microphone' size={24} color='black' />
         <FontAwesome6 name='image' size={24} color='black' />
@@ -33,8 +37,6 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
         <Text>Send</Text>
       </TouchableOpacity>)
       }
-
-    </View>
     </KeyboardAvoidingView>
   )
 }

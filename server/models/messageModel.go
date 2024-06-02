@@ -1,12 +1,9 @@
 package models
 
-import "gorm.io/gorm"
-
 type Message struct {
-	gorm.Model
-	Id		uint `gorm:"primaryKey"`
+	ID uint `gorm:"primaryKey;autoIncrement"`
 	Text	string 
-	CreatedAt	string `gorm:"autoCreateTime"`
+	CreatedAt	string
 	UserID	uint
 	User	User `gorm:"foreignKey:UserID"`
 }
