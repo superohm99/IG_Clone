@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, } from 'react-native'
 import { router } from 'expo-router'
 import { Feather } from '@expo/vector-icons'
 
@@ -83,10 +83,10 @@ const EditProfileScreen = () => {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
+  const handleInputChange = (name: keyof EditState, value: string) => {
     setUserinfo({ ...userInfo, [name]: value });
   };
+
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -136,8 +136,8 @@ const EditProfileScreen = () => {
           <Text style={{opacity: 0.5, }}>Name</Text>
           <TextInput
             placeholder="name"
-            defaultValue=""
-            onChange={handleInputChange}
+            value={userInfo.name}
+            onChangeText={(value) => handleInputChange('name', value)}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -149,8 +149,8 @@ const EditProfileScreen = () => {
           <Text style={{opacity: 0.5,}}>Username</Text>
           <TextInput
             placeholder="accountname"
-            defaultValue=""
-            onChange={handleInputChange}
+            value={userInfo.username}
+            onChangeText={(value) => handleInputChange('username', value)}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -162,8 +162,8 @@ const EditProfileScreen = () => {
           <Text style={{opacity: 0.5,}}>Bio</Text>
           <TextInput
             placeholder="Bio"
-            defaultValue=""
-            onChange={handleInputChange}
+            value={userInfo.bio}
+            onChangeText={(value) => handleInputChange('bio', value)}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -175,8 +175,8 @@ const EditProfileScreen = () => {
           <Text style={{opacity: 0.5,}}>Links</Text>
           <TextInput
             placeholder="Add links"
-            defaultValue=""
-            onChange={handleInputChange}
+            value={userInfo.links}
+            onChangeText={(value) => handleInputChange('links', value)}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -184,19 +184,19 @@ const EditProfileScreen = () => {
             }}
           />
         </View>
-        <View style={{paddingVertical: 10}}>
+        {/* <View style={{paddingVertical: 10}}>
           <Text style={{opacity: 0.5,}}>Music</Text>
           <TextInput
             placeholder="Add musics to your profile"
-            defaultValue=""
-            onChange={handleInputChange}
+            value=""
+            onChangeText={(value) => handleInputChange('musics', value)}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
               borderColor: '#CDCDCD',
             }}
           />
-        </View>
+        </View> */}
       </View>
       <View>
         <Text
