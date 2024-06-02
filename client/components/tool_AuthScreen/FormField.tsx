@@ -1,5 +1,6 @@
-import { StyleSheet, View, ViewStyle,TextInput, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, ViewStyle, Text, TextInput, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { validateField } from "./FormValidation";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEye, faEyeSlash, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,7 @@ type FormFieldProps = {
   placeholder: string;
   handleChangeText: (e: string) => void;
   otherStyles: ViewStyle;
+  showError?: boolean;
 };
 
 const FormField = ({
@@ -16,17 +18,25 @@ const FormField = ({
   value,
   placeholder,
   handleChangeText,
-  otherStyles
+  otherStyles,
+  showError
 }: FormFieldProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    const errorMessage = validateField(title, value);
+    setError(errorMessage);
+  }, [title, value]);
 
   return (
     <View style={otherStyles}>
-      <View style={styles.input}>
+      <View style={[styles.input, error && showError ? {borderColor: "red"} : {borderColor: "#ccc"}]}>
         <TextInput
           style={styles.textInput}
           value={value}
           placeholder={placeholder}
+          placeholderTextColor={"#ccc"}
           onChangeText={(text) => handleChangeText(text)}
           secureTextEntry={title === "Password" && !showPassword}
           keyboardType={title === "Phone" ? "number-pad" : "default"}
@@ -53,6 +63,7 @@ const FormField = ({
           )
         )}
       </View>
+      {error && showError ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };
@@ -64,7 +75,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 0.25,
-    borderColor: "#ccc",
     backgroundColor: "#f8f9fa",
     borderRadius: 6,
     padding: 10
@@ -73,6 +83,11 @@ const styles = StyleSheet.create({
     color: "#000",
     width: "100%",
     fontSize: 14
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginTop: 5
   },
   eye: {
     position: "absolute",

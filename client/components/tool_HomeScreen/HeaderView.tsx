@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from "expo-router";
 
 import { icons } from "../../constants";
+import { images } from "../../constants";
 
 type HeaderProps = {
   handleNotificationPage: () => void;
@@ -17,7 +18,11 @@ const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage, handleChatP
     <View style={{backgroundColor:'white'}}>
         <SafeAreaView style={{flexDirection: 'row',justifyContent:'space-between',paddingHorizontal:10}}>
 
-        <Text style={{marginLeft:5,fontWeight:700,fontSize:30,fontFamily:"sans-serif-condensed"}}>Instagram</Text>
+        <Image
+            source={images.logo}
+            resizeMode="contain"
+            style={{ width: 140 , height: 50, tintColor: 'black' }}
+          />
     
 
         <View style={{flexDirection:'row'}}>

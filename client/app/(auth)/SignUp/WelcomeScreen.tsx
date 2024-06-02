@@ -6,16 +6,9 @@ import { Link, useRouter, useLocalSearchParams } from "expo-router";
 import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 import { images } from "@/constants";
 
-type LocalSearchProps = {
-  username: string;
-  password: string;
-  phone: string;
-  email: string;
-};
-
 const WelcomeScreen = () => {
   const router = useRouter();
-  const { username, password, phone, email } = useLocalSearchParams<LocalSearchProps>();
+  const { username, password, phone, email } = useLocalSearchParams();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   
   const submit = async () => {

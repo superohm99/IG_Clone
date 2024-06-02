@@ -17,6 +17,7 @@ const SearchBar = (props: SearchBarProps) => {
           style={styles.input}
           value={props.value}
           placeholder="Search"
+          placeholderTextColor={"#ccc"}
           onChangeText={(text) => props.handleChangeText(text)}
         />
         {props.value !== "" && (
