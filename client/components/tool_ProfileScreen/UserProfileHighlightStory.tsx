@@ -4,24 +4,30 @@ import { Entypo } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
 
 const UserProfileHighlightStory = () => {
-  const [highlight_stories, setHighlightStory] = useState([{ id: 0, name: "",isNew: true }])
-  const { isEdit, name_highlight } = useLocalSearchParams();
+  const [highlight_stories, setHighlightStory] = useState([{ id: 0, cover: "", name: "",isNew: true }])
+  const { isEdit, cover_image,name_highlight } = useLocalSearchParams();
 
   useEffect(() => {
     if (isEdit) {
-        addHighlightStory(name_highlight as string);
+        addHighlightStory(name_highlight as string, cover_image as string);
         // Clear the isEdit and name_highlight parameters
         router.replace('/ProfileScreen');
     }
 }, [isEdit, name_highlight]);
 
 
-  const addHighlightStory = (name_highlight:string) => {
+  const addHighlightStory = (name_highlight:string, cover_image:string) => {
     if (name_highlight == "")
       {
         name_highlight = "Highlights"
       }
-    setHighlightStory([...highlight_stories, { id: highlight_stories.length, name: name_highlight,isNew: false }])
+    if (cover_image == "")
+      {
+        cover_image = "https://th.bing.com/th/id/OIP.e20EskmwV1ypPc1EL_jTjAHaEX?rs=1&pid=ImgDetMain"
+      }
+    console.log('name_highlight:',name_highlight)
+    console.log('cover:',cover_image)
+    setHighlightStory([...highlight_stories, { id: highlight_stories.length, cover: cover_image, name: name_highlight, isNew: false }])
   }
   
   return (
@@ -31,6 +37,7 @@ const UserProfileHighlightStory = () => {
         style={{
           paddingVertical: 5,
         }}>
+         
         {highlight_stories.map(story => (
         <View key={story.id} style={styles.container}>
           {story.isNew ? (
@@ -44,7 +51,7 @@ const UserProfileHighlightStory = () => {
             <View>
               <TouchableOpacity>
                   <Image
-                    source="https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg"
+                    source={story.cover}
                     style={styles.image}
                   />
                   {/* <View style={styles.highlight_circle}></View> */}
@@ -52,7 +59,9 @@ const UserProfileHighlightStory = () => {
                   <Text style={styles.highlight_circle_name}>{story.name}</Text>
             </View>
           )}
+          
         </View>
+        
       ))}
     </ScrollView>
   )
@@ -93,7 +102,6 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 100,
-    opacity: 0.1,
     marginHorizontal: 5,
   }
 })

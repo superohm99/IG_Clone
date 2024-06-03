@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList, ScrollView, SafeAreaView} from 'react-native'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Foundation from '@expo/vector-icons/Foundation';
+import { router } from 'expo-router';
 
 
 export const UserData = [
@@ -222,11 +223,20 @@ const UserProfilePostView = () => {
 
   const renderItem = (item:any) =>{
     return(
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={item.item.post.image}/>
-      </View>
+      <TouchableOpacity style={styles.imageContainer} onPress={() => handlePost(item.item.id, item.item.username)}> 
+          <Text>{item.item.id,item.item.username}</Text>
+          <Image style={styles.image} source={item.item.post.image}/>
+      </TouchableOpacity>
     )
   }
+
+  // const handlePost = () => {
+  //   router.navigate('/(profile)/UserPost/UserPostScreen')
+  // }
+  const handlePost = (id: string,username: string) => {
+    router.push({pathname:"/(profile)/UserPost/UserPostScreen", params: {id,username}})
+  };
+
 
   return (
     
