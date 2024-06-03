@@ -41,10 +41,13 @@ const RootLayout = () => {
                 <Stack.Screen name='(auth)' options={{ headerShown: false}}/>
                 <Stack.Screen name='Notification' options={{ headerShown: false}}/>
 
-        
+                <Stack.Screen name='(search)' options={{ headerShown: false}}/>
                 <Stack.Screen name='(search)/SearchUserScreen' options={{ headerShown: false}}/>
                 <Stack.Screen name='(search)/SearchPostScreen' options={{ headerShown: false}}/>
                 <Stack.Screen name='(profile)' options={{ headerShown: false}}/>
+                <Stack.Screen name='(profile)/UserPost/[id]/UserPostScreen'/>
+                <Stack.Screen name='(search)/OtherUser/[id]/OtherUserPostScreen'/>
+
                 
         </Stack>
 

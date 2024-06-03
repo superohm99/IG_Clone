@@ -16,7 +16,7 @@ const SearchHomeScreen = () => {
   return (
     <View style={styles.container}>
       { id ? (
-        <SearchUserProfile userId={id} username={username}/>
+        <SearchUserProfile userId={id} />
       ):(
         <>
       <View style={styles.headerWrapper}>

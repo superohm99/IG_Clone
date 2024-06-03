@@ -15,8 +15,8 @@ var max_width = Dimensions.get('screen').width;
 var max_height = Dimensions.get('screen').height;
 
 interface getPropItem{
-    id:string;
-    user:string;
+  id:string; //Post id
+  user:string;
 }
 
 interface PostDetailState{
@@ -30,7 +30,7 @@ interface PostDetailState{
   isArchive: boolean;
 }
 
-const SearchPostContent = ({id, user}:getPropItem) => {
+const UserPostContent = ({id, user}:getPropItem) => {
 
   const [postDetail, setPosDetail] = useState<PostDetailState>({
     username: user,
@@ -70,6 +70,7 @@ const SearchPostContent = ({id, user}:getPropItem) => {
     console.log(sendVisible)
   };
 
+
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 1224px)",
   });
@@ -77,12 +78,14 @@ const SearchPostContent = ({id, user}:getPropItem) => {
   var resize_img:any = 'center';
   if (isTabletOrMobileDevice)
     resize_img = 'cover';
-  
-  const handleSearchUser = () =>{
+
+  const handleBack = () => {
     router.navigate("/ProfileScreen");
   }
 
+
   return (
+
     <SafeAreaView style={styles.main_container}>
     <ScrollView style={styles.scrollView}>
       
@@ -91,7 +94,7 @@ const SearchPostContent = ({id, user}:getPropItem) => {
           <View style={{width:max_width,height:55,backgroundColor:'white',flex:1,flexDirection:'row',paddingRight:0}}>
           
             
-            <TouchableOpacity style={{flex:1,flexDirection:'row'}} onPress={handleSearchUser}>
+            <TouchableOpacity style={{flex:1,flexDirection:'row'}} onPress={handleBack}>
 
             <Image
             style={{width:37,height: 37,borderRadius: 50,marginTop:4,marginLeft:10}}
@@ -276,7 +279,7 @@ const SearchPostContent = ({id, user}:getPropItem) => {
   )
 }
 
-export default SearchPostContent
+export default UserPostContent
 
 
 const styles = StyleSheet.create({

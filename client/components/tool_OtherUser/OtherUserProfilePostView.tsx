@@ -9,7 +9,7 @@ export const UserData = [
   {
       id: 1,
       name : 'Elon Musk',
-      username : 'muskelon',
+      username : 'AA',
       profile : "https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg",
       post : {
           time : '09:00:00',
@@ -22,7 +22,7 @@ export const UserData = [
   {
       id: 2,
       name : 'Harsh Beniwal',
-      username : 'harsh',
+      username : 'MAX',
       profile : "https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg",
       post : {
           time : '04:00 PM',
@@ -35,7 +35,7 @@ export const UserData = [
   {
       id: 3,
       name : 'Modi',
-      username : 'nmodi',
+      username : 'KA',
       profile : "https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg",
       post : {
           time : '07:00 AM',
@@ -217,7 +217,7 @@ export const UserData = [
 ]
 
 
-const UserProfilePostView = () => {
+const OtherUserProfilePostView = ({id}:any) => {
   const [selected, setSelected] = useState(1)
   console.log(selected)
 
@@ -234,7 +234,7 @@ const UserProfilePostView = () => {
   //   router.navigate('/(profile)/UserPost/UserPostScreen')
   // }
   const handlePost = (id: string,username: string) => {
-    router.push({pathname:`/(profile)/UserPost/${id}/UserPostScreen`, params: {id,username}})
+    router.push({pathname:`/(search)/OtherUser/${id}/OtherUserPostScreen`, params: {id,username}})
   };
 
 
@@ -295,7 +295,7 @@ const UserProfilePostView = () => {
   )
 }
 
-export default UserProfilePostView
+export default OtherUserProfilePostView
 
 const styles = StyleSheet.create({
   mainContainer:{

@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface HighLightState{
+    cover_image: string,
     name_highlight: string;
     stories: [];
 }
@@ -15,6 +16,8 @@ const ConfirmStories = () => {
     }
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [highLight,setHighlightStory] = useState<HighLightState>({
+        //**** cover_image .jpg or .png 
+        cover_image: "https://cdn.concreteplayground.com/content/uploads/2013/09/Views-1-1920x1080.jpg",
         name_highlight: "",
         stories: [],
     })
@@ -25,7 +28,8 @@ const ConfirmStories = () => {
     
     const handleSubmit = () => {
         setIsEdit(true);
-        router.navigate(`/ProfileScreen?isEdit=true&name_highlight=${highLight.name_highlight}`);
+        const encodedName = encodeURIComponent(highLight.name_highlight);
+        router.navigate(`/ProfileScreen?isEdit=true&cover_image=${encodeURIComponent(highLight.cover_image)}&name_highlight=${encodedName}`);
     };
     
     return (
@@ -43,7 +47,7 @@ const ConfirmStories = () => {
         </SafeAreaView>
         <View style={styles.content_container}>
             <Image
-                source="https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg"
+                source={highLight.cover_image}
                 style={{
                 resizeMode: 'cover',
                 width: 150,

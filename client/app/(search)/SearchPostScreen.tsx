@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Link, router } from "expo-router";
 import SearchPostContent from '@/components/SearchPage/SearchPostView';
 import { useLocalSearchParams } from 'expo-router';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 interface SearchDataItem {
   id: string;
@@ -13,26 +14,23 @@ interface SearchDataItem {
 
 const SearchPostScreen = () => {
   const { id, user } = useLocalSearchParams()
+  const handleBack = () => {
+    router.navigate("/SearchScreen");
+  }
  
   return (
+    <ScrollView >
     <SafeAreaView style={styles.safe_container}>
-      <ScrollView >
-      <View style={styles.container}>
-        <View style={styles.headerWrapper}>
-          <View style={styles.topHeaderWrapper}>
-            <View style={styles.headerTopLeftWrapper}>
-              <TouchableOpacity onPress={() => router.push('/SearchScreen')}>
-                <Icon size={20} name="arrow-left" />
-              </TouchableOpacity>
-              <View style={styles.headerText}>Explore</View>
-            </View>
-          </View>
-        </View>
-          <Text>Hello - {id} {user}</Text>
-        <SearchPostContent id={id} user={user}/> 
+      <View style={styles.topnav}>
+            <Pressable onPress={()=>handleBack} style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                <FontAwesome6 name="arrow-left" size={22} onPress={handleBack} />
+            </Pressable>
+            <Text style={{ fontSize: 24, fontWeight: "bold" }} numberOfLines={1} ellipsizeMode="tail">Explore</Text>
       </View>
-      </ScrollView>
+      
+        <SearchPostContent id={id} user={user}/> 
     </SafeAreaView>
+    </ScrollView>
   )
 }
 
@@ -43,28 +41,18 @@ const styles = StyleSheet.create({
     container: {
       display: 'flex',
     },
-    headerWrapper: {
-      display: 'flex',
-    },
-    topHeaderWrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      padding: 10,
-    },
-    headerTopLeftWrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    headerText:{
-      fontSize: 20,
-      paddingLeft: 10,
-    },
-    safe_container:{
-      flex: 1,
-    },
     scrollView:{
       marginHorizontal: 1,
+    },
+    topnav: {
+      flexDirection: "row",
+      alignItems: "center",
+      paddingVertical: 12,
+      paddingHorizontal: 20,
+      backgroundColor: "white",
+      gap: 28,
+    },
+    leftnav: {
+        marginLeft: 'auto',
     },
   });
