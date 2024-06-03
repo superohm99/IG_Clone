@@ -10,6 +10,6 @@ type User struct {
 	Avatar          string
 	IsActive        bool
 	RefreshToken    string
-	User_profile    []Userprofile
+	User_profile    []*Userprofile `gorm:"foreignKey:Id"`
 	IsPublicAccount bool
 }
