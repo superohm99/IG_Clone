@@ -37,5 +37,12 @@ func (r UserRepositoryDB) Create(c *gin.Context) (bool, error) {
 }
 
 func (r UserRepositoryDB) GetAll() ([]models.User, error) {
-	return nil, nil
+	users := []models.User{}
+
+	result := r.db.Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return users, nil
 }
