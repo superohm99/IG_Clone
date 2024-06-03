@@ -30,7 +30,7 @@ interface PostDetailState{
   isArchive: boolean;
 }
 
-const UserPostContent = ({id, user}:getPropItem) => {
+const OtherUserPostContent = ({id, user}:getPropItem) => {
 
   const [postDetail, setPosDetail] = useState<PostDetailState>({
     username: user,
@@ -279,7 +279,7 @@ const UserPostContent = ({id, user}:getPropItem) => {
   )
 }
 
-export default UserPostContent
+export default OtherUserPostContent
 
 
 const styles = StyleSheet.create({
