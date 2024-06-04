@@ -16,7 +16,7 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
-func (r UserRepositoryDB) Create(c *gin.Context) (bool, error) {
+func (r UserRepositoryDB) UserCreate(c *gin.Context) (bool, error) {
 	var body struct {
 		Name string
 	}

@@ -2,10 +2,9 @@ package models
 
 import "gorm.io/gorm"
 
-type Note struct{
+type Note struct {
 	gorm.Model
-	Id		uint `gorm:"primaryKey"`
-	Text	string
-	CreateAt string `gorm:"autoCreateTime"`
-	User User 
+	Id   uint `gorm:"primaryKey"`
+	Text string
+	User User `gorm:"foreignKey:Id"`
 }
