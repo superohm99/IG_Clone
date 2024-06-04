@@ -1,7 +1,7 @@
 package user
 
 import (
-	"igclone/controllers/user"
+	"igclone/repository/user"
 	"log"
 )
 
@@ -9,7 +9,7 @@ type UserRepoService struct {
 	UserRepo user.UserRepository
 }
 
-func NewCustomerService(UserRepo user.UserRepository) UserRepoService {
+func NewUserService(UserRepo user.UserRepository) UserRepoService {
 	return UserRepoService{UserRepo: UserRepo}
 }
 

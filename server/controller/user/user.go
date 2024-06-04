@@ -17,5 +17,4 @@ func (h UserHandler) GetUsers() {
 	// if err != nil {
 	// 	fmt.Println(err)
 	// }
-
 }
