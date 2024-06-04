@@ -15,24 +15,20 @@ func init() {
 
 func main() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
+	u_router := r.Group("api/u_router/")
+	{
+		u_router.GET("/users", func(c *gin.Context) {
+			UserRepository := controllers.NewUserRepositoryDB(initializers.DB)
+			UserService := services.NewCustomerService(UserRepository)
+
+			users, err := UserService.Getusers()
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(users)
 		})
-	})
 
-	r.GET("/user", func(c *gin.Context) {
-		userRepository := controllers.NewUserRepositoryDB(initializers.DB)
-		UserService := services.NewCustomerService(userRepository)
-
-		users, err := UserService.Getusers()
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Println(users)
-		fmt.Println("TEST")
-	})
+	}
 
 	r.Run(":8000")
 }
