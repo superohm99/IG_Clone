@@ -8,5 +8,5 @@ import (
 
 type UserRepository interface {
 	GetAll() ([]models.User, error)
-	Create(c *gin.Context) (bool, error)
+	UserCreate(c *gin.Context) (bool, error)
 }

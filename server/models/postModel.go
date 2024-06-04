@@ -7,9 +7,8 @@ type Post struct {
 	Id        uint `gorm:"primaryKey"`
 	Image     string
 	Title     string
-	Like      Like
-	Comment   []Comment
-	User      User
-	CreateAt  string `gorm:"autoCreateTime"`
+	Like      Like      `gorm:"foreignKey:Id"`
+	Comment   []Comment `gorm:"foreignKey:Id"`
+	User      User      `gorm:"foreignKey:Id"`
 	IsArchive bool
 }
