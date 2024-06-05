@@ -35,12 +35,11 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 		Like      models.Like
 		Comment   []models.Comment
 		User      models.User
-		CreateAt  string `gorm:"autoCreateTime"`
 		IsArchive bool
 	}
 
 	c.Bind(&body)
-	post := models.Post{Title: body.Title}
+	post := models.Post{Title: body.Title, Image: body.Image, IsArchive: false}
 
 	result := initializers.DB.Create(&post)
 
