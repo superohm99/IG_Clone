@@ -16,8 +16,15 @@ func NewPostRepositoryDB(db *gorm.DB) PostRepositoryDB {
 	return PostRepositoryDB{db: db}
 }
 
-func (PostRepositoryDB) GetAll() ([]models.Post, error) {
-	panic("unimplemented")
+func (p PostRepositoryDB) GetAll() ([]models.Post, error) {
+	posts := []models.Post{}
+
+	result := p.db.Find(&posts)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return posts, nil
 }
 
 func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
@@ -28,12 +35,11 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 		Like      models.Like
 		Comment   []models.Comment
 		User      models.User
-		CreateAt  string `gorm:"autoCreateTime"`
 		IsArchive bool
 	}
 
 	c.Bind(&body)
-	post := models.Post{Title: body.Title}
+	post := models.Post{Title: body.Title, Image: body.Image, IsArchive: false}
 
 	result := initializers.DB.Create(&post)
 
