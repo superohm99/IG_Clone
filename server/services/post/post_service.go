@@ -2,7 +2,6 @@ package post
 
 import (
 	"fmt"
-	"igclone/models"
 	"igclone/repository/post"
 	"log"
 
@@ -17,14 +16,24 @@ func NewPostService(PostRepo post.PostRepository) PostRepoService {
 	return PostRepoService{PostRepo: PostRepo}
 }
 
-func (s PostRepoService) GetAllPost() ([]models.Post, error) {
-	result, err := s.PostRepo.GetAll()
+func (s PostRepoService) GetAllPost() ([]PostResponse, error) {
+	posts, err := s.PostRepo.GetAll()
 	if err != nil {
 		log.Println(err)
-		return result, err
+		return nil, err
+	}
+	PostResponses := []PostResponse{}
+	for _, post := range posts {
+		PostResponse := PostResponse{
+			Id:       post.Id,
+			Image:    post.Image,
+			Title:    post.Title,
+			IsActive: post.IsArchive,
+		}
+		PostResponses = append(PostResponses, PostResponse)
 	}
 	// fmt.Println(result)
-	return result, nil
+	return PostResponses, nil
 }
 
 func (s PostRepoService) PostCreate(c *gin.Context) (bool, error) {

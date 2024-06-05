@@ -1,7 +1,6 @@
 package post
 
 import (
-	"igclone/models"
 	"igclone/services/post"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +14,7 @@ func NewPostController(PostSrv post.PostService) PostController {
 	return PostController{PostSrv: PostSrv}
 }
 
-func (p PostController) Posts() ([]models.Post, error) {
+func (p PostController) Posts() ([]post.PostResponse, error) {
 	return p.PostSrv.GetAllPost()
 }
 

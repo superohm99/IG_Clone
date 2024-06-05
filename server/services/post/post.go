@@ -1,12 +1,17 @@
 package post
 
 import (
-	"igclone/models"
-
 	"github.com/gin-gonic/gin"
 )
 
+type PostResponse struct {
+	Id       uint   `json:"id"`
+	Image    string `json:"image"`
+	Title    string `json:"avatar"`
+	IsActive bool   `json:"isactive"`
+}
+
 type PostService interface {
-	GetAllPost() ([]models.Post, error)
+	GetAllPost() ([]PostResponse, error)
 	PostCreate(c *gin.Context) (bool, error)
 }
