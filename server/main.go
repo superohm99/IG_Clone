@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	controller_post "igclone/controller/post"
 	"igclone/initializers"
 	repository_post "igclone/repository/post"
 	repository_user "igclone/repository/user"
@@ -37,7 +38,8 @@ func main() {
 		p_router.POST("/post_create", func(c *gin.Context) {
 			PostRepository := repository_post.NewPostRepositoryDB(initializers.DB)
 			PostService := services_post.NewPostService(PostRepository)
-			PostService.PostCreate(c)
+			PostController := controller_post.NewPostController(PostService)
+			PostController.PostCreate(c)
 		})
 
 	}
