@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	controller_post "igclone/controller/post"
 	"igclone/initializers"
 	"igclone/models"
 	repository_post "igclone/repository/post"
@@ -37,10 +38,20 @@ func main() {
 
 	p_router := r.Group("api/p_router/")
 	{
+		PostRepository := repository_post.NewPostRepositoryDB(initializers.DB)
+		PostService := services_post.NewPostService(PostRepository)
+		PostController := controller_post.NewPostController(PostService)
+
 		p_router.POST("/post_create", func(c *gin.Context) {
-			PostRepository := repository_post.NewPostRepositoryDB(initializers.DB)
-			PostService := services_post.NewPostService(PostRepository)
-			PostService.PostCreate(c)
+			PostController.PostCreate(c)
+		})
+
+		p_router.GET("/posts", func(c *gin.Context) {
+			result, err := PostController.Posts()
+			if err != nil {
+				panic("error")
+			}
+			fmt.Println(result)
 		})
 	}
 
