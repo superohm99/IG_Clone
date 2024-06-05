@@ -1,7 +1,12 @@
 package post
 
-import "github.com/gin-gonic/gin"
+import (
+	"igclone/models"
+
+	"github.com/gin-gonic/gin"
+)
 
 type PostService interface {
+	GetAllPost() ([]models.Post, error)
 	PostCreate(c *gin.Context) (bool, error)
 }
