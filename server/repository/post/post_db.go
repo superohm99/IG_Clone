@@ -39,7 +39,7 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 	}
 
 	c.Bind(&body)
-	post := models.Post{Title: body.Title, Image: body.Image, IsArchive: false}
+	post := models.Post{Title: body.Title, Image: body.Image, User: body.User, IsArchive: false}
 
 	result := initializers.DB.Create(&post)
 
