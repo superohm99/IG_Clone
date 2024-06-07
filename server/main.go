@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	controller_post "igclone/controller/post"
+	controller_user "igclone/controller/user"
 	"igclone/initializers"
 	repository_post "igclone/repository/post"
 	repository_story "igclone/repository/story"
@@ -23,15 +23,16 @@ func main() {
 
 	u_router := r.Group("api/u_router/")
 	{
-		u_router.GET("/users", func(c *gin.Context) {
-			UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
-			UserService := services_user.NewUserService(UserRepository)
+		UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
+		UserService := services_user.NewUserService(UserRepository)
+		UserController := controller_user.NewUserController(UserService)
 
-			users, err := UserService.Getusers()
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println(users)
+		u_router.GET("/users", func(c *gin.Context) {
+			UserController.GetUsers()
+		})
+
+		u_router.POST("/create_user", func(c *gin.Context) {
+			UserController.CreateUser(c)
 		})
 	}
 
@@ -46,11 +47,7 @@ func main() {
 		})
 
 		p_router.GET("/posts", func(c *gin.Context) {
-			result, err := PostController.Posts()
-			if err != nil {
-				panic("error")
-			}
-			fmt.Println(result)
+			PostController.Posts()
 		})
 	}
 

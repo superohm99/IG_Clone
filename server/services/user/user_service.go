@@ -3,6 +3,8 @@ package user
 import (
 	"igclone/repository/user"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 type UserRepoService struct {
@@ -32,4 +34,13 @@ func (s UserRepoService) Getusers() ([]UserResponse, error) {
 	}
 
 	return UserResponses, nil
+}
+
+func (s UserRepoService) CreateUser(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.UserCreate(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
 }

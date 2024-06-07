@@ -2,19 +2,22 @@ package user
 
 import (
 	"igclone/services/user"
+
+	"github.com/gin-gonic/gin"
 )
 
-type UserHandler struct {
+type UserController struct {
 	UserSrv user.UserService
 }
 
-func NewUserHandler(UserSrv user.UserService) UserHandler {
-	return UserHandler{UserSrv: UserSrv}
+func NewUserController(UserSrv user.UserService) UserController {
+	return UserController{UserSrv: UserSrv}
 }
 
-func (h UserHandler) GetUsers() {
-	// users, err := h.UserSrv.Getusers()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
+func (h UserController) GetUsers() {
+	h.UserSrv.Getusers()
+}
+
+func (h UserController) CreateUser(c *gin.Context) {
+	h.UserSrv.CreateUser(c)
 }
