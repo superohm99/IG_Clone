@@ -1,15 +1,14 @@
 package models
 
-import "gorm.io/gorm"
-
 type User struct {
-	gorm.Model
+	// gorm.Model
 	Id              uint `gorm:"primaryKey"`
 	Name            string
 	Password        string
 	Avatar          string
 	IsActive        bool
 	RefreshToken    string
-	User_profile    []*Userprofile `gorm:"foreignKey:Id"`
 	IsPublicAccount bool
+	User_profileID  uint
+	Closed_friend   []*User `gorm:"many2many:user_friends"`
 }

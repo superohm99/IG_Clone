@@ -40,7 +40,7 @@ func main() {
 		PostService := services_post.NewPostService(PostRepository)
 		PostController := controller_post.NewPostController(PostService)
 
-		p_router.POST("/post_create", func(c *gin.Context) {
+		p_router.POST("/create_post", func(c *gin.Context) {
 			PostController.PostCreate(c)
 		})
 
