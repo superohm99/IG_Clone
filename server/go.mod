@@ -2,7 +2,7 @@ module igclone
 
 go 1.21.4
 
-require gorm.io/gorm v1.25.10
+require gorm.io/gorm v1.25.7
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

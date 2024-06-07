@@ -24,7 +24,7 @@ func main() {
 
 	dsn := dbUsername + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?parseTime=true"
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,5 +40,5 @@ func main() {
 	db.AutoMigrate(&models.Story{})
 	db.AutoMigrate(&models.Note{})
 	db.AutoMigrate(&models.Message{})
-	return
+	// return
 }
