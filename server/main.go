@@ -4,7 +4,6 @@ import (
 	"fmt"
 	controller_post "igclone/controller/post"
 	"igclone/initializers"
-	"igclone/models"
 	repository_post "igclone/repository/post"
 	repository_story "igclone/repository/story"
 	repository_user "igclone/repository/user"
@@ -58,21 +57,29 @@ func main() {
 	s_router := r.Group("api/s_router/")
 	{
 		s_router.POST("/story_create", func(c *gin.Context) {
-			initializers.DB.AutoMigrate(&models.Story{})
 			StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
 			StoryService := services_story.NewStoryService(StoryRepository)
-			StoryService.CreateStory(c)
+			StoryService.AddStory(c)
 		})
 
-		s_router.GET("/stories", func(c *gin.Context) {
+		s_router.GET("/stories/:userId", func(c *gin.Context) {
+			userId := c.Param("userId")
+			if userId == "" {
+				c.JSON(400, gin.H{"error": "userId is required"})
+				return
+			}
+
 			StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
 			StoryService := services_story.NewStoryService(StoryRepository)
 
-			stories, err := StoryService.GetStories()
+			stories, err := StoryService.GetStories(userId)
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println(stories)
+
+			c.JSON(200, gin.H{
+				"stories": stories,
+			})
 		})
 	}
 

@@ -2,7 +2,6 @@ package story
 
 import (
 	"igclone/models"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -16,13 +15,14 @@ func NewStoryRepositoryDB(db *gorm.DB) storyRepositoryDB {
 	return storyRepositoryDB{db: db}
 }
 
-func (r storyRepositoryDB) GetAll() ([]models.Story, error) {
-	stories := []models.Story{}
-	result := r.db.Find(&stories)
+func (r storyRepositoryDB) GetByUserId(id string) ([]models.Story, error) {
+	var stories []models.Story
+	result := r.db.Preload("User").Where("Id = ?", id).Find(&stories)
 
 	if result.Error != nil {
 		return nil, result.Error
 	}
+
 	return stories, nil
 }
 
@@ -37,12 +37,16 @@ func (r storyRepositoryDB) StoryCreate(c *gin.Context) (bool, error) {
 		IsDeleted bool
 	}
 
-	if err := c.ShouldBindJSON(&body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return false, err
-	}
+	c.Bind(&body)
 
-	story := models.Story{Image: body.Image}
+	story := models.Story{
+		Image:     body.Image,
+		Like:      body.Like,
+		User:      body.User,
+		Reply:     body.Reply,
+		IsPrivate: body.IsPrivate,
+		IsDeleted: body.IsDeleted,
+	}
 
 	result := r.db.Create(&story)
 
@@ -51,7 +55,7 @@ func (r storyRepositoryDB) StoryCreate(c *gin.Context) (bool, error) {
 		return false, c.Err()
 	}
 	c.JSON(200, gin.H{
-		"user": story.Id,
+		"story": story,
 	})
 	return true, nil
 }

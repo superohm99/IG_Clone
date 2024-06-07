@@ -2,6 +2,7 @@ package story
 
 import (
 	"igclone/repository/story"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,26 +15,33 @@ func NewStoryService(storyRepo story.StoryRepository) StoryService {
 	return storyService{storyRepo: storyRepo}
 }
 
-func (s storyService) CreateStory(c *gin.Context) (bool, error) {
-	return s.storyRepo.StoryCreate(c)
-}
+func (s storyService) GetStories(id string) ([]StoryResponse, error) {
+	stories, err := s.storyRepo.GetByUserId(id)
 
-func (s storyService) GetStories() ([]StoryResponse, error) {
-	stories, err := s.storyRepo.GetAll()
 	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 
-	storyResponses := []StoryResponse{}
+	var storyResponses []StoryResponse
 	for _, story := range stories {
 		storyResponses = append(storyResponses, StoryResponse{
 			Id:    story.Id,
 			Image: story.Image,
-			Like:  story.Like,
 			User:  story.User,
-			Reply: story.Reply,
 		})
 	}
 
 	return storyResponses, nil
+}
+
+func (s storyService) AddStory(c *gin.Context) (bool, error) {
+	_, err := s.storyRepo.StoryCreate(c)
+
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	return true, nil
 }

@@ -7,14 +7,12 @@ import (
 )
 
 type StoryResponse struct {
-	Id    uint           `json:"id"`
-	Image string         `json:"image"`
-	Like  models.Like    `json:"like"`
-	User  models.User    `json:"user"`
-	Reply []models.Reply `json:"reply"`
+	Id    uint        `json:"id"`
+	Image string      `json:"image"`
+	User  models.User `json:"user"`
 }
 
 type StoryService interface {
-	GetStories() ([]StoryResponse, error)
-	CreateStory(c *gin.Context) (bool, error)
+	GetStories(string) ([]StoryResponse, error)
+	AddStory(c *gin.Context) (bool, error)
 }
