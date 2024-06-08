@@ -33,9 +33,6 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 		Id        uint `gorm:"primaryKey"`
 		Image     string
 		Title     string
-		Like      models.Like
-		Comment   []models.Comment
-		User      uint
 		IsArchive bool
 	}
 
