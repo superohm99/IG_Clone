@@ -32,6 +32,10 @@ func main() {
 		u_router.POST("/create_user", func(c *gin.Context) {
 			UserController.CreateUser(c)
 		})
+
+		u_router.POST("/edit_profile", func(c *gin.Context) {
+			UserController.EditProfile(c)
+		})
 	}
 
 	p_router := r.Group("api/p_router/")
