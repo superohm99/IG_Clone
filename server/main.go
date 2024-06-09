@@ -39,6 +39,10 @@ func main() {
 		u_router.POST("/signup", func(c *gin.Context) {
 			UserController.SignUp(c)
 		})
+
+		u_router.POST("/signin", func(c *gin.Context) {
+			UserController.SignIn(c)
+		})
 	}
 
 	p_router := r.Group("api/p_router/")

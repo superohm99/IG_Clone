@@ -10,6 +10,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/githubnemo/CompileDaemon v1.4.0 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/mattn/go-colorable v0.1.4 // indirect
 	github.com/radovskyb/watcher v1.0.7 // indirect

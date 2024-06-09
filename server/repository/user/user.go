@@ -9,6 +9,8 @@ import (
 type UserRepository interface {
 	GetAll() ([]models.User, error)
 	UserCreate(c *gin.Context) (bool, error)
-	UserSignUp(c *gin.Context) (bool, error)
 	ProfileCreate() (models.Userprofile, error)
+
+	UserSignUp(c *gin.Context) (bool, error)
+	UserSignIn(c *gin.Context) (bool, error)
 }

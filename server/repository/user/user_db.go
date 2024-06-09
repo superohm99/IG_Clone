@@ -4,8 +4,11 @@ import (
 	"igclone/initializers"
 	"igclone/models"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -67,7 +70,7 @@ func (r UserRepositoryDB) GetAll() ([]models.User, error) {
 }
 
 func (r UserRepositoryDB) UserSignUp(c *gin.Context) (bool, error) {
-	// Get the email/pass off req body
+	// Get the req body
 	var body struct {
 		Username        string `binding:"required"`
 		Password        string `binding:"required"`
@@ -120,7 +123,7 @@ func (r UserRepositoryDB) UserSignUp(c *gin.Context) (bool, error) {
 	user := models.User{
 		Username:        body.Username,
 		Password:        string(hash),
-		User_profile:    userProfile,
+		User_profileID:  userProfile.Id,
 		IsPublicAccount: body.IsPublicAccount,
 		IsActive:        true,
 	}
@@ -144,5 +147,75 @@ func (r UserRepositoryDB) UserSignUp(c *gin.Context) (bool, error) {
 
 	// Respond
 	c.JSON(http.StatusOK, gin.H{"user": user})
+	return true, nil
+}
+
+func (r UserRepositoryDB) UserSignIn(c *gin.Context) (bool, error) {
+	// Get the req body
+	var body struct {
+		Phone_or_Username_or_Email string
+		Password                   string
+	}
+
+	if err := c.Bind(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": "Failed to read body",
+		})
+
+		return false, err
+	}
+
+	// Look up requested user
+	user := models.User{}
+	userProfile := models.Userprofile{}
+
+	if err := r.db.Where("username = ?", body.Phone_or_Username_or_Email).First(&user).Error; err != nil {
+		// If the user is not found, look up the user by phone or email
+		if err := r.db.Where("phone = ? OR email = ?", body.Phone_or_Username_or_Email, body.Phone_or_Username_or_Email).First(&userProfile).Error; err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"err": "User not found",
+			})
+			return false, err
+		}
+
+		if err := r.db.Where("user_profile_id = ?", userProfile.Id).First(&user).Error; err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"err": "User not found",
+			})
+			return false, err
+		}
+	}
+
+	// Compare sent in pass with saved user pass hash
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"err": "Invalid password",
+		})
+		return false, err
+	}
+
+	// Generate a jwt token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": user.Id,
+		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+
+	// Sign and get the complete encoded token as  a string using the secret
+	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"err": "Invalid to create token",
+		})
+		return false, err
+	}
+
+	// Send it back
+	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetCookie("Authorization", tokenString, 60*60*24*30, "", "", false, true)
+	c.JSON(http.StatusOK, gin.H{})
+
 	return true, nil
 }
