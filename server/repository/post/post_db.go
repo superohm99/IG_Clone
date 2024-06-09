@@ -29,7 +29,6 @@ func (p PostRepositoryDB) GetAll() ([]models.Post, error) {
 
 func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 	var body struct {
-		Id        uint `gorm:"primaryKey"`
 		Image     string
 		Title     string
 		UserId    uint
@@ -49,5 +48,27 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 	c.JSON(200, gin.H{
 		"post": body.Title,
 	})
+	return true, nil
+}
+
+func (r PostRepositoryDB) CommentCreate(c *gin.Context) (bool, error) {
+	var body struct {
+		PostId  uint
+		Content string
+		UserId  uint
+	}
+
+	c.Bind(&body)
+	result := initializers.DB.Create(&models.Comment{Content: body.Content, Post_Id: body.PostId, User_Id: body.UserId})
+
+	if result.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	c.JSON(200, gin.H{
+		"Comment": body.Content,
+	})
+
 	return true, nil
 }

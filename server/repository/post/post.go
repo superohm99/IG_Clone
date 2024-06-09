@@ -9,4 +9,5 @@ import (
 type PostRepository interface {
 	GetAll() ([]models.Post, error)
 	PostCreate(c *gin.Context) (bool, error)
+	CommentCreate(c *gin.Context) (bool, error)
 }

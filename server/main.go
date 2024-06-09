@@ -52,6 +52,10 @@ func main() {
 			PostController.Posts()
 		})
 
+		p_router.POST("/send_comment", func(c *gin.Context) {
+			PostController.CommentCreate(c)
+		})
+
 	}
 
 	r.Run(":8000")
