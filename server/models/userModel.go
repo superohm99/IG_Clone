@@ -6,10 +6,11 @@ type User struct {
 	gorm.Model
 	Id              uint `gorm:"primaryKey"`
 	Name            string
+	Username        string
 	Password        string
 	Avatar          string
 	IsActive        bool
 	RefreshToken    string
-	User_profile    []*Userprofile `gorm:"foreignKey:Id"`
+	User_profile    Userprofile `gorm:"foreignKey:Id"`
 	IsPublicAccount bool
 }
