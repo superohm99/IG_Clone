@@ -3,8 +3,10 @@ package user
 import (
 	"igclone/initializers"
 	"igclone/models"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -45,4 +47,85 @@ func (r UserRepositoryDB) GetAll() ([]models.User, error) {
 	}
 
 	return users, nil
+}
+
+func (r UserRepositoryDB) UserSignUp(c *gin.Context) (bool, error) {
+	// Get the email/pass off req body
+	var body struct {
+		Username        string `binding:"required"`
+		Password        string `binding:"required"`
+		IsPublicAccount bool
+		Phone           string
+		Email           string
+	}
+
+	if err := c.Bind(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to read body",
+		})
+
+		return false, err
+	}
+
+	// Hash the password
+	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to hash password",
+		})
+
+		return false, err
+	}
+
+	// Begin a transaction
+	tx := r.db.Begin()
+	if tx.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to initiate transaction",
+		})
+		return false, tx.Error
+	}
+
+	// Create a new userProfile
+	userProfile := models.Userprofile{Phone: body.Phone, Email: body.Email}
+
+	// Attempt to create the userProfile within the transaction
+	if err := tx.Create(&userProfile).Error; err != nil {
+		tx.Rollback()
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to create user profile",
+		})
+		return false, err
+	}
+
+	// Create a new user and associate it with the userProfile
+	user := models.User{
+		Username:        body.Username,
+		Password:        string(hash),
+		User_profile:    userProfile,
+		IsPublicAccount: body.IsPublicAccount,
+		IsActive:        true,
+	}
+
+	// Attempt to create the user within the transaction
+	if err := tx.Create(&user).Error; err != nil {
+		tx.Rollback()
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to create user",
+		})
+		return false, err
+	}
+
+	// Commit the transaction
+	if err := tx.Commit().Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to commit transaction",
+		})
+		return false, err
+	}
+
+	// Respond
+	c.JSON(http.StatusOK, gin.H{"user": user})
+	return true, nil
 }

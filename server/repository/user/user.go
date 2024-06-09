@@ -9,4 +9,5 @@ import (
 type UserRepository interface {
 	GetAll() ([]models.User, error)
 	UserCreate(c *gin.Context) (bool, error)
+	UserSignUp(c *gin.Context) (bool, error)
 }

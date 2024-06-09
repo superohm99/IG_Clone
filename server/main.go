@@ -2,6 +2,7 @@ package main
 
 import (
 	controller_post "igclone/controller/post"
+	controller_story "igclone/controller/story"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
 	repository_post "igclone/repository/post"
@@ -34,6 +35,10 @@ func main() {
 		u_router.POST("/create_user", func(c *gin.Context) {
 			UserController.CreateUser(c)
 		})
+
+		u_router.POST("/signup", func(c *gin.Context) {
+			UserController.SignUp(c)
+		})
 	}
 
 	p_router := r.Group("api/p_router/")
@@ -53,30 +58,17 @@ func main() {
 
 	s_router := r.Group("api/s_router/")
 	{
+		StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
+		StoryService := services_story.NewStoryService(StoryRepository)
+		StoryController := controller_story.NewStoryController(StoryService)
+
 		s_router.POST("/story_create", func(c *gin.Context) {
-			StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
-			StoryService := services_story.NewStoryService(StoryRepository)
-			StoryService.AddStory(c)
+			StoryController.AddStory(c)
 		})
 
 		s_router.GET("/stories/:userId", func(c *gin.Context) {
 			userId := c.Param("userId")
-			if userId == "" {
-				c.JSON(400, gin.H{"error": "userId is required"})
-				return
-			}
-
-			StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
-			StoryService := services_story.NewStoryService(StoryRepository)
-
-			stories, err := StoryService.GetStories(userId)
-			if err != nil {
-				panic(err)
-			}
-
-			c.JSON(200, gin.H{
-				"stories": stories,
-			})
+			StoryController.Stories(userId)
 		})
 	}
 
