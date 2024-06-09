@@ -21,3 +21,7 @@ func (h UserController) GetUsers() {
 func (h UserController) CreateUser(c *gin.Context) {
 	h.UserSrv.CreateUser(c)
 }
+
+func (h UserController) EditProfile(c *gin.Context) {
+	h.UserSrv.ProfileEdit(c)
+}

@@ -21,6 +21,26 @@ func (r UserRepositoryDB) ProfileCreate() (models.Userprofile, error) {
 	return def_profile, nil
 }
 
+func (r UserRepositoryDB) ProfileEdit(c *gin.Context) (bool, error) {
+	var body struct {
+		Phone       string
+		Image       string
+		Description string
+		UserId      uint
+	}
+
+	c.Bind(&body)
+
+	var user models.User
+	var profile models.Userprofile
+	initializers.DB.First(&user, body.UserId)
+	initializers.DB.First(&profile, user.User_profileID)
+	initializers.DB.Model(&profile).Updates(map[string]interface{}{"Phone": body.Phone, "Image": body.Image, "Description": body.Description})
+	// profile := models.Userprofile{Phone: body.Phone, Image: body.Image, Description: body.Description}
+
+	return true, nil
+}
+
 func (r UserRepositoryDB) UserCreate(c *gin.Context) (bool, error) {
 	var body struct {
 		Name string
