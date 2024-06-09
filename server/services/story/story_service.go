@@ -1,6 +1,7 @@
 package story
 
 import (
+	"fmt"
 	"igclone/repository/story"
 	"log"
 
@@ -31,6 +32,8 @@ func (s storyService) GetStories(id string) ([]StoryResponse, error) {
 			User:  story.User,
 		})
 	}
+
+	fmt.Println(storyResponses)
 
 	return storyResponses, nil
 }
