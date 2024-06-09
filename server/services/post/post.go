@@ -14,4 +14,5 @@ type PostResponse struct {
 type PostService interface {
 	GetAllPost() ([]PostResponse, error)
 	PostCreate(c *gin.Context) (bool, error)
+	CommentCreate(c *gin.Context) (bool, error)
 }
