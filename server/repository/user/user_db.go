@@ -18,13 +18,30 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
+func (r UserRepositoryDB) ProfileCreate() (models.Userprofile, error) {
+	def_profile := models.Userprofile{Phone: "--", Image: "--", Description: "--"}
+	return def_profile, nil
+}
+
 func (r UserRepositoryDB) UserCreate(c *gin.Context) (bool, error) {
 	var body struct {
 		Name string
 	}
 
 	c.Bind(&body)
-	user := models.User{Name: body.Name}
+	def_profile, error := r.ProfileCreate()
+	if error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	result_defprofile := initializers.DB.Create(&def_profile)
+	if result_defprofile.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	user := models.User{Name: body.Name, User_profileID: def_profile.Id}
 
 	result := initializers.DB.Create(&user)
 

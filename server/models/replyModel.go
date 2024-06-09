@@ -1,11 +1,9 @@
 package models
 
-import "gorm.io/gorm"
-
 type Reply struct {
-	gorm.Model
-	Id      uint `gorm:"primaryKey"`
-	Like    Like `gorm:"foreignKey:Id"`
-	User    User `gorm:"foreignKey:Id"`
-	Content string
+	Id       uint      `gorm:"primaryKey"`
+	Comments []Comment `gorm:"foreignKey:Reply_Id"`
+	Likes    []Like    `gorm:"foreignKey:Reply_Id"`
+	User_Id  uint
+	Content  string
 }

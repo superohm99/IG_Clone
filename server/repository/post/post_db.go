@@ -32,23 +32,22 @@ func (r PostRepositoryDB) PostCreate(c *gin.Context) (bool, error) {
 		Id        uint `gorm:"primaryKey"`
 		Image     string
 		Title     string
-		Like      models.Like
-		Comment   []models.Comment
-		User      models.User
+		UserId    uint
 		IsArchive bool
 	}
 
 	c.Bind(&body)
-	post := models.Post{Title: body.Title, Image: body.Image, User: body.User, IsArchive: false}
+	// post := models.Post{Title: body.Title, Image: body.Image, User: body.User, IsArchive: false}
 
-	result := initializers.DB.Create(&post)
+	result := initializers.DB.Create(&models.Post{Title: body.Title, Image: body.Image, User_Id: body.UserId})
 
 	if result.Error != nil {
 		c.Status(400)
 		return false, c.Err()
 	}
+
 	c.JSON(200, gin.H{
-		"user": post.Title,
+		"post": body.Title,
 	})
 	return true, nil
 }

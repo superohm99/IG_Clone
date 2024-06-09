@@ -6,5 +6,6 @@ type Message struct {
 	gorm.Model
 	Id   uint `gorm:"primaryKey"`
 	Text string
-	User User `gorm:"foreignKey:Id"`
+	// UserID uint
+	// User   User `gorm:"foreignKey:Id"`
 }
