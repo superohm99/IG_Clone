@@ -1,6 +1,9 @@
 package chat
 
 import (
+	"igclone/initializers"
+	"igclone/models"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -14,6 +17,28 @@ func NewChatRepositoryDB(db *gorm.DB) ChatRepositoryDB {
 }
 
 func (r ChatRepositoryDB) ChatCreate(c *gin.Context) (bool, error) {
+
+	var body struct {
+		UserId   uint
+		FriendId uint
+	}
+
+	c.Bind(&body)
+
+	chat := models.Chat{
+		Chat_link: []models.User{{Id: body.UserId}, {Id: body.FriendId}},
+	}
+	result := initializers.DB.Create(&chat)
+
+	if result.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	initializers.DB.Save(&chat)
+	c.JSON(200, gin.H{
+		"ChatId": chat.Id,
+	})
 
 	return true, nil
 }

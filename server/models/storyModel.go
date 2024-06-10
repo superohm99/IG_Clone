@@ -7,7 +7,6 @@ type Story struct {
 	Id        uint `gorm:"primaryKey"`
 	Image     string
 	Like      Like    `gorm:"foreignKey:Id"`
-	User      User    `gorm:"foreignKey:Id"`
 	Reply     []Reply `gorm:"foreignKey:Id"`
 	IsPrivate bool
 	IsDeleted bool
