@@ -1,11 +1,14 @@
 package main
 
 import (
+	controller_chat "igclone/controller/chat"
 	controller_post "igclone/controller/post"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
+	repository_chat "igclone/repository/chat"
 	repository_post "igclone/repository/post"
 	repository_user "igclone/repository/user"
+	services_chat "igclone/services/chat"
 	services_post "igclone/services/post"
 	services_user "igclone/services/user"
 
@@ -54,6 +57,17 @@ func main() {
 
 		p_router.POST("/send_comment", func(c *gin.Context) {
 			PostController.CommentCreate(c)
+		})
+	}
+
+	c_router := r.Group("api/c_router/")
+	{
+		ChatRepository := repository_chat.NewChatRepositoryDB(initializers.DB)
+		ChatService := services_chat.NewChatService(ChatRepository)
+		ChatController := controller_chat.NewChatController(ChatService)
+
+		c_router.POST("/create_chat", func(c *gin.Context) {
+			ChatController.ChatCreate(c)
 		})
 
 	}
