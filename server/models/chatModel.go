@@ -1,10 +1,7 @@
 package models
 
-import "gorm.io/gorm"
-
 type Chat struct {
-	gorm.Model
-	Id       uint      `gorm:"primaryKey"`
-	Messages []Message `gorm:"foreignKey:Id"`
-	// Members  []User    `gorm:"foreignKey:Id"`
+	Id        uint    `gorm:"primaryKey"`
+	Message   Message `gorm:"foreignKey:Chat_Id"`
+	Chat_link []User  `gorm:"many2many:Chat_link"`
 }
