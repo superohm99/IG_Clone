@@ -7,9 +7,10 @@ import (
 )
 
 type StoryResponse struct {
-	Id    uint        `json:"id"`
-	Image string      `json:"image"`
-	User  models.User `json:"user"`
+	Id    uint
+	Image string
+	Like  models.Like
+	Reply []models.Reply
 }
 
 type StoryService interface {

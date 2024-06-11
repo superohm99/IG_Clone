@@ -19,7 +19,7 @@ func NewStoryRepositoryDB(db *gorm.DB) StoryRepository {
 func (r storyRepositoryDB) GetByUserId(id string) ([]models.Story, error) {
 	var stories []models.Story
 
-	result := r.db.Preload("User").Where("Id = ?", id).Find(&stories)
+	result := r.db.Where("user_id = ?", id).Find(&stories)
 
 	if result.Error != nil {
 		return nil, result.Error
@@ -32,20 +32,15 @@ func (r storyRepositoryDB) StoryCreate(c *gin.Context) (bool, error) {
 	var body struct {
 		Id        uint `gorm:"primaryKey"`
 		Image     string
-		Like      models.Like
-		User      models.User
-		Reply     []models.Reply
 		IsPrivate bool
-		IsDeleted bool
 	}
 
 	c.Bind(&body)
+	user, _ := c.Get("user")
 
 	story := models.Story{
 		Image:     body.Image,
-		Like:      body.Like,
-		User:      body.User,
-		Reply:     body.Reply,
+		User_Id:   user.(models.User).Id,
 		IsPrivate: body.IsPrivate,
 		IsDeleted: false,
 	}

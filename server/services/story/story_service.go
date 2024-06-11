@@ -29,7 +29,8 @@ func (s storyService) GetStories(id string) ([]StoryResponse, error) {
 		storyResponses = append(storyResponses, StoryResponse{
 			Id:    story.Id,
 			Image: story.Image,
-			User:  story.User,
+			Like:  story.Like,
+			Reply: story.Reply,
 		})
 	}
 
