@@ -106,6 +106,11 @@ func main() {
 			ChatController.MessageCreate(c)
 		})
 
+		c_router.GET("get_message/:chatId", func(c *gin.Context) {
+			chatId := c.Param("chatId")
+			ChatController.GetMessage(chatId)
+		})
+
 	}
 
 	r.Run(":8000")
