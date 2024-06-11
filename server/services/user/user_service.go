@@ -62,3 +62,12 @@ func (s UserRepoService) SignIn(c *gin.Context) (bool, error) {
 	}
 	return status, err
 }
+
+func (s UserRepoService) SignOut(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.UserSignOut(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}

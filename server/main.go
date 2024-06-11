@@ -5,6 +5,7 @@ import (
 	controller_story "igclone/controller/story"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
+	"igclone/middleware"
 	repository_post "igclone/repository/post"
 	repository_story "igclone/repository/story"
 	repository_user "igclone/repository/user"
@@ -43,6 +44,10 @@ func main() {
 		u_router.POST("/signin", func(c *gin.Context) {
 			UserController.SignIn(c)
 		})
+
+		u_router.POST("/signout", func(c *gin.Context) {
+			UserController.SignOut(c)
+		})
 	}
 
 	p_router := r.Group("api/p_router/")
@@ -66,11 +71,11 @@ func main() {
 		StoryService := services_story.NewStoryService(StoryRepository)
 		StoryController := controller_story.NewStoryController(StoryService)
 
-		s_router.POST("/story_create", func(c *gin.Context) {
+		s_router.POST("/story_create", middleware.RequireAuth, func(c *gin.Context) {
 			StoryController.AddStory(c)
 		})
 
-		s_router.GET("/stories/:userId", func(c *gin.Context) {
+		s_router.GET("/stories/:userId", middleware.RequireAuth, func(c *gin.Context) {
 			userId := c.Param("userId")
 			StoryController.Stories(userId)
 		})

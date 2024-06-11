@@ -165,12 +165,12 @@ func (r UserRepositoryDB) UserSignIn(c *gin.Context) (bool, error) {
 		return false, err
 	}
 
-	// Look up requested user
+	// Look up requested user by username
 	user := models.User{}
 	userProfile := models.Userprofile{}
 
 	if err := r.db.Where("username = ?", body.Phone_or_Username_or_Email).First(&user).Error; err != nil {
-		// If the user is not found, look up the user by phone or email
+		// If the username is not found, look up the user by phone or email
 		if err := r.db.Where("phone = ? OR email = ?", body.Phone_or_Username_or_Email, body.Phone_or_Username_or_Email).First(&userProfile).Error; err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"err": "User not found",
@@ -202,7 +202,7 @@ func (r UserRepositoryDB) UserSignIn(c *gin.Context) (bool, error) {
 		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 
-	// Sign and get the complete encoded token as  a string using the secret
+	// Sign and get the complete encoded token as a string using the secret key
 	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
 
 	if err != nil {
@@ -217,5 +217,20 @@ func (r UserRepositoryDB) UserSignIn(c *gin.Context) (bool, error) {
 	c.SetCookie("Authorization", tokenString, 60*60*24*30, "", "", false, true)
 	c.JSON(http.StatusOK, gin.H{})
 
+	return true, nil
+}
+
+func (r UserRepositoryDB) UserSignOut(c *gin.Context) (bool, error) {
+	// Delete the cookie
+	c.SetCookie("Authorization", "", -1, "", "", false, true)
+	if err := c.Err(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"err": "Failed to delete cookie",
+		})
+
+		return false, err
+	}
+
+	c.JSON(http.StatusOK, gin.H{})
 	return true, nil
 }

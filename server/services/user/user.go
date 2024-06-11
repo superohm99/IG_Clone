@@ -15,4 +15,5 @@ type UserService interface {
 
 	SignUp(c *gin.Context) (bool, error)
 	SignIn(c *gin.Context) (bool, error)
+	SignOut(c *gin.Context) (bool, error)
 }

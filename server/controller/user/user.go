@@ -29,3 +29,7 @@ func (h UserController) SignUp(c *gin.Context) {
 func (h UserController) SignIn(c *gin.Context) {
 	h.UserSrv.SignIn(c)
 }
+
+func (h UserController) SignOut(c *gin.Context) {
+	h.UserSrv.SignOut(c)
+}

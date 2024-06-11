@@ -13,4 +13,5 @@ type UserRepository interface {
 
 	UserSignUp(c *gin.Context) (bool, error)
 	UserSignIn(c *gin.Context) (bool, error)
+	UserSignOut(c *gin.Context) (bool, error)
 }
