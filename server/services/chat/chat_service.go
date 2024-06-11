@@ -2,6 +2,7 @@ package chat
 
 import (
 	"fmt"
+	"igclone/models"
 	"igclone/repository/chat"
 	"log"
 
@@ -34,4 +35,14 @@ func (s ChatRepoService) MessageCreate(c *gin.Context) (bool, error) {
 	}
 	fmt.Println(status)
 	return true, nil
+}
+
+func (s ChatRepoService) GetMessage(ChatId string) ([]models.Message, error) {
+	messages, err := s.ChatRepo.GetMessageFilter(ChatId)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	fmt.Println(messages)
+	return messages, nil
 }

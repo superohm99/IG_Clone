@@ -1,6 +1,7 @@
 package post
 
 import (
+	"igclone/models"
 	"igclone/services/chat"
 
 	"github.com/gin-gonic/gin"
@@ -20,4 +21,8 @@ func (p ChatController) ChatCreate(c *gin.Context) (bool, error) {
 
 func (p ChatController) MessageCreate(c *gin.Context) (bool, error) {
 	return p.ChatSrv.MessageCreate(c)
+}
+
+func (p ChatController) GetMessage(chatid string) ([]models.Message, error) {
+	return p.ChatSrv.GetMessage(chatid)
 }

@@ -43,6 +43,17 @@ func (r ChatRepositoryDB) ChatCreate(c *gin.Context) (bool, error) {
 	return true, nil
 }
 
+func (r ChatRepositoryDB) GetMessageFilter(ChatId string) ([]models.Message, error) {
+	messages := []models.Message{}
+
+	result := r.db.Where("chat_id = ?", ChatId).Find(&messages)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return messages, nil
+}
+
 func (r ChatRepositoryDB) MessageCreate(c *gin.Context) (bool, error) {
 
 	var body struct {
