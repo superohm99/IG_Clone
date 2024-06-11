@@ -45,5 +45,32 @@ func (r ChatRepositoryDB) ChatCreate(c *gin.Context) (bool, error) {
 
 func (r ChatRepositoryDB) MessageCreate(c *gin.Context) (bool, error) {
 
+	var body struct {
+		UserId uint
+		ChatId uint
+		Text   string
+	}
+
+	c.Bind(&body)
+
+	message := models.Message{
+		UserId: body.UserId,
+		ChatId: body.ChatId,
+		Text:   body.Text,
+	}
+
+	result := initializers.DB.Create(&message)
+
+	if result.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	// initializers.DB.Save(&message)
+
+	c.JSON(200, gin.H{
+		"Id": message.Id,
+	})
+
 	return true, nil
 }

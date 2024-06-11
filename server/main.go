@@ -70,6 +70,10 @@ func main() {
 			ChatController.ChatCreate(c)
 		})
 
+		c_router.POST("send_message", func(c *gin.Context) {
+			ChatController.MessageCreate(c)
+		})
+
 	}
 
 	r.Run(":8000")

@@ -27,6 +27,11 @@ func (s ChatRepoService) ChatCreate(c *gin.Context) (bool, error) {
 }
 
 func (s ChatRepoService) MessageCreate(c *gin.Context) (bool, error) {
-
+	status, err := s.ChatRepo.MessageCreate(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	fmt.Println(status)
 	return true, nil
 }
