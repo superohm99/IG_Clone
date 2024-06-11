@@ -7,20 +7,27 @@ import { useRouter } from "expo-router";
 
 import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 import FormField from "@/components/tool_AuthScreen/FormField";
+import { validateField } from "@/components/tool_AuthScreen/FormValidation";
 
 const CreateUsernameScreen = () => {
+  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const router = useRouter();
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   const submit = async () => {
     setIsSubmitting(true);
+    
+    const errorMessage = validateField("Username", username);
+    if (!errorMessage) {
+      setSubmitted(true);
 
-    // passing username to next screen
-    router.navigate({
-      pathname: "/SignUp/CreatePasswordScreen",
-      params: { username },
-    });
+      // passing username to next screen
+      router.navigate({
+        pathname: "/SignUp/CreatePasswordScreen",
+        params: { username },
+      });
+    }
   };
 
   return (
@@ -43,11 +50,12 @@ const CreateUsernameScreen = () => {
             handleChangeText={(e) => setUsername(e)}
             placeholder="Username"
             otherStyles={{ marginTop: 20 }}
+            showError={isSubmitting}
           />
           <CustomButton
             title="Next"
             otherStyle={{ marginTop: 20 }}
-            isLoading={isSubmitting}
+            isLoading={submitted}
             handlePress={submit}
           />
         </View>

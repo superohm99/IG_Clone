@@ -1,6 +1,5 @@
-import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -8,6 +7,7 @@ import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { images } from "@/constants";
 import CustomButton from "@/components/tool_AuthScreen/CustomButton";
 import FormField from "@/components/tool_AuthScreen/FormField";
+import { validateField } from "@/components/tool_AuthScreen/FormValidation";
 
 type formState = {
   username: string;
@@ -15,21 +15,53 @@ type formState = {
 };
 
 const SignInScreen = () => {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  
   const [form, setForm] = useState<formState>({
     username: "",
     password: "",
   });
+  
+  const [errors, setErrors] = useState({
+    username: "",
+    password: ""
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const router = useRouter();
+  const handleChange = (name: string, value: string) => {
+    setForm({
+      ...form,
+      [name]: value
+    });
+    setErrors({
+      ...errors,
+      [name]: validateField(name, value)
+    });
+  };
 
   const submit = async () => {
+
     setIsSubmitting(true);
-    router.navigate("/Home");
+
+    const usernameError = validateField("Phone_or_Username_or_Email", form.username);
+    const passwordError = validateField("Password", form.password);
+    setErrors({
+      username: usernameError,
+      password: passwordError
+    });
+
+    if (!usernameError && !passwordError) {
+      setSubmitted(true);
+      router.navigate("/Home");
+    }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView 
+      behavior="padding"
+      style={styles.container}
+    >
       <ScrollView>
         <View style={styles.content}>
           <Image
@@ -39,19 +71,21 @@ const SignInScreen = () => {
           />
 
           <FormField
-            title="Username"
+            title="Phone_or_Username_or_Email"
             value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
+            handleChangeText={(e) => handleChange("username", e)}
             otherStyles={{ marginTop: 10 }}
             placeholder="Phone number, username or email"
+            showError={isSubmitting}
           />
 
           <FormField
             title="Password"
             value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
+            handleChangeText={(e) => handleChange("password", e)}
             otherStyles={{ marginTop: 10 }}
             placeholder="Password"
+            showError={isSubmitting}
           />
 
           <TouchableOpacity style={{ alignSelf: "flex-end" }}>
@@ -63,7 +97,7 @@ const SignInScreen = () => {
           <CustomButton
             title="Log in"
             otherStyle={{ marginTop: 20 }}
-            isLoading={isSubmitting}
+            isLoading={submitted}
             handlePress={submit}
           />
 
@@ -89,7 +123,7 @@ const SignInScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

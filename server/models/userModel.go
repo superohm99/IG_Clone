@@ -4,6 +4,7 @@ type User struct {
 	// gorm.Model
 	Id              uint `gorm:"primaryKey"`
 	Name            string
+	Username        string
 	Password        string
 	Avatar          string
 	IsActive        bool
@@ -17,4 +18,5 @@ type User struct {
 	Comment       Comment   `gorm:"foreignKey:User_Id"`
 	Reply         Reply     `gorm:"foreignKey:User_Id"`
 	Messages      []Message `gorm:"foreignKey:UserId"`
+	Story         Story     `gorm:"foreignKey:User_Id"`
 }

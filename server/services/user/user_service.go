@@ -53,3 +53,30 @@ func (s UserRepoService) ProfileEdit(c *gin.Context) (bool, error) {
 	}
 	return status, err
 }
+
+func (s UserRepoService) SignUp(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.UserSignUp(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}
+
+func (s UserRepoService) SignIn(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.UserSignIn(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}
+
+func (s UserRepoService) SignOut(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.UserSignOut(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}

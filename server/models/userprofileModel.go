@@ -4,6 +4,7 @@ type Userprofile struct {
 	// gorm.Model
 	Id          uint `gorm:"primaryKey"`
 	Phone       string
+	Email       string
 	Image       string
 	Description string
 
