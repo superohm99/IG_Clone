@@ -17,4 +17,5 @@ type User struct {
 	Posts         []Post  `gorm:"foreignKey:User_Id"`
 	Comment       Comment `gorm:"foreignKey:User_Id"`
 	Reply         Reply   `gorm:"foreignKey:User_Id"`
+	Story         Story   `gorm:"foreignKey:User_Id"`
 }
