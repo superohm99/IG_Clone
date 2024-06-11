@@ -1,14 +1,17 @@
 package main
 
 import (
+	controller_chat "igclone/controller/chat"
 	controller_post "igclone/controller/post"
 	controller_story "igclone/controller/story"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
 	"igclone/middleware"
+	repository_chat "igclone/repository/chat"
 	repository_post "igclone/repository/post"
 	repository_story "igclone/repository/story"
 	repository_user "igclone/repository/user"
+	services_chat "igclone/services/chat"
 	services_post "igclone/services/post"
 	services_story "igclone/services/story"
 	services_user "igclone/services/user"
@@ -37,6 +40,10 @@ func main() {
 			UserController.CreateUser(c)
 		})
 
+		u_router.POST("/edit_profile", func(c *gin.Context) {
+			UserController.EditProfile(c)
+		})
+
 		u_router.POST("/signup", func(c *gin.Context) {
 			UserController.SignUp(c)
 		})
@@ -63,6 +70,10 @@ func main() {
 		p_router.GET("/posts", func(c *gin.Context) {
 			PostController.Posts()
 		})
+
+		p_router.POST("/send_comment", func(c *gin.Context) {
+			PostController.CommentCreate(c)
+		})
 	}
 
 	s_router := r.Group("api/s_router/")
@@ -79,6 +90,18 @@ func main() {
 			userId := c.Param("userId")
 			StoryController.Stories(userId)
 		})
+	}
+
+	c_router := r.Group("api/c_router/")
+	{
+		ChatRepository := repository_chat.NewChatRepositoryDB(initializers.DB)
+		ChatService := services_chat.NewChatService(ChatRepository)
+		ChatController := controller_chat.NewChatController(ChatService)
+
+		c_router.POST("/create_chat", func(c *gin.Context) {
+			ChatController.ChatCreate(c)
+		})
+
 	}
 
 	r.Run(":8000")

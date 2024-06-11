@@ -45,6 +45,15 @@ func (s UserRepoService) CreateUser(c *gin.Context) (bool, error) {
 	return status, err
 }
 
+func (s UserRepoService) ProfileEdit(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.ProfileEdit(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}
+
 func (s UserRepoService) SignUp(c *gin.Context) (bool, error) {
 	status, err := s.UserRepo.UserSignUp(c)
 	if err != nil {

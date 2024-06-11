@@ -6,5 +6,5 @@ type Note struct {
 	gorm.Model
 	Id   uint `gorm:"primaryKey"`
 	Text string
-	User User `gorm:"foreignKey:Id"`
+	// User User `gorm:"foreignKey:Id"`
 }

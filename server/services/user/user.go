@@ -12,6 +12,7 @@ type UserResponse struct {
 type UserService interface {
 	Getusers() ([]UserResponse, error)
 	CreateUser(c *gin.Context) (bool, error)
+	ProfileEdit(c *gin.Context) (bool, error)
 
 	SignUp(c *gin.Context) (bool, error)
 	SignIn(c *gin.Context) (bool, error)

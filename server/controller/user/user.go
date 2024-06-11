@@ -22,6 +22,10 @@ func (h UserController) CreateUser(c *gin.Context) {
 	h.UserSrv.CreateUser(c)
 }
 
+func (h UserController) EditProfile(c *gin.Context) {
+	h.UserSrv.ProfileEdit(c)
+}
+
 func (h UserController) SignUp(c *gin.Context) {
 	h.UserSrv.SignUp(c)
 }
