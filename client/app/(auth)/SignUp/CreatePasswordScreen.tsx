@@ -8,24 +8,30 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 
 import FormField from "@/components/tool_AuthScreen/FormField";
 import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import { validateField } from "@/components/tool_AuthScreen/FormValidation";
 
 const CreatePasswordScreen = () => {
-  const [password, setPassword] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [savePassword, setSavePassword] = useState<boolean>(false);
-  
   const router = useRouter();
-  const { username } = useLocalSearchParams<{ username: string }>();
-  
+  const { username } = useLocalSearchParams();
+
+  const [password, setPassword] = useState<string>("");
+  const [savePassword, setSavePassword] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
   const submit = async () => {
     setIsSubmitting(true);
     
-    // example
-    // passing username to next screen
-    router.navigate({
-      pathname: "/SignUp/PhoneEmailScreen",
-      params: { username, password }
-    });
+    const errorMessage = validateField("Password", password);
+    if (!errorMessage) {
+      setSubmitted(true);
+
+      // passing username, password to next screen
+      router.navigate({
+        pathname: "/SignUp/PhoneEmailScreen",
+        params: { username, password }
+      });
+    }
   };
 
   return (
@@ -45,6 +51,7 @@ const CreatePasswordScreen = () => {
             handleChangeText={(e) => setPassword(e)}
             placeholder="Password"
             otherStyles={{ marginTop: 20 }}
+            showError={isSubmitting}
           />
           <View style={styles.save}>
             <TouchableOpacity onPress={() => setSavePassword(!savePassword)}>
@@ -55,7 +62,7 @@ const CreatePasswordScreen = () => {
           <CustomButton
             title="Next"
             otherStyle={{ marginTop: 20 }}
-            isLoading={isSubmitting}
+            isLoading={submitted}
             handlePress={submit}
           />
         </View>

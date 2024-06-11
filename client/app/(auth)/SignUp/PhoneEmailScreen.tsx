@@ -7,36 +7,64 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 import FormField from "@/components/tool_AuthScreen/FormField";
 import CustomButton from "@/components/tool_AuthScreen/CustomButton";
+import { validateField } from "@/components/tool_AuthScreen/FormValidation";
+
+type formState = {
+  phone: string;
+  email: string;
+};
 
 const PhoneEmailScreen = () => {
   const router = useRouter();
-  const { username, password } = useLocalSearchParams<{ username: string, password: string }>();
+  const { username, password } = useLocalSearchParams();
 
   const [isSelect, setIsSelect] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [phone, setPhone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const toggleSelect = (selectValue: boolean) => {
-    setIsSelect(selectValue);
+  const [form, setForm] = useState<formState>({
+    phone: "",
+    email: "",
+  });
+
+  const [errors, setErrors] = useState({
+    phone: "",
+    email: ""
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setForm({
+      ...form,
+      [name]: value
+    });
+    setErrors({
+      ...errors,
+      [name]: validateField(name, value)
+    });
   };
 
   const submit = async () => {
     setIsSubmitting(true);
 
-    if (isSelect) {
-      // submit phone
+    const phoneError = validateField("Phone", form.phone);
+    const emailError = validateField("Email", form.email);
+
+    setErrors({
+      phone: phoneError,
+      email: emailError
+    });
+
+    if (!phoneError || !emailError) {
+      setSubmitted(true);
       router.navigate({
         pathname: "/SignUp/WelcomeScreen",
-        params: { username, password, phone, email }
-      });
-    } else {
-      // submit email
-      router.navigate({
-        pathname: "/SignUp/WelcomeScreen",
-        params: { username, password, phone, email }
+        params: { username, password, phone: form.phone, email: form.email }
       });
     }
+  };
+
+  const toggleSelect = (selectValue: boolean) => {
+    setIsSelect(selectValue);
   };
 
   return (
@@ -77,15 +105,16 @@ const PhoneEmailScreen = () => {
             <View>
                 <FormField
                     title="Phone"
-                    value={phone}
-                    handleChangeText={(e) => setPhone(e)}
+                    value={form.phone}
+                    handleChangeText={(e) => handleChange("phone", e)}
                     otherStyles={{ marginTop: 10 }}
                     placeholder="Phone number"
+                    showError={isSubmitting}
                 />
                 <CustomButton
                     title="Next"
                     otherStyle={{ marginTop: 20 }}
-                    isLoading={isSubmitting}
+                    isLoading={submitted}
                     handlePress={submit}
                 />
             </View>
@@ -93,15 +122,16 @@ const PhoneEmailScreen = () => {
             <View>
                 <FormField
                     title="Email"
-                    value={email}
-                    handleChangeText={(e) => setEmail(e)}
+                    value={form.email}
+                    handleChangeText={(e) => handleChange("email", e)}
                     otherStyles={{ marginTop: 10 }}
                     placeholder="Email address"
+                    showError={isSubmitting}
                 />
                 <CustomButton
                     title="Next"
                     otherStyle={{ marginTop: 20 }}
-                    isLoading={isSubmitting}
+                    isLoading={submitted}
                     handlePress={submit}
                 />
             </View>

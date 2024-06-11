@@ -1,6 +1,6 @@
 import { Stack } from "expo-router"
 import TopNavChat from "@/components/Direct/TopNavChat"
-import ChatHeader from "@/components/Direct/ChatHeader"
+
 const RootLayout = () => {
     return (
         <Stack>
@@ -39,7 +39,6 @@ const RootLayout = () => {
                         headerShadowVisible: false,
                         }} />                    
                 <Stack.Screen name='(auth)' options={{ headerShown: false}}/>
-                <Stack.Screen name='Notification' options={{ headerShown: false}}/>
 
                 <Stack.Screen name='(search)' options={{ headerShown: false}}/>
                 <Stack.Screen name='(search)/SearchUserScreen' options={{ headerShown: false}}/>
