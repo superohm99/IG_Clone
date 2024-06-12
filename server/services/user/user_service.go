@@ -25,8 +25,8 @@ func (s UserRepoService) AddFollow(c *gin.Context) (bool, error) {
 	return status, err
 }
 
-func (s UserRepoService) GetFollow(c *gin.Context) (Result, error) {
-	users, friends, err := s.UserRepo.GetAllFollow(c)
+func (s UserRepoService) GetFollow(userid string) (Result, error) {
+	users, friends, err := s.UserRepo.GetAllFollow(userid)
 	result := Result{
 		Id:      uint(users.Id),
 		Name:    string(users.Name),

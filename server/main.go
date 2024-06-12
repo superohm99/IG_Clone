@@ -48,8 +48,9 @@ func main() {
 			UserController.AddFollow(c)
 		})
 
-		u_router.POST("/get_follow", func(c *gin.Context) {
-			UserController.GetFollow(c)
+		u_router.POST("/get_follow/:userid", func(c *gin.Context) {
+			userid := c.Param("userid")
+			UserController.GetFollow(userid)
 		})
 
 		u_router.POST("/signup", func(c *gin.Context) {

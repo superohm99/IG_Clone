@@ -21,13 +21,13 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
-func (r UserRepositoryDB) GetAllFollow(c *gin.Context) (models.User, []*models.User, error) {
+func (r UserRepositoryDB) GetAllFollow(userid string) (models.User, []*models.User, error) {
 
 	var user models.User
 
-	userID := uint(1)
+	// userID := uint(1)
 
-	result := initializers.DB.Preload("Closed_friend").Find(&user, userID)
+	result := initializers.DB.Preload("Closed_friend").Find(&user, userid)
 	if result.Error != nil {
 		return user, nil, result.Error
 	}

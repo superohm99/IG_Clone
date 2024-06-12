@@ -14,7 +14,7 @@ type Result struct {
 type UserRepository interface {
 	GetAll() ([]models.User, error)
 	UserCreate(c *gin.Context) (bool, error)
-	GetAllFollow(c *gin.Context) (models.User, []*models.User, error)
+	GetAllFollow(userid string) (models.User, []*models.User, error)
 	AddFollow(c *gin.Context) (bool, error)
 	ProfileCreate() (models.Userprofile, error)
 	ProfileEdit(c *gin.Context) (bool, error)
