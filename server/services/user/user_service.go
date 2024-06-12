@@ -15,6 +15,15 @@ func NewUserService(UserRepo user.UserRepository) UserRepoService {
 	return UserRepoService{UserRepo: UserRepo}
 }
 
+func (s UserRepoService) AddFollow(c *gin.Context) (bool, error) {
+	status, err := s.UserRepo.AddFollow(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	return status, err
+}
+
 func (s UserRepoService) Getusers() ([]UserResponse, error) {
 	users, err := s.UserRepo.GetAll()
 	if err != nil {

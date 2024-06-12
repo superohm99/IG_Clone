@@ -21,6 +21,28 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
+func (r UserRepositoryDB) AddFollow(c *gin.Context) (bool, error) {
+	var body struct {
+		UserId   uint
+		FollowId uint
+	}
+
+	c.Bind(&body)
+	user := &models.User{Id: body.UserId}
+	result := initializers.DB.Model(user).Update("Closed_friend", append(user.Closed_friend, &models.User{Id: body.FollowId}))
+
+	if result.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	c.JSON(200, gin.H{
+		"Id": user.Id,
+	})
+
+	return true, nil
+}
+
 func (r UserRepositoryDB) ProfileCreate() (models.Userprofile, error) {
 	def_profile := models.Userprofile{Phone: "--", Image: "--", Description: "--"}
 	return def_profile, nil

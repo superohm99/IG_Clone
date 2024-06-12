@@ -26,6 +26,10 @@ func (h UserController) EditProfile(c *gin.Context) {
 	h.UserSrv.ProfileEdit(c)
 }
 
+func (h UserController) AddFollow(c *gin.Context) {
+	h.UserSrv.AddFollow(c)
+}
+
 func (h UserController) SignUp(c *gin.Context) {
 	h.UserSrv.SignUp(c)
 }
