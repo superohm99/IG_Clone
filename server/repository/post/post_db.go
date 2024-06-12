@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	// repository_user "igclone/repository/user"
 )
 
 type PostRepositoryDB struct {
@@ -18,6 +19,9 @@ func NewPostRepositoryDB(db *gorm.DB) PostRepositoryDB {
 
 func (p PostRepositoryDB) GetAll() ([]models.Post, error) {
 	posts := []models.Post{}
+
+	// UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
+	// UserRepository.AddFollow())
 
 	result := p.db.Find(&posts)
 	if result.Error != nil {
