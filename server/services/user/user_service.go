@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"igclone/repository/user"
 	"log"
 
@@ -22,6 +23,22 @@ func (s UserRepoService) AddFollow(c *gin.Context) (bool, error) {
 		return status, err
 	}
 	return status, err
+}
+
+func (s UserRepoService) GetFollow(c *gin.Context) (Result, error) {
+	users, friends, err := s.UserRepo.GetAllFollow(c)
+	result := Result{
+		Id:      uint(users.Id),
+		Name:    string(users.Name),
+		Friends: friends,
+	}
+
+	for _, friend := range friends {
+		fmt.Println(friend.Id)
+	}
+
+	fmt.Println(result)
+	return result, err
 }
 
 func (s UserRepoService) Getusers() ([]UserResponse, error) {

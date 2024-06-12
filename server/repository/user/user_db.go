@@ -21,6 +21,27 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
+func (r UserRepositoryDB) GetAllFollow(c *gin.Context) (models.User, []*models.User, error) {
+
+	var user models.User
+
+	userID := uint(1)
+
+	result := initializers.DB.Preload("Closed_friend").Find(&user, userID)
+	if result.Error != nil {
+		return user, nil, result.Error
+	}
+
+	var friends []*models.User
+	initializers.DB.Model(&user).Association("Closed_friend").Find(&friends)
+
+	// for _, friend := range friends {
+	// 	fmt.Println(friend.Id)
+	// }
+
+	return user, friends, nil
+}
+
 func (r UserRepositoryDB) AddFollow(c *gin.Context) (bool, error) {
 	var body struct {
 		UserId   uint
