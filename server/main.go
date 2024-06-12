@@ -44,6 +44,10 @@ func main() {
 			UserController.EditProfile(c)
 		})
 
+		u_router.POST("/add_follow", func(c *gin.Context) {
+			UserController.AddFollow(c)
+		})
+
 		u_router.POST("/signup", func(c *gin.Context) {
 			UserController.SignUp(c)
 		})

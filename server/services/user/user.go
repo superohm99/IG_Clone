@@ -13,6 +13,7 @@ type UserService interface {
 	Getusers() ([]UserResponse, error)
 	CreateUser(c *gin.Context) (bool, error)
 	ProfileEdit(c *gin.Context) (bool, error)
+	AddFollow(c *gin.Context) (bool, error)
 
 	SignUp(c *gin.Context) (bool, error)
 	SignIn(c *gin.Context) (bool, error)
