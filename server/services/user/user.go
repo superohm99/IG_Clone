@@ -23,7 +23,7 @@ type UserService interface {
 	CreateUser(c *gin.Context) (bool, error)
 	ProfileEdit(c *gin.Context) (bool, error)
 	AddFollow(c *gin.Context) (bool, error)
-	GetFollow(userid string) (Result, error)
+	GetClosedFriend(userid string) (Result, error)
 	SignUp(c *gin.Context) (bool, error)
 	SignIn(c *gin.Context) (bool, error)
 	SignOut(c *gin.Context) (bool, error)

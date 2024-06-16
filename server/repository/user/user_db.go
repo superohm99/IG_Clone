@@ -21,7 +21,7 @@ func NewUserRepositoryDB(db *gorm.DB) UserRepositoryDB {
 	return UserRepositoryDB{db: db}
 }
 
-func (r UserRepositoryDB) GetAllFollow(userid string) (models.User, []*models.User, error) {
+func (r UserRepositoryDB) GetAllClosedFriend(userid string) (models.User, []*models.User, error) {
 
 	var user models.User
 
