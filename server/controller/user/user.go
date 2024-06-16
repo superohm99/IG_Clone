@@ -30,8 +30,8 @@ func (h UserController) AddFollow(c *gin.Context) {
 	h.UserSrv.AddFollow(c)
 }
 
-func (h UserController) GetFollow(userid string) {
-	h.UserSrv.GetFollow(userid)
+func (h UserController) GetClosedFriend(userid string) {
+	h.UserSrv.GetClosedFriend(userid)
 }
 
 func (h UserController) SignUp(c *gin.Context) {
