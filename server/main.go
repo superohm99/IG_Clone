@@ -83,6 +83,10 @@ func main() {
 		p_router.POST("/send_comment", func(c *gin.Context) {
 			PostController.CommentCreate(c)
 		})
+
+		p_router.POST("/send_reply", func(c *gin.Context) {
+			PostController.ReplyCreate(c)
+		})
 	}
 
 	s_router := r.Group("api/s_router/")
