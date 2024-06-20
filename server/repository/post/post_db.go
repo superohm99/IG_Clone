@@ -76,3 +76,23 @@ func (r PostRepositoryDB) CommentCreate(c *gin.Context) (bool, error) {
 
 	return true, nil
 }
+
+func (r PostRepositoryDB) ReplyCreate(c *gin.Context) (bool, error) {
+	var body struct {
+		Comment_Id uint
+		User_Id    uint
+		Content    string
+	}
+	c.Bind(body)
+	result := initializers.DB.Create(&models.Reply{Content: body.Content, CommentId: body.Comment_Id, User_Id: body.User_Id})
+
+	if result.Error != nil {
+		c.Status(400)
+		return false, c.Err()
+	}
+
+	c.JSON(200, gin.H{
+		"Reply": body.Content,
+	})
+	return true, nil
+}
