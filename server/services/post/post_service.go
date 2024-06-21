@@ -55,3 +55,13 @@ func (s PostRepoService) CommentCreate(c *gin.Context) (bool, error) {
 	fmt.Println(status)
 	return status, nil
 }
+
+func (s PostRepoService) ReplyCreate(c *gin.Context) (bool, error) {
+	status, err := s.PostRepo.ReplyCreate(c)
+	if err != nil {
+		log.Println(err)
+		return status, err
+	}
+	fmt.Println(status)
+	return status, nil
+}

@@ -25,3 +25,7 @@ func (p PostController) PostCreate(c *gin.Context) (bool, error) {
 func (p PostController) CommentCreate(c *gin.Context) (bool, error) {
 	return p.PostSrv.CommentCreate(c)
 }
+
+func (p PostController) ReplyCreate(c *gin.Context) (bool, error) {
+	return p.PostSrv.ReplyCreate(c)
+}

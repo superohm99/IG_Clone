@@ -15,4 +15,5 @@ type PostService interface {
 	GetAllPost() ([]PostResponse, error)
 	PostCreate(c *gin.Context) (bool, error)
 	CommentCreate(c *gin.Context) (bool, error)
+	ReplyCreate(c *gin.Context) (bool, error)
 }
