@@ -4,7 +4,7 @@ import CircleView from "../tool_HomeScreen/CircleView"
 
 const PersonView = () => {
   return (
-    <View style={{zIndex:1,position:'absolute',left:'5%',top:'80%',flexDirection:'column'}}>
+    <View style={{zIndex:1,position:'absolute', bottom: 10, left: 10,flexDirection:'column'}}>
         <View style={{flexDirection:'row'}}>
             <CircleView margin_fisrt={0} margin_sec={0} border_sec={0} border={0} width={47} height={47} img='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'></CircleView>
             <Text style={{color:'white',fontSize:16,fontWeight:700,marginTop:12}}>PersonView</Text>
