@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, ScrollView ,Image } from 'react-native'
+import { StyleSheet, Text, View, ScrollView ,Image, TouchableOpacity } from 'react-native'
+import { SafeAreaView } from "react-native-safe-area-context";
 import React from 'react'
 import { ResizeMode } from 'expo-av'
 import VideoPlayer from 'expo-video-player'
@@ -18,36 +19,41 @@ const ClipScreen = () => {
   var max_height = Dimensions.get('screen').height;
 
   return (
-
-      <ScrollView  style={{paddingLeft:0}}>
-
-        
-        <View style={{position: 'absolute',zIndex:1,flexDirection:'row'}}>
-        
-          <Text style={{fontSize:30,color:'white',marginLeft:10,marginTop:20}}>Reels</Text>
-
-        </View>
-
+    <SafeAreaView>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Reels</Text>
+        <TouchableOpacity>
+          <Image source={icons.camera} style={styles.camera} resizeMode="contain" />
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
         <ClipView></ClipView>
-
-        {/* <ClipView></ClipView>
-
-        <ClipView></ClipView> */}
-
-        {/* <Text>
-        {'\n'}
-        </Text> */}
-
       </ScrollView>
-
-
+    </SafeAreaView>
   )
 }
 
 export default ClipScreen
 
-const styles = StyleSheet.create({  
-
+const styles = StyleSheet.create({
+  header: {
+    position: 'absolute',
+    zIndex:1, 
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    padding: 10
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: '600',
+    color: 'white'
+  },
+  camera: {
+    width: 35,
+    height: 35,
+    color: 'white',
+    top: 1.5,
+  }
 })
-
-// rnfes

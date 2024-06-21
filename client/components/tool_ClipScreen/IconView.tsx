@@ -16,49 +16,69 @@ const IconView = () => {
     console.log(modalVisible)
   };
 
-
-
-
   return (
-    <View style={{position:'absolute',left:'85%',top:'2%',zIndex:1}}>
-        <Image
-            source={icons.camera}
-            resizeMode="contain"
-            style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:15,marginBottom:350}}
-              />
-        <Image
+    <View style={styles.container}>
+      <View style={styles.icon}>
+        <View style={{alignItems: 'center'}}>
+          <Image
             source={icons.heart}
             resizeMode="contain"
-            style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:15}}
-            />
-        <Text style={{color:'black',fontSize:15,marginTop:10}}>1,111</Text>
-        <TouchableOpacity onPress={handleImagePress}>
-
-          <Image
-          source={icons.chat}
-          resizeMode="contain"
-          style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:35}}
+            style={styles.image}
           />
-
-        </TouchableOpacity>
-        <Text style={{color:'black',fontSize:15,marginTop:10}}>220</Text>
+          <Text style={styles.text}>1,111</Text>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image
+              source={icons.chat}
+              resizeMode="contain"
+              style={styles.image}
+            />
+          </TouchableOpacity>
+          <Text style={styles.text}>220</Text>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <Image
+            source={icons.send}
+            resizeMode="contain"
+            style={styles.image}
+          />
+          <Text style={styles.text}>50</Text>
+        </View>
         <Image
-        source={icons.send}
-        resizeMode="contain"
-        style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:35}}
+          source={icons.more}
+          resizeMode="contain"
+          style={[styles.image, {alignSelf: 'center'}]}
         />
-        <Text style={{color:'black',fontSize:15,marginTop:10}}>50</Text>      
-        <Image
-        source={icons.more}
-        resizeMode="contain"
-        style={{ width: 28, height: 28, tintColor: 'black', marginRight:20, marginTop:35}}
-        />
+      </View>
 
-        <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
+      <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
     </View>
   )
 }
 
 export default IconView
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  // position right bottom
+  container: {
+    position:'absolute',
+    zIndex:1,
+    bottom: 10,
+    right: 10
+  },
+  icon: {
+    flexDirection: 'column',
+    gap: 20
+  },
+  image: {
+    width: 28, 
+    height: 28, 
+    tintColor: 'white'
+  },
+  text: {
+    color:'white',
+    fontSize:15,
+    marginTop: 10
+  }
+})

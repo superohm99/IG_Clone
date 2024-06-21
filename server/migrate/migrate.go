@@ -40,5 +40,6 @@ func main() {
 	db.AutoMigrate(&models.Story{})
 	db.AutoMigrate(&models.Note{})
 	db.AutoMigrate(&models.Message{})
+	db.AutoMigrate(&models.Reel{})
 	// return
 }

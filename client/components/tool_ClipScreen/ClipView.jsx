@@ -17,7 +17,7 @@ const ClipView = () => {
     marginLeftVideo: 0,
     marginTopVideo: 0,
     width: 1200,
-    height: Dimensions.get('screen').height - 70
+    height: Dimensions.get('screen').height - 120
   });
 
   max_width = Dimensions.get('screen').width;
@@ -34,7 +34,7 @@ const ClipView = () => {
         marginLeftVideo: 0,
         marginTopVideo: 0,
         width: max_width,
-        height: max_height - 70
+        height: max_height - 120
       });
     } else {
       setLayout({
@@ -42,7 +42,7 @@ const ClipView = () => {
         marginLeftVideo: 222,
         marginTopVideo: 0,
         width: 1200,
-        height: max_height - 70
+        height: max_height - 120
       });
     }
   }, [isTabletOrMobileDevice, max_width, max_height]);
@@ -51,18 +51,37 @@ const ClipView = () => {
 
     <View style={{marginLeft:layout.marginLeftVideo,marginTop:layout.marginTopVideo}}>
 
+      <View>
         <VideoPlayer
-            style={{width:layout.width,height:layout.height,position: "absolute",zIndex:0,videoBackgroundColor:'white'}}
-            videoProps={{
-            shouldPlay: true,
-            resizeMode: layout.resizeVideo,
-            source: {
-                uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            },
-            }}
+          style={{width:layout.width,height:layout.height,position: "absolute",zIndex:0,videoBackgroundColor:'white'}}
+          videoProps={{
+          shouldPlay: true,
+          resizeMode: layout.resizeVideo,
+          source: {
+              uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          },
+          }}
         />
+        
         <PersonView></PersonView>
         <IconView></IconView>
+      </View>
+
+      <View>
+        <VideoPlayer
+          style={{width:layout.width,height:layout.height,position: "absolute",zIndex:0,videoBackgroundColor:'white'}}
+          videoProps={{
+          shouldPlay: true,
+          resizeMode: layout.resizeVideo,
+          source: {
+              uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+          },
+          }}
+        />
+        
+        <PersonView></PersonView>
+        <IconView></IconView>
+      </View>
   </View>
   )
 }

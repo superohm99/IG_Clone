@@ -14,6 +14,8 @@ type StoryResponse struct {
 }
 
 type StoryService interface {
-	GetStories(string) ([]StoryResponse, error)
+	GetStories() ([]StoryResponse, error)
+	GetFollowingStories(c *gin.Context) ([]StoryResponse, error)
+	GetStoriesByUserId(id string) ([]StoryResponse, error)
 	AddStory(c *gin.Context) (bool, error)
 }

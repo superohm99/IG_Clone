@@ -3,16 +3,19 @@ package main
 import (
 	controller_chat "igclone/controller/chat"
 	controller_post "igclone/controller/post"
+	controller_reel "igclone/controller/reel"
 	controller_story "igclone/controller/story"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
 	"igclone/middleware"
 	repository_chat "igclone/repository/chat"
 	repository_post "igclone/repository/post"
+	repository_reel "igclone/repository/reel"
 	repository_story "igclone/repository/story"
 	repository_user "igclone/repository/user"
 	services_chat "igclone/services/chat"
 	services_post "igclone/services/post"
+	services_reel "igclone/services/reel"
 	services_story "igclone/services/story"
 	services_user "igclone/services/user"
 
@@ -95,13 +98,21 @@ func main() {
 		StoryService := services_story.NewStoryService(StoryRepository)
 		StoryController := controller_story.NewStoryController(StoryService)
 
-		s_router.POST("/story_create", middleware.RequireAuth, func(c *gin.Context) {
+		s_router.POST("/create_story", middleware.RequireAuth, func(c *gin.Context) {
 			StoryController.AddStory(c)
+		})
+
+		s_router.GET("/stories", func(c *gin.Context) {
+			StoryController.Stories()
 		})
 
 		s_router.GET("/stories/:userId", middleware.RequireAuth, func(c *gin.Context) {
 			userId := c.Param("userId")
-			StoryController.Stories(userId)
+			StoryController.StoriesByUserId(userId)
+		})
+
+		s_router.GET("/following_stories", middleware.RequireAuth, func(c *gin.Context) {
+			StoryController.FollowingStories(c)
 		})
 	}
 
@@ -123,7 +134,34 @@ func main() {
 			chatId := c.Param("chatId")
 			ChatController.GetMessage(chatId)
 		})
+	}
 
+	r_router := r.Group("api/r_router/")
+	{
+		ReelRepository := repository_reel.NewReelRepositoryDB(initializers.DB)
+		ReelService := services_reel.NewReelService(ReelRepository)
+		ReelController := controller_reel.NewReelController(ReelService)
+
+		r_router.POST("/create_reel", middleware.RequireAuth, func(c *gin.Context) {
+			ReelController.AddReel(c)
+		})
+
+		r_router.POST("/send_comment", middleware.RequireAuth, func(c *gin.Context) {
+			ReelController.AddComment(c)
+		})
+
+		r_router.GET("/reels", func(c *gin.Context) {
+			ReelController.Reels()
+		})
+
+		r_router.GET("/reels/:userId", middleware.RequireAuth, func(c *gin.Context) {
+			userId := c.Param("userId")
+			ReelController.ReelsByUserId(userId)
+		})
+
+		r_router.GET("/following_reels", middleware.RequireAuth, func(c *gin.Context) {
+			ReelController.FollowingReels(c)
+		})
 	}
 
 	r.Run(":8000")
