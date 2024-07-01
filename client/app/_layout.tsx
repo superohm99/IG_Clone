@@ -1,7 +1,6 @@
 import { Stack } from "expo-router"
 import TopNavChat from "@/components/Direct/TopNavChat"
 import ChatHeader from "@/components/Direct/ChatHeader"
-
 const RootLayout = () => {
     return (
         <Stack>
