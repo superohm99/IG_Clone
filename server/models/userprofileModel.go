@@ -8,5 +8,5 @@ type Userprofile struct {
 	Phone         string
 	Image         string
 	Description   string
-	Closed_friend []User
+	Closed_friend []*User `gorm:"foreignKey:Id"`
 }
