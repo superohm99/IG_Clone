@@ -14,8 +14,8 @@ func NewUserController(UserSrv user.UserService) UserController {
 	return UserController{UserSrv: UserSrv}
 }
 
-func (h UserController) GetUsers() {
-	h.UserSrv.Getusers()
+func (h UserController) GetUsers() (any, error) {
+	return h.UserSrv.Getusers()
 }
 
 func (h UserController) CreateUser(c *gin.Context) {

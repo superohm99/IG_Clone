@@ -1,7 +1,6 @@
 package chat
 
 import (
-	"igclone/initializers"
 	"igclone/models"
 
 	"github.com/gin-gonic/gin"
@@ -28,14 +27,14 @@ func (r ChatRepositoryDB) ChatCreate(c *gin.Context) (bool, error) {
 	chat := models.Chat{
 		Chat_link: []models.User{{Id: body.UserId}, {Id: body.FriendId}},
 	}
-	result := initializers.DB.Create(&chat)
+	result := r.db.Create(&chat)
 
 	if result.Error != nil {
 		c.Status(400)
 		return false, c.Err()
 	}
 
-	initializers.DB.Save(&chat)
+	r.db.Save(&chat)
 	c.JSON(200, gin.H{
 		"ChatId": chat.Id,
 	})
@@ -70,7 +69,7 @@ func (r ChatRepositoryDB) MessageCreate(c *gin.Context) (bool, error) {
 		Text:   body.Text,
 	}
 
-	result := initializers.DB.Create(&message)
+	result := r.db.Create(&message)
 
 	if result.Error != nil {
 		c.Status(400)
