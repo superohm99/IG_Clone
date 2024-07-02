@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	controller_chat "igclone/controller/chat"
 	controller_post "igclone/controller/post"
 	controller_reel "igclone/controller/reel"
@@ -18,9 +19,15 @@ import (
 	services_reel "igclone/services/reel"
 	services_story "igclone/services/story"
 	services_user "igclone/services/user"
+	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
+
+type Message struct {
+	Text string `json:"text"`
+}
 
 func init() {
 	initializers.ConnectToDB()
@@ -29,6 +36,11 @@ func init() {
 func main() {
 	r := gin.Default()
 
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:8081"} // Add your React Native app's origin
+	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}
+	r.Use(cors.New(config))
+
 	u_router := r.Group("api/u_router/")
 	{
 		UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
@@ -36,7 +48,9 @@ func main() {
 		UserController := controller_user.NewUserController(UserService)
 
 		u_router.GET("/users", func(c *gin.Context) {
-			UserController.GetUsers()
+			res, err := UserController.GetUsers()
+			fmt.Print(err)
+			c.JSON(http.StatusOK, res)
 		})
 
 		u_router.POST("/create_user", func(c *gin.Context) {
