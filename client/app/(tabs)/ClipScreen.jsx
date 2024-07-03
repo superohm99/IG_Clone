@@ -19,7 +19,7 @@ const ClipScreen = () => {
   var max_height = Dimensions.get('screen').height;
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Reels</Text>
         <TouchableOpacity>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    padding: 10
+    padding: 15
   },
   headerText: {
     fontSize: 30,
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
     height: 35,
     color: 'white',
     top: 1.5,
+    tintColor: 'white'
   }
 })

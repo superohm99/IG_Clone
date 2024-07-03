@@ -41,7 +41,7 @@ const ClipView = () => {
         resizeVideo: ResizeMode.COVER,
         marginLeftVideo: 222,
         marginTopVideo: 0,
-        width: 1200,
+        width: 120,
         height: max_height - 120
       });
     }

@@ -15,32 +15,32 @@ const HeaderView: React.FC<HeaderProps> = ({ handleNotificationPage, handleChatP
   const router = useRouter();
 
   return (
-    <View style={{backgroundColor:'white'}}>
+    <View style={{backgroundColor:'white', paddingTop: 15}}>
         <SafeAreaView style={{flexDirection: 'row',justifyContent:'space-between',paddingHorizontal:10}}>
 
         <Image
             source={images.logo}
             resizeMode="contain"
-            style={{ width: 140 , height: 50, tintColor: 'black' }}
+            style={{ width: 140 , height: 50, tintColor: 'black'}}
           />
-    
+        
 
         <View style={{flexDirection:'row'}}>
             <TouchableOpacity 
-              style={{ marginRight:20, marginTop:10 }}
+              style={{ marginRight:20}}
               onPress={handleNotificationPage}
             >
               <Image
                       source={icons.heart}
                       resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black' }}
+                      style={{ width: 24, height: 24, tintColor: 'black'}}
                     />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleChatPage}>
               <Image
                       source={icons.chat}
                       resizeMode="contain"
-                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:5, marginTop:10}}
+                      style={{ width: 24, height: 24, tintColor: 'black', marginRight:5}}
                     />
             </TouchableOpacity>
         </View>
