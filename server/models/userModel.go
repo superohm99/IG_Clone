@@ -2,21 +2,12 @@ package models
 
 type User struct {
 	// gorm.Model
-	Id              uint `gorm:"primaryKey"`
-	Name            string
+	ID              uint
 	Username        string
 	Password        string
-	Avatar          string
-	IsActive        bool
-	RefreshToken    string
-	IsPublicAccount bool
-	User_profileID  uint
+	IsActive        bool    `gorm:"default:true"`
+	Token           *string `gorm:"default:null"`
+	IsPublicAccount bool    `gorm:"default:false"`
 
-	Likes         []Like    `gorm:"foreignKey:User_Id"`
-	Closed_friend []*User   `gorm:"many2many:user_friends"`
-	Posts         []Post    `gorm:"foreignKey:User_Id"`
-	Comment       Comment   `gorm:"foreignKey:User_Id"`
-	Reply         Reply     `gorm:"foreignKey:User_Id"`
-	Messages      []Message `gorm:"foreignKey:UserId"`
-	Story         Story     `gorm:"foreignKey:User_Id"`
+	UserProfile UserProfile
 }

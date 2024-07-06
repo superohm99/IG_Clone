@@ -1,168 +1,193 @@
 package main
 
 import (
+	controller_auth "igclone/controller/auth"
 	controller_chat "igclone/controller/chat"
 	controller_post "igclone/controller/post"
-	controller_reel "igclone/controller/reel"
 	controller_story "igclone/controller/story"
 	controller_user "igclone/controller/user"
 	"igclone/initializers"
 	"igclone/middleware"
 	repository_chat "igclone/repository/chat"
 	repository_post "igclone/repository/post"
-	repository_reel "igclone/repository/reel"
 	repository_story "igclone/repository/story"
 	repository_user "igclone/repository/user"
+	service_auth "igclone/services/auth"
 	services_chat "igclone/services/chat"
+	"igclone/services/jwt"
 	services_post "igclone/services/post"
-	services_reel "igclone/services/reel"
 	services_story "igclone/services/story"
-	services_user "igclone/services/user"
+	service_user "igclone/services/user"
 
+	controller_reel "igclone/controller/reel"
+	repository_reel "igclone/repository/reel"
+	services_reel "igclone/services/reel"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
+
+type Message struct {
+	Text string `json:"text"`
+}
 
 func init() {
 	initializers.ConnectToDB()
 }
 
 func main() {
+	userRepository := repository_user.NewUserRepositoryDB(initializers.DB)
+	userService := service_user.NewUserService(userRepository)
+	userController := controller_user.NewUserController(userService)
+
+	jwtService := jwt.NewJWTService()
+	authService := service_auth.NewAuthService(jwtService, userService)
+	authController := controller_auth.NewAuthController(authService)
+
+	postRepository := repository_post.NewPostRepositoryDB(initializers.DB)
+	postService := services_post.NewPostService(postRepository)
+	postController := controller_post.NewPostController(postService)
+
+	storyRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
+	storyService := services_story.NewStoryService(storyRepository)
+	storyController := controller_story.NewStoryController(storyService)
+
+	chatRepository := repository_chat.NewChatRepositoryDB(initializers.DB)
+	chatService := services_chat.NewChatService(chatRepository)
+	chatController := controller_chat.NewChatController(chatService)
+
+	reelRepository := repository_reel.NewReelRepositoryDB(initializers.DB)
+	reelService := services_reel.NewReelService(reelRepository)
+	reelController := controller_reel.NewReelController(reelService)
+
 	r := gin.Default()
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:8081"} // Add your React Native app's origin
+	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}
+	r.Use(cors.New(config))
 
-	u_router := r.Group("api/u_router/")
+	a_router := r.Group("api/auth/")
 	{
-		UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
-		UserService := services_user.NewUserService(UserRepository)
-		UserController := controller_user.NewUserController(UserService)
+		a_router.POST("/login", authController.Login)
+		a_router.POST("/register", authController.Register)
+		a_router.POST("/logout", middleware.RequireAuth(), authController.Logout)
+	}
 
-		u_router.GET("/users", func(c *gin.Context) {
-			UserController.GetUsers()
-		})
-
-		u_router.POST("/create_user", func(c *gin.Context) {
-			UserController.CreateUser(c)
-		})
-
-		u_router.POST("/edit_profile", func(c *gin.Context) {
-			UserController.EditProfile(c)
-		})
-
-		u_router.POST("/add_follow", func(c *gin.Context) {
-			UserController.AddFollow(c)
-		})
-
-		u_router.POST("/get_closedfreind/:userid", func(c *gin.Context) {
-			userid := c.Param("userid")
-			UserController.GetClosedFriend(userid)
-		})
-
-		u_router.POST("/signup", func(c *gin.Context) {
-			UserController.SignUp(c)
-		})
-
-		u_router.POST("/signin", func(c *gin.Context) {
-			UserController.SignIn(c)
-		})
-
-		u_router.POST("/signout", func(c *gin.Context) {
-			UserController.SignOut(c)
-		})
+	u_router := r.Group("api/user/")
+	{
+		u_router.GET("/self", middleware.RequireAuth(), userController.GetUserById)
+		u_router.GET("/:id", middleware.RequireAuth(), userController.GetUserById)
+		u_router.POST("/update", middleware.RequireAuth(), userController.UpdateUser)
 	}
 
 	p_router := r.Group("api/p_router/")
 	{
-		PostRepository := repository_post.NewPostRepositoryDB(initializers.DB)
-		PostService := services_post.NewPostService(PostRepository)
-		PostController := controller_post.NewPostController(PostService)
-
 		p_router.POST("/create_post", func(c *gin.Context) {
-			PostController.PostCreate(c)
+			postController.PostCreate(c)
 		})
 
 		p_router.GET("/posts", func(c *gin.Context) {
-			PostController.Posts()
+			postController.Posts()
 		})
 
 		p_router.POST("/send_comment", func(c *gin.Context) {
-			PostController.CommentCreate(c)
+			postController.CommentCreate(c)
 		})
 
 		p_router.POST("/send_reply", func(c *gin.Context) {
-			PostController.ReplyCreate(c)
+			postController.ReplyCreate(c)
 		})
 	}
 
-	s_router := r.Group("api/s_router/")
+	s_router := r.Group("api/story/")
 	{
-		StoryRepository := repository_story.NewStoryRepositoryDB(initializers.DB)
-		StoryService := services_story.NewStoryService(StoryRepository)
-		StoryController := controller_story.NewStoryController(StoryService)
-
-		s_router.POST("/create_story", middleware.RequireAuth, func(c *gin.Context) {
-			StoryController.AddStory(c)
+		s_router.POST("/create", middleware.RequireAuth(), func(c *gin.Context) {
+			storyController.AddStory(c)
 		})
 
-		s_router.GET("/stories", func(c *gin.Context) {
-			StoryController.Stories()
+		s_router.GET("/all", func(c *gin.Context) {
+			storyController.Stories(c)
 		})
 
-		s_router.GET("/stories/:userId", middleware.RequireAuth, func(c *gin.Context) {
-			userId := c.Param("userId")
-			StoryController.StoriesByUserId(userId)
+		s_router.GET("/:id", middleware.RequireAuth(), func(c *gin.Context) {
+			userId := c.Param("id")
+			storyController.StoriesByUserId(userId)
 		})
 
-		s_router.GET("/following_stories", middleware.RequireAuth, func(c *gin.Context) {
-			StoryController.FollowingStories(c)
+		s_router.GET("/following", middleware.RequireAuth(), func(c *gin.Context) {
+			storyController.FollowingStories(c)
 		})
 	}
 
 	c_router := r.Group("api/c_router/")
 	{
-		ChatRepository := repository_chat.NewChatRepositoryDB(initializers.DB)
-		ChatService := services_chat.NewChatService(ChatRepository)
-		ChatController := controller_chat.NewChatController(ChatService)
-
 		c_router.POST("/create_chat", func(c *gin.Context) {
-			ChatController.ChatCreate(c)
+			chatController.ChatCreate(c)
 		})
 
 		c_router.POST("send_message", func(c *gin.Context) {
-			ChatController.MessageCreate(c)
+			chatController.MessageCreate(c)
 		})
 
 		c_router.GET("get_message/:chatId", func(c *gin.Context) {
 			chatId := c.Param("chatId")
-			ChatController.GetMessage(chatId)
+			chatController.GetMessage(chatId)
 		})
 	}
 
-	r_router := r.Group("api/r_router/")
+	r_router := r.Group("api/reel/")
 	{
-		ReelRepository := repository_reel.NewReelRepositoryDB(initializers.DB)
-		ReelService := services_reel.NewReelService(ReelRepository)
-		ReelController := controller_reel.NewReelController(ReelService)
-
-		r_router.POST("/create_reel", middleware.RequireAuth, func(c *gin.Context) {
-			ReelController.AddReel(c)
+		r_router.POST("/create", middleware.RequireAuth(), func(c *gin.Context) {
+			reelController.AddReel(c)
 		})
 
-		r_router.POST("/send_comment", middleware.RequireAuth, func(c *gin.Context) {
-			ReelController.AddComment(c)
+		r_router.POST("/send_comment", middleware.RequireAuth(), func(c *gin.Context) {
+			reelController.AddComment(c)
 		})
 
-		r_router.GET("/reels", func(c *gin.Context) {
-			ReelController.Reels()
+		r_router.GET("/all", func(c *gin.Context) {
+			reelController.Reels()
 		})
 
-		r_router.GET("/reels/:userId", middleware.RequireAuth, func(c *gin.Context) {
-			userId := c.Param("userId")
-			ReelController.ReelsByUserId(userId)
+		r_router.GET("/:id", middleware.RequireAuth(), func(c *gin.Context) {
+			userId := c.Param("id")
+			reelController.ReelsByUserId(userId)
 		})
 
-		r_router.GET("/following_reels", middleware.RequireAuth, func(c *gin.Context) {
-			ReelController.FollowingReels(c)
+		r_router.GET("/following", middleware.RequireAuth(), func(c *gin.Context) {
+			reelController.FollowingReels(c)
 		})
 	}
 
 	r.Run(":8000")
+
+	// u_router := r.Group("api/u_router/")
+	// {
+	// 	UserRepository := repository_user.NewUserRepositoryDB(initializers.DB)
+	// 	UserService := services_user.NewUserService(UserRepository)
+	// 	UserController := controller_user.NewUserController(UserService)
+
+	// 	u_router.GET("/users", func(c *gin.Context) {
+	// 		res, err := UserController.GetUsers()
+	// 		fmt.Print(err)
+	// 		c.JSON(http.StatusOK, res)
+	// 	})
+
+	// 	u_router.POST("/create_user", func(c *gin.Context) {
+	// 		UserController.CreateUser(c)
+	// 	})
+
+	// 	u_router.POST("/edit_profile", func(c *gin.Context) {
+	// 		UserController.EditProfile(c)
+	// 	})
+
+	// 	u_router.POST("/add_follow", func(c *gin.Context) {
+	// 		UserController.AddFollow(c)
+	// 	})
+
+	// 	u_router.POST("/get_closedfreind/:userid", func(c *gin.Context) {
+	// 		userid := c.Param("userid")
+	// 		UserController.GetClosedFriend(userid)
+	// 	})
+	// }
 }
