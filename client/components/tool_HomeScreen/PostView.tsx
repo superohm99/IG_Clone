@@ -1,5 +1,5 @@
 import { ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Modal, Animated } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions } from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { PanGestureHandler,GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -10,10 +10,15 @@ import DetailView from './DetailView';
 import ChatView from './ChatView';
 import SendView from './SendView';
 
-
-
 var max_width = Dimensions.get('screen').width;
 var max_height = Dimensions.get('screen').height;
+
+interface User {
+  id: number;
+  name: string;
+  avatar: string;
+  isActive: boolean;
+}
 
 
 const PostView = () => {
@@ -21,6 +26,20 @@ const PostView = () => {
   const [sendVisible, setSendVisible] = useState(false);
   const [likeVisible, setLikeVisible] = useState(false);
   const translationY = new Animated.Value(0);
+
+  const [message, setMessage] = useState<User[]>([]);
+
+  useEffect(() => {
+  
+      fetch('http://192.168.56.1:8000/api/u_router/users')
+          .then(response => response.json())
+          .then(data => {
+              setMessage(data);
+          })
+          .catch(error => {
+              console.error('Error fetching data:', error);
+          });
+  }, []);
 
   const onPanGestureEventY = Animated.event(
     [
@@ -69,10 +88,13 @@ const PostView = () => {
 
   return (
     <ScrollView style={styles.scrollView}>
-      
+
+
+    {message.map(user => (
+        
 
         <View style={{width:max_width,backgroundColor:'white',marginBottom:10,marginTop:10}}>
-
+     
           <View style={{width:max_width,height:55,backgroundColor:'white',flex:1,flexDirection:'row',paddingRight:0}}>
           
          
@@ -87,6 +109,17 @@ const PostView = () => {
             <View style={{flex:1,flexDirection:'column',marginLeft:10,marginTop:5}}>
               <Text style={{fontWeight:800,fontSize:15,marginBottom:0}}>Jinny</Text>
               <Text style={{marginTop:0,fontSize:13}}>Billy Jinny</Text>
+              
+              {/* <View>
+                {message.map(user => (
+                    <View key={user.id}>
+                        <Text>{user.name}</Text>
+                        <Text>{user.avatar}</Text>
+                        <Text>{user.isActive ? 'Active' : 'Inactive'}</Text>
+                    </View>
+                ))}
+              </View> */}
+
             </View>
 
             <Image
@@ -173,9 +206,15 @@ const PostView = () => {
     
 
         </View>
-
+          
+          
+          
+          ))}
         <ChatView open={modalVisible} onToggleChat={handleCloseModal}></ChatView>
         <SendView open={sendVisible} onToggleSend={handleCloseSendModal}></SendView>
+
+      
+
 
 
 
