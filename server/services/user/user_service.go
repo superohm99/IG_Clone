@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"igclone/data/request"
 	"igclone/data/response"
 	"igclone/logs"
@@ -36,11 +37,13 @@ func (s *userRepoService) CreateUser(user request.CreateUserRequest) (*response.
 	}
 
 	userResponse := response.UserResponse{
-		ID:       createUser.ID,
-		Username: createUser.Username,
-		Email:    createUser.UserProfile.Email,
-		Phone:    createUser.UserProfile.Phone,
-		ImageUrl: createUser.UserProfile.ImageUrl,
+		ID:          createUser.ID,
+		Username:    createUser.Username,
+		Name:        createUser.UserProfile.Name,
+		Description: createUser.UserProfile.Description,
+		Email:       createUser.UserProfile.Email,
+		Phone:       createUser.UserProfile.Phone,
+		ImageUrl:    createUser.UserProfile.ImageUrl,
 	}
 
 	return &userResponse, nil
@@ -54,11 +57,13 @@ func (s *userRepoService) GetUserByUsername(username string) (*response.UserResp
 	}
 
 	userResponse := response.UserResponse{
-		ID:       user.ID,
-		Username: user.Username,
-		Email:    user.UserProfile.Email,
-		Phone:    user.UserProfile.Phone,
-		ImageUrl: user.UserProfile.ImageUrl,
+		ID:          user.ID,
+		Username:    user.Username,
+		Name:        user.UserProfile.Name,
+		Description: user.UserProfile.Description,
+		Email:       user.UserProfile.Email,
+		Phone:       user.UserProfile.Phone,
+		ImageUrl:    user.UserProfile.ImageUrl,
 	}
 
 	return &userResponse, &user.Password, nil
@@ -83,12 +88,16 @@ func (s *userRepoService) GetUserResponseById(userID uint) (*response.UserRespon
 		return nil, err
 	}
 
+	fmt.Println(user.UserProfile)
+
 	userResponse := response.UserResponse{
-		ID:       user.ID,
-		Username: user.Username,
-		Email:    user.UserProfile.Email,
-		Phone:    user.UserProfile.Phone,
-		ImageUrl: user.UserProfile.ImageUrl,
+		ID:          user.ID,
+		Username:    user.Username,
+		Name:        user.UserProfile.Name,
+		Description: user.UserProfile.Description,
+		Email:       user.UserProfile.Email,
+		Phone:       user.UserProfile.Phone,
+		ImageUrl:    user.UserProfile.ImageUrl,
 	}
 
 	return &userResponse, nil
@@ -120,6 +129,17 @@ func (s *userRepoService) UpdateUser(userID uint, updateUserDTO request.UpdateUs
 			logs.Error(profileError)
 			return profileError
 		}
+	}
+
+	return nil
+}
+
+func (s *userRepoService) DeleteUser(userID uint) error {
+	err := s.UserRepo.DeleteUser(userID)
+
+	if err != nil {
+		logs.Error(err)
+		return err
 	}
 
 	return nil
@@ -182,33 +202,6 @@ func (s *userRepoService) UpdateUser(userID uint, updateUserDTO request.UpdateUs
 
 // func (s UserRepoService) ProfileEdit(c *gin.Context) (bool, error) {
 // 	status, err := s.UserRepo.ProfileEdit(c)
-// 	if err != nil {
-// 		log.Println(err)
-// 		return status, err
-// 	}
-// 	return status, err
-// }
-
-// func (s UserRepoService) SignUp(c *gin.Context) (bool, error) {
-// 	status, err := s.UserRepo.UserSignUp(c)
-// 	if err != nil {
-// 		log.Println(err)
-// 		return status, err
-// 	}
-// 	return status, err
-// }
-
-// func (s UserRepoService) SignIn(c *gin.Context) (bool, error) {
-// 	status, err := s.UserRepo.UserSignIn(c)
-// 	if err != nil {
-// 		log.Println(err)
-// 		return status, err
-// 	}
-// 	return status, err
-// }
-
-// func (s UserRepoService) SignOut(c *gin.Context) (bool, error) {
-// 	status, err := s.UserRepo.UserSignOut(c)
 // 	if err != nil {
 // 		log.Println(err)
 // 		return status, err

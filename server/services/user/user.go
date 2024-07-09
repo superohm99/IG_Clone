@@ -18,6 +18,7 @@ type UserService interface {
 	GetUserById(userID uint) (*models.User, error)
 	GetUserResponseById(userID uint) (*response.UserResponse, error)
 	UpdateUser(userID uint, fields request.UpdateUserDTO) error
+	DeleteUser(userID uint) error
 
 	// Getusers() ([]UserResponse, error)
 	// CreateUser(c *gin.Context) (bool, error)

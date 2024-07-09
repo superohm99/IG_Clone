@@ -5,7 +5,6 @@ import (
 	"igclone/controller"
 	"igclone/data/request"
 	"igclone/errs"
-	"igclone/logs"
 	"igclone/services/user"
 	"net/http"
 	"strconv"
@@ -48,7 +47,6 @@ func (h *userController) GetUserById(c *gin.Context) {
 
 	userResponse, err := h.userSrv.GetUserResponseById(uint(userIDUint))
 	if err != nil {
-		logs.Error(err)
 		controller.HandleError(err, c)
 		return
 	}
@@ -83,6 +81,29 @@ func (h *userController) UpdateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "User updated successfully"})
+}
+
+func (h *userController) DeleteUser(c *gin.Context) {
+	userID, exist := c.Get("user_id")
+	if !exist {
+		controller.HandleError(errs.NewUnauthorizedError("Unauthorized"), c)
+		return
+	}
+
+	userIdString := fmt.Sprintf("%v", userID)
+	userIDUint, err := strconv.ParseUint(userIdString, 10, 64)
+	if err != nil {
+		controller.HandleError(errs.NewUnauthorizedError("Unauthorized"), c)
+		return
+	}
+
+	err = h.userSrv.DeleteUser(uint(userIDUint))
+	if err != nil {
+		controller.HandleError(err, c)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
 
 // func (h UserController) GetUsers() (any, error) {

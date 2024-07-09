@@ -30,16 +30,19 @@ func main() {
 	}
 
 	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Userprofile{})
-	db.AutoMigrate(&models.Post{})
-	db.AutoMigrate(&models.Chat{})
-	db.AutoMigrate(&models.Comment{})
-	db.AutoMigrate(&models.Like{})
-	db.AutoMigrate(&models.Follow{})
-	db.AutoMigrate(&models.Reply{})
-	db.AutoMigrate(&models.Story{})
-	db.AutoMigrate(&models.Note{})
-	db.AutoMigrate(&models.Message{})
-	db.AutoMigrate(&models.Reel{})
+	db.AutoMigrate(&models.UserProfile{})
+	// db.AutoMigrate(&models.Post{})
+	// db.AutoMigrate(&models.Chat{})
+	// db.AutoMigrate(&models.Comment{})
+	// db.AutoMigrate(&models.Like{})
+	// db.AutoMigrate(&models.Follow{})
+	// db.AutoMigrate(&models.Reply{})
+	// db.AutoMigrate(&models.Story{})
+	// db.AutoMigrate(&models.Note{})
+	// db.AutoMigrate(&models.Message{})
+	// db.AutoMigrate(&models.Reel{})
+
+	// db.Migrator().DropTable(&models.User{})
+	// db.Migrator().DropTable(&models.UserProfile{})
 	// return
 }

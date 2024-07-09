@@ -40,9 +40,11 @@ func (s *authService) Login(createUser request.LoginRequest) (*response.AuthResp
 		return nil, err
 	}
 
+	is_active := true
 	tokenRequest := &request.UpdateUserDTO{
 		User: &request.UpdateUserRequest{
-			Token: token,
+			IsActive: &is_active,
+			Token:    token,
 		},
 	}
 
@@ -79,9 +81,11 @@ func (s *authService) Register(createUser request.CreateUserRequest) (*response.
 		return nil, err
 	}
 
+	is_active := true
 	tokenRequest := &request.UpdateUserDTO{
 		User: &request.UpdateUserRequest{
-			Token: token,
+			IsActive: &is_active,
+			Token:    token,
 		},
 	}
 
@@ -106,10 +110,10 @@ func (s *authService) Logout(userID uint) error {
 		return err
 	}
 
-	if user.Token == nil {
+	if user.Token == nil && !user.IsActive {
 		// Already logged out
-		logs.Error("Failed to remove token")
-		return errs.NewInternalServerError("Failed to remove token")
+		logs.Error("User already logged out")
+		return errs.NewInternalServerError("User already logged out")
 	}
 
 	is_active := false

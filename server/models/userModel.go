@@ -5,7 +5,7 @@ type User struct {
 	ID              uint
 	Username        string
 	Password        string
-	IsActive        bool    `gorm:"default:true"`
+	IsActive        bool
 	Token           *string `gorm:"default:null"`
 	IsPublicAccount bool    `gorm:"default:false"`
 

@@ -15,6 +15,7 @@ type UserRepository interface {
 	GetById(userID uint) (*models.User, error)
 	UpdateUsers(userID uint, fields map[string]interface{}) error
 	UpdateUserProfiles(userID uint, fields map[string]interface{}) error
+	DeleteUser(userID uint) error
 	verifyUsername(username string) (bool, error)
 
 	// GetAll() ([]models.User, error)
